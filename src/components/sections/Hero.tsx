@@ -21,17 +21,18 @@ export function Hero({ onInteract }: HeroProps) {
 
     /* Boot logs — mono font is perfect here (terminal aesthetic) */
     const bootLogs = [
-        "Initializing system...",
-        "Loading profile: Niranjan Saravanakumar",
-        "Verifying credentials: ABB Software Engineering Intern",
-        "Stack loaded: Python · React · TypeScript · DevOps",
-        "All systems operational. Welcome.",
+        "Booting development environment...",
+        "Loading developer profile...",
+        "Tech Stack: React · Python · TypeScript · Node.js",
+        "Exploring Full Stack Development, AI & DevOps",
+        "Transforming ideas into real-world problems",
+        "System ready."
     ];
 
     const socialLinks = [
-        { href: "https://github.com/nickniranjan2929",            icon: Github,   label: "GitHub"   },
-        { href: "https://linkedin.com/in/niranjan-saravanakumar", icon: Linkedin, label: "LinkedIn" },
-        { href: "https://leetcode.com/",                          icon: Code2,    label: "LeetCode" },
+        { href: "https://github.com/NiranjanSaravanakumar",            icon: Github,   label: "GitHub"   },
+        { href: "https://www.linkedin.com/in/niranjansaravanakumar/?skipRedirect=true", icon: Linkedin, label: "LinkedIn" },
+        { href: "https://leetcode.com/u/Niranjan_S_2006/",                          icon: Code2,    label: "LeetCode" },
         { href: "mailto:nickniranjan2929@gmail.com",              icon: Mail,     label: "Email"    },
     ];
 
