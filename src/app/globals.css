@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Color palette */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #00ff41;      /* CRT Green — accents, highlights */
+  --secondary: #ffb000;    /* Amber — secondary accents */
+  --accent: #00f0ff;       /* Cyber Cyan — contrast highlights */
+  --muted: #1a1a1a;
+  --border: #2a2a2a;
+
+  /* Surface levels */
+  --surface-1: #0f0f0f;
+  --surface-2: #141414;
+}
+
+/* ============================================================
+   TAILWIND THEME EXTENSION
+   ============================================================ */
+@theme {
+  /* Fonts — registered for Tailwind utility classes */
+  --font-heading: var(--font-heading, 'Poppins', sans-serif);   /* font-heading */
+  --font-sans:    var(--font-sans,    'Inter',   sans-serif);   /* font-sans    */
+  --font-mono:    var(--font-mono, 'JetBrains Mono', monospace); /* font-mono  */
+
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary:    var(--primary);
+  --color-secondary:  var(--secondary);
+  --color-accent:     var(--accent);
+  --color-muted:      var(--muted);
+  --color-border:     var(--border);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  /* Default body font: Inter — readable, modern, ATS-friendly */
+  font-family: var(--font-sans, 'Inter', Arial, sans-serif);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Headings use Poppins — strong visual hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  line-height: 1.25;
+}
+
+/* Paragraphs & long text use Inter */
+p {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* Mono elements: code, pre, kbd, tech tags — JetBrains Mono */
+code, pre, kbd, .font-mono {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
+/* ============================================================
+   CRT SCANLINE OVERLAY (subtle retro atmosphere)
+   ============================================================ */
+.scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.18) 50%,
+    rgba(0, 0, 0, 0.18)
+  );
+  background-size: 100% 4px;
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.1;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.glow-text {
+  text-shadow: 0 0 6px var(--primary), 0 0 12px var(--primary);
+}
+
+.glow-box {
+  box-shadow: 0 0 12px var(--primary);
+}
+
+/* Section label style — uses mono for label aesthetic */
+.section-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   CUSTOM SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: #0a0a0a; }
+::-webkit-scrollbar-thumb  { background: #2a2a2a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Animated gradient for hero name */
+@keyframes gradientShift {
+  0%   { background-position: 0%   center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0%   center; }
+}
+
+/* Subtle fade-up entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Pulsing dot */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ============================================================
+   SELECTION COLOR
+   ============================================================ */
+::selection {
+  background-color: var(--primary);
+  color: #000;
+}
