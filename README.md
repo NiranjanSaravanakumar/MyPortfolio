@@ -51,7 +51,7 @@
 ## 📁 Folder Structure
 
 ```
-MyPortfolio-new-portfolio/
+MyPortfolio/
 ├── public/                     # Static assets (favicon, og image, etc.)
 ├── src/
 │   ├── app/
@@ -79,7 +79,10 @@ MyPortfolio-new-portfolio/
 │   │       └── AIAssistant.tsx
 │   └── lib/
 │       └── utils.ts            # Utility helpers (cn, etc.)
+├── eslint.config.mjs
+├── firebase.json               # Firebase configuration
 ├── next.config.ts
+├── postcss.config.mjs
 ├── tailwind.config.ts          # (auto-detected via @import "tailwindcss")
 ├── tsconfig.json
 └── package.json
@@ -132,7 +135,18 @@ npm run start
 
 ## ☁️ Deployment
 
-### Vercel (Recommended — one-click)
+### Firebase (Current Setup)
+
+This project is configured for deployment using Firebase.
+To deploy your application:
+
+1. Ensure you are logged into the Firebase CLI (`npx -y firebase-tools@latest login`).
+2. Run the deployment command:
+   ```bash
+   npx -y firebase-tools@latest deploy
+   ```
+
+### Vercel (Alternative)
 
 1. Push your code to a GitHub repository.
 2. Visit [vercel.com](https://vercel.com) and click **New Project**.
