@@ -47,9 +47,9 @@ export function Contact() {
     const contactLinks = [
         { href: "mailto:nickniranjan2929@gmail.com",            icon: Mail,     label: "Email",    value: "nickniranjan2929@gmail.com", color: "var(--primary)"   },
         { href: "tel:+919080029293",                            icon: Phone,    label: "Phone",    value: "+91 9080029293",             color: "var(--secondary)" },
-        { href: "https://linkedin.com/in/niranjan-saravanakumar", icon: Linkedin, label: "LinkedIn", value: "Connect on LinkedIn",        color: "var(--accent)", external: true  },
-        { href: "https://github.com/nickniranjan2929",          icon: Github,   label: "GitHub",   value: "github.com/nickniranjan2929",color: "var(--foreground)", external: true },
-        { href: "https://leetcode.com/",                        icon: Code2,    label: "LeetCode", value: "Practice Profile",           color: "var(--secondary)", external: true },
+        { href: "https://www.linkedin.com/in/niranjansaravanakumar/", icon: Linkedin, label: "LinkedIn", value: "Connect on LinkedIn",        color: "var(--accent)", external: true  },
+        { href: "https://github.com/NiranjanSaravanakumar",          icon: Github,   label: "GitHub",   value: "github.com/nickniranjan2929",color: "var(--foreground)", external: true },
+        { href: "https://leetcode.com/u/Niranjan_S_2006/",                        icon: Code2,    label: "LeetCode", value: "Practice Profile",           color: "var(--secondary)", external: true },
     ];
 
     return (
@@ -243,7 +243,7 @@ export function Contact() {
                 {/* Footer */}
                 <div className="mt-20 text-center border-t border-[var(--border)] pt-8">
                     <p className="font-mono text-[var(--foreground)]/22 text-xs">
-                        © 2026 NIRANJAN SARAVANAKUMAR · Built with Next.js & TypeScript
+                        © 2026 NIRANJAN SARAVANAKUMAR · Built with Next.js 
                     </p>
                 </div>
             </div>
