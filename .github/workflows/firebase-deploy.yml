@@ -1,0 +1,108 @@
+# ============================================================
+# Production CI/CD — Firebase Hosting Deployment
+# Triggers: Push to `main` branch only (no PRs)
+# Deploy target: Live production channel
+# Project: niranjan-portfolio-2026
+# ============================================================
+
+name: 🚀 Deploy to Firebase Hosting (Production)
+
+on:
+  push:
+    branches:
+      - main
+
+# Cancel any in-flight deployment if a new push arrives on main
+concurrency:
+  group: firebase-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least-privilege: only grant the permissions this job actually needs
+permissions:
+  contents: read        # checkout the repo
+  id-token: write       # allow OIDC token exchange (future-proofing)
+
+env:
+  NODE_VERSION: '20'
+  FIREBASE_PROJECT_ID: 'niranjan-portfolio-2026'
+
+jobs:
+  build_and_deploy:
+    name: 🏗️ Build & 🚀 Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15   # guard against hung runners
+
+    steps:
+      # ----------------------------------------------------------
+      # 1. Checkout
+      # ----------------------------------------------------------
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # ----------------------------------------------------------
+      # 2. Node.js setup with npm dependency cache
+      # ----------------------------------------------------------
+      - name: ⚙️ Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          # cache-dependency-path tells the action exactly which
+          # lockfile to hash — prevents stale cache hits
+          cache-dependency-path: package-lock.json
+
+      # ----------------------------------------------------------
+      # 3. Clean install — uses lockfile, never modifies it
+      # ----------------------------------------------------------
+      - name: 📦 Install dependencies (npm ci)
+        run: npm ci
+
+      # ----------------------------------------------------------
+      # 4. Production build (Next.js static export → ./out)
+      # ----------------------------------------------------------
+      - name: 🔨 Build production assets
+        run: npm run build
+        env:
+          # Expose any build-time public env vars here.
+          # Never put secrets directly in env — use GitHub Secrets.
+          NODE_ENV: production
+
+      # ----------------------------------------------------------
+      # 5. Validate build output exists before deploying
+      # ----------------------------------------------------------
+      - name: 🔍 Verify build output
+        run: |
+          if [ ! -d "./out" ]; then
+            echo "❌ Build output directory './out' not found. Aborting deployment."
+            exit 1
+          fi
+          echo "✅ Build output verified: $(find ./out -type f | wc -l) files ready for deployment."
+
+      # ----------------------------------------------------------
+      # 6. Deploy to Firebase Hosting → live channel
+      # ----------------------------------------------------------
+      - name: 🔥 Deploy to Firebase Hosting (live)
+        id: firebase_deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIRANJAN_PORTFOLIO_2026 }}
+          channelId: live
+          projectId: ${{ env.FIREBASE_PROJECT_ID }}
+          entryPoint: '.'
+
+      # ----------------------------------------------------------
+      # 7. Print deployment URL to the Actions summary
+      # ----------------------------------------------------------
+      - name: 📋 Deployment Summary
+        if: success()
+        run: |
+          echo "## 🚀 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Key | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Project** | \`${{ env.FIREBASE_PROJECT_ID }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Channel** | \`live\` (production) |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Triggered by** | @${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Deployed at** | $(date -u '+%Y-%m-%d %H:%M UTC') |" >> $GITHUB_STEP_SUMMARY
