@@ -128,7 +128,7 @@ export function Certifications() {
                 >
                     <p className="font-mono text-xs text-[var(--foreground)]/25 flex items-center justify-center gap-2">
                         <ExternalLink size={10} />
-                        Continuously learning — more credentials in progress.
+                        Continuously learning   more credentials in progress.
                     </p>
                 </motion.div>
             </div>
