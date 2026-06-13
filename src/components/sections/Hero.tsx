@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Code2, Mail, Download } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Code2, Mail, Download, ExternalLink } from "lucide-react";
 import { Typewriter } from "@/components/ui/Typewriter";
 import { InteractiveBackground } from "@/components/ui/InteractiveBackground";
 
@@ -33,7 +33,6 @@ export function Hero({ onInteract }: HeroProps) {
         { href: "https://github.com/NiranjanSaravanakumar",            icon: Github,   label: "GitHub"   },
         { href: "https://www.linkedin.com/in/niranjansaravanakumar/?skipRedirect=true", icon: Linkedin, label: "LinkedIn" },
         { href: "https://leetcode.com/u/Niranjan_S_2006/",                          icon: Code2,    label: "LeetCode" },
-        { href: "mailto:nickniranjan2929@gmail.com",              icon: Mail,     label: "Email"    },
     ];
 
     const traits = ["Problem Solver", "Continuous Learner", "Technology Enthusiast"];
@@ -173,14 +172,16 @@ export function Hero({ onInteract }: HeroProps) {
                             </a>
 
                             <a
-                                href="mailto:nickniranjan2929@gmail.com"
-                                aria-label="Contact me"
-                                className="relative group px-8 py-3 border border-[var(--primary)] text-[var(--primary)] rounded-sm flex items-center gap-2 hover:bg-[var(--primary)]/10 transition-all overflow-hidden"
-                                style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                            href="/Niranjan_Resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="View my resume"
+                            className="relative group px-8 py-3 border border-[var(--primary)] text-[var(--primary)] rounded-sm flex items-center gap-2 hover:bg-[var(--primary)]/10 transition-all overflow-hidden"
+                            style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                             >
-                                <span className="relative z-10 flex items-center gap-2 font-semibold">
-                                    Hire Me <Download size={18} />
-                                </span>
+                            <span className="relative z-10 flex items-center gap-2 font-semibold">
+                                View My CV <ExternalLink size={18} />
+                            </span>
                             </a>
                         </motion.div>
 
@@ -217,9 +218,6 @@ export function Hero({ onInteract }: HeroProps) {
                     transition={{ delay: 1.1 }}
                     className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
                 >
-                    <span className="text-xs font-mono text-[var(--foreground)]/25 uppercase tracking-widest">
-                        Scroll
-                    </span>
                     <div className="w-px h-8 bg-gradient-to-b from-[var(--primary)] to-transparent animate-pulse" />
                 </motion.div>
             )}

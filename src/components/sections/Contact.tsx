@@ -17,17 +17,10 @@ export function Contact() {
         e.preventDefault();
         setStatus("loading");
         try {
-            const response = await fetch("https://api.web3forms.com/submit", {
+            const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
-                    name: formData.name,
-                    email: formData.email,
-                    message: formData.message,
-                    to: "nickniranjan2929@gmail.com",
-                    subject: `Portfolio Inquiry from ${formData.name}`,
-                }),
+                body: JSON.stringify(formData),
             });
             const result = await response.json();
             if (result.success) {
@@ -48,7 +41,7 @@ export function Contact() {
         { href: "mailto:nickniranjan2929@gmail.com",            icon: Mail,     label: "Email",    value: "nickniranjan2929@gmail.com", color: "var(--primary)"   },
         { href: "tel:+919080029293",                            icon: Phone,    label: "Phone",    value: "+91 9080029293",             color: "var(--secondary)" },
         { href: "https://www.linkedin.com/in/niranjansaravanakumar/", icon: Linkedin, label: "LinkedIn", value: "Connect on LinkedIn",        color: "var(--accent)", external: true  },
-        { href: "https://github.com/NiranjanSaravanakumar",          icon: Github,   label: "GitHub",   value: "github.com/nickniranjan2929",color: "var(--foreground)", external: true },
+        { href: "https://github.com/NiranjanSaravanakumar",          icon: Github,   label: "GitHub",   value: "NiranjanSaravanakumar",color: "var(--foreground)", external: true },
         { href: "https://leetcode.com/u/Niranjan_S_2006/",                        icon: Code2,    label: "LeetCode", value: "Practice Profile",           color: "var(--secondary)", external: true },
     ];
 
