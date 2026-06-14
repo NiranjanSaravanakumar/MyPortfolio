@@ -1,11 +1,17 @@
 "use client";
 
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Linkedin, Send, Github, Loader2, CheckCircle, AlertCircle, Code2 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 
+const SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+const PUBLIC_KEY  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+
 export function Contact() {
+    const formRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -17,21 +23,12 @@ export function Contact() {
         e.preventDefault();
         setStatus("loading");
         try {
-            const response = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
-            const result = await response.json();
-            if (result.success) {
-                setStatus("success");
-                setFormData({ name: "", email: "", message: "" });
-                setTimeout(() => setStatus("idle"), 5000);
-            } else {
-                setStatus("error");
-                setTimeout(() => setStatus("idle"), 5000);
-            }
-        } catch {
+            await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current!, PUBLIC_KEY);
+            setStatus("success");
+            setFormData({ name: "", email: "", message: "" });
+            setTimeout(() => setStatus("idle"), 5000);
+        } catch (err) {
+            console.error("[Contact] EmailJS send failed:", err);
             setStatus("error");
             setTimeout(() => setStatus("idle"), 5000);
         }
@@ -142,7 +139,7 @@ export function Contact() {
                                 <Send size={14} /> Send a Message
                             </h3>
 
-                            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
                                 {/* Name */}
                                 <div>
                                     <label htmlFor="contact-name"
