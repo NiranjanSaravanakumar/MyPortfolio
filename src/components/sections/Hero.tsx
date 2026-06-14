@@ -23,7 +23,6 @@ export function Hero({ onInteract }: HeroProps) {
     const bootLogs = [
         "Booting development environment...",
         "Loading developer profile...",
-        "Tech Stack: React · Python · TypeScript · Node.js",
         "Exploring Full Stack Development, AI & DevOps",
         "Transforming ideas into real-world problems",
         "System ready."
