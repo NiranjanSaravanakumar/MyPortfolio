@@ -25,7 +25,7 @@ export function Hero({ onInteract }: HeroProps) {
         "Loading developer profile...",
         "Exploring Full Stack Development, AI & DevOps",
         "Transforming ideas into real-world problems",
-        "System ready."
+        "System ready..."
     ];
 
     const socialLinks = [

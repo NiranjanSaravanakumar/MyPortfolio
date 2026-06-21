@@ -68,31 +68,13 @@ export function TiltCard({ children, className = "", glareEnabled = true }: Tilt
                 damping: 20,
             }}
         >
-            {/* Glare effect */}
-            {glareEnabled && isHovered && (
-                <div
-                    className="absolute inset-0 pointer-events-none z-10 rounded-sm overflow-hidden"
-                    style={{
-                        background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
-                    }}
-                />
-            )}
+
 
             {/* Card content */}
             <div>
                 {children}
             </div>
 
-            {/* Shadow effect */}
-            <div
-                className="absolute inset-0 -z-10 rounded-sm transition-opacity duration-300"
-                style={{
-                    background: "rgba(0, 255, 65, 0.1)",
-                    filter: "blur(20px)",
-                    opacity: isHovered ? 0.5 : 0,
-                    transform: `translateZ(-10px) rotateX(${transform.rotateX * 0.5}deg) rotateY(${transform.rotateY * 0.5}deg)`,
-                }}
-            />
         </motion.div>
     );
 }

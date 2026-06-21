@@ -8,28 +8,30 @@ import { SectionBackground } from "@/components/ui/SectionBackground";
 
 const projects = [
     {
-        title: "RoomLogix",
-        subtitle: "Hotel Management System",
-        category: "Desktop Application",
+        title: "AI Roast My Resume",
+        subtitle: "Brutally Honest AI Resume Analyzer",
+        category: "Full-Stack Web App",
         description:
-            "A fully-featured desktop hotel management system that streamlines front-desk operations — from room availability tracking and bookings to check-in/check-out flows and staff role management.",
+            "Upload your resume and get Gordon Ramsay-level critique powered by Gemini AI — ATS scoring, bullet rewrites, radar chart visualization, interview prep, and a top 1% roadmap, all in one.",
         problem:
-            "Manual hotel operations lead to booking conflicts, poor room tracking, and inefficient staff coordination that scales poorly with occupancy.",
+            "Job seekers receive vague, generic resume feedback that fails to highlight real weaknesses, missing keywords, or ATS incompatibilities that cost them interviews.",
         solution:
-            "Built a structured Tkinter-based desktop application with SQLite persistence, enforcing workflow discipline through dedicated booking, check-in, and management modules.",
+            "Built a React + Flask pipeline that extracts resume text, sends it to Gemini 1.5 Flash with structured prompts, and renders 11+ AI-powered analysis modules with persistent SQLite history.",
         features: [
-            "Real-time room availability tracking",
-            "End-to-end booking & check-in/check-out workflows",
-            "Staff role management with access control",
-            "Structured data handling with reporting",
+            "ATS compatibility score with missing keyword detection",
+            "Bullet rewrite engine with action verbs & quantified impact",
+            "Radar chart across 6 resume dimensions",
+            "Interview prep: technical, HR & project-based questions",
+            "LinkedIn headline & GitHub bio generator",
+            "AI plagiarism & overused-project detector",
         ],
         impact:
-            "Reduced manual booking errors and front-desk response time by automating critical hotel workflows through a clean, purpose-built desktop interface.",
-        githubLink: "https://github.com/nickniranjan2929",
+            "Delivers recruiter-grade resume intelligence in seconds — turning generic CVs into shortlist-worthy documents through structured Gemini AI analysis and actionable rewrites.",
+        githubLink: "https://github.com/NiranjanSaravanakumar/AI-Resume-Analyzer",
         liveLink: null,
         color: "var(--primary)",
-        techStack: ["Python", "Tkinter", "SQLite"],
-        icon: "🏨",
+        techStack: ["React", "Vite", "Flask", "Gemini AI", "SQLite", "Python"],
+        icon: "🔥",
     },
     {
         title: "Expense Tracker",
@@ -108,7 +110,6 @@ function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: str
 }
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
-    const [isHovered, setIsHovered]     = useState(false);
     const [showDetails, setShowDetails] = useState(false);
 
     return (
@@ -121,40 +122,27 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         >
             <TiltCard className="h-full" glareEnabled={true}>
                 <div
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    className="relative bg-[#0f0f0f] p-6 h-full overflow-hidden group flex flex-col"
+                    className="relative bg-[#0f0f0f] p-6 h-full overflow-hidden flex flex-col"
                     style={{ borderTop: `3px solid ${project.color}` }}
                 >
-                    {/* Radial hover glow */}
-                    <div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                        style={{ background: `radial-gradient(ellipse at top right, ${project.color}08, transparent 60%)` }}
-                    />
 
                     {/* Header row */}
                     <div className="flex justify-between items-start mb-4 relative z-10">
                         <div className="flex items-center gap-2">
                             <span className="text-2xl" aria-hidden="true">{project.icon}</span>
-                            <Folder
-                                size={19}
-                                className="transition-colors duration-300"
-                                style={{ color: isHovered ? project.color : "rgba(255,255,255,0.25)" }}
-                            />
+                            <Folder size={19} style={{ color: "rgba(255,255,255,0.25)" }} />
                         </div>
                         <div className="flex items-center gap-2">
                             {project.liveLink && (
                                 <a href={project.liveLink} target="_blank" rel="noreferrer"
                                    aria-label={`Live demo — ${project.title}`}
-                                   className="transition-colors duration-300"
-                                   style={{ color: isHovered ? project.color : "rgba(255,255,255,0.25)" }}>
+                                   style={{ color: "rgba(255,255,255,0.25)" }}>
                                     <ExternalLink size={14} />
                                 </a>
                             )}
                             <a href={project.githubLink} target="_blank" rel="noreferrer"
                                aria-label={`GitHub — ${project.title}`}
-                               className="transition-colors duration-300"
-                               style={{ color: isHovered ? project.color : "rgba(255,255,255,0.25)" }}>
+                               style={{ color: "rgba(255,255,255,0.25)" }}>
                                 <Github size={16} />
                             </a>
                         </div>
@@ -162,9 +150,9 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
                     {/* Title — Poppins */}
                     <div className="relative z-10 mb-3">
-                        <h3 className="text-xl font-bold transition-colors duration-300 leading-snug"
+                        <h3 className="text-xl font-bold leading-snug"
                             style={{
-                                color: isHovered ? project.color : "var(--foreground)",
+                                color: "var(--foreground)",
                                 fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                             }}>
                             {project.title}
@@ -250,11 +238,11 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                     <div className="flex flex-wrap gap-1.5 mb-4 relative z-10">
                         {project.techStack.map((tech) => (
                             <span key={tech}
-                                  className="px-2 py-0.5 text-xs font-mono rounded transition-all duration-300"
+                                  className="px-2 py-0.5 text-xs font-mono rounded"
                                   style={{
-                                      backgroundColor: isHovered ? `${project.color}20` : "var(--muted)",
-                                      color:           isHovered ? project.color : "var(--foreground)",
-                                      border:          `1px solid ${isHovered ? project.color : "transparent"}`,
+                                      backgroundColor: "var(--muted)",
+                                      color: "var(--foreground)",
+                                      border: "1px solid transparent",
                                   }}>
                                 {tech}
                             </span>
@@ -271,14 +259,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                         {showDetails ? "[ collapse ]" : "[ view details ]"}
                     </button>
 
-                    {/* Bottom accent line */}
-                    <motion.div
-                        className="absolute bottom-0 left-0 right-0 h-px"
-                        style={{ backgroundColor: project.color }}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: isHovered ? 1 : 0 }}
-                        transition={{ duration: 0.3 }}
-                    />
+
                 </div>
             </TiltCard>
         </motion.div>
@@ -310,12 +291,7 @@ export function Projects() {
                         Featured Projects
                     </h2>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--secondary)] to-[var(--primary)] mx-auto mb-4" />
-                    <p className="text-sm text-[var(--foreground)]/50 max-w-sm mx-auto leading-relaxed"
-                       style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
-                        Click{" "}
-                        <span className="font-mono text-[var(--primary)]">[ view details ]</span>{" "}
-                        on each card for the full project breakdown.
-                    </p>
+                    
                 </motion.div>
 
                 {/* Stats row — mono for numbers */}
