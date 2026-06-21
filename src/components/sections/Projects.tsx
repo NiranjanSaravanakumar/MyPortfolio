@@ -76,7 +76,7 @@ const projects = [
         ],
         impact:
             "Demonstrates end-to-end full-stack proficiency — from UI architecture and state management to RESTful API design and NoSQL schema modeling.",
-        githubLink: "https://github.com/nickniranjan2929",
+        githubLink: "https://github.com/NiranjanSaravanakumar/Web-blog",
         liveLink: null,
         color: "var(--secondary)",
         techStack: ["React.js", "TypeScript", "MongoDB", "Node.js", "Express.js"],
