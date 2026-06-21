@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Code2, Download } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Code2, Download, Eye } from "lucide-react";
 import { InteractiveBackground } from "@/components/ui/InteractiveBackground";
 
 const socialLinks = [
@@ -77,35 +77,55 @@ export function Hero() {
                         Final-year B.Tech IT&nbsp;&middot;&nbsp;ABB Intern (Aug 2025–May 2026)&nbsp;&middot;&nbsp;120+ automated tests&nbsp;&middot;&nbsp;45% faster CI/CD
                     </motion.p>
 
-                    {/* CTA Buttons */}
+                    {/* ── Resume CTAs (primary focus — recruiter first) ── */}
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.45 }}
-                        className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+                        className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-5"
                     >
+                        {/* View Resume — solid primary, preview without download */}
                         <a
-                            href="#projects"
-                            aria-label="View my projects"
-                            className="group px-8 py-3 bg-[var(--primary)] text-black font-bold rounded-sm flex items-center gap-2 hover:bg-[var(--accent)] transition-all relative overflow-hidden"
+                            href="/Niranjan_Resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="View resume in new tab"
+                            className="group relative px-7 py-3 bg-[var(--primary)] text-black font-bold rounded-sm flex items-center gap-2.5 overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,65,0.35)] active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
                             style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                         >
-                            <span className="relative z-10 flex items-center gap-2">
-                                View Projects <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
-                            </span>
-                            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                            {/* Shimmer sweep on hover */}
+                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-in-out pointer-events-none" />
+                            <Eye size={17} className="flex-shrink-0 relative z-10" />
+                            <span className="relative z-10">View Resume</span>
                         </a>
 
+                        {/* Download Resume — outlined, clearly distinct action */}
                         <a
                             href="/Niranjan_Resume.pdf"
                             download="Niranjan_Saravanakumar_Resume.pdf"
-                            aria-label="Download my resume"
-                            className="relative group px-8 py-3 border border-[var(--primary)] text-[var(--primary)] rounded-sm flex items-center gap-2 hover:bg-[var(--primary)]/10 transition-all overflow-hidden"
+                            aria-label="Download resume as PDF"
+                            className="group relative px-7 py-3 border-2 border-[var(--primary)] text-[var(--primary)] font-bold rounded-sm flex items-center gap-2.5 overflow-hidden transition-all duration-300 hover:bg-[var(--primary)]/10 hover:shadow-[0_0_16px_rgba(0,255,65,0.18)] active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
                             style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                         >
-                            <span className="relative z-10 flex items-center gap-2 font-semibold">
-                                Download Resume <Download size={18} />
-                            </span>
+                            <Download size={17} className="flex-shrink-0 group-hover:animate-bounce" />
+                            <span>Download PDF</span>
+                        </a>
+                    </motion.div>
+
+                    {/* View Projects — tertiary ghost link, below resume actions */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.52 }}
+                        className="mb-10"
+                    >
+                        <a
+                            href="#projects"
+                            aria-label="Scroll to projects section"
+                            className="inline-flex items-center gap-1.5 text-sm font-medium transition-all duration-200 hover:gap-2.5"
+                            style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                        >
+                            View my work <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                         </a>
                     </motion.div>
 
