@@ -40,6 +40,10 @@
   --color-accent:     var(--accent);
   --color-muted:      var(--muted);
   --color-border:     var(--border);
+
+  /* Custom keyframe animations — registered for arbitrary animate-[] classes */
+  --animate-sectionOrb1: sectionOrb1 18s ease-in-out infinite;
+  --animate-sectionOrb2: sectionOrb2 22s ease-in-out infinite;
 }
 
 /* ============================================================
@@ -154,4 +158,26 @@ code, pre, kbd, .font-mono {
 ::selection {
   background-color: var(--primary);
   color: #000;
+}
+/* ============================================================
+   FOCUS — keyboard navigation ring
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   SECTION BACKGROUND — CSS keyframes (replaces canvas loops)
+   ============================================================ */
+@keyframes sectionOrb1 {
+  0%, 100% { transform: translate(0px,   0px)   scale(1);    opacity: 1; }
+  33%       { transform: translate(40px, -30px)  scale(1.08); opacity: 0.85; }
+  66%       { transform: translate(-20px, 25px)  scale(0.94); opacity: 0.9; }
+}
+@keyframes sectionOrb2 {
+  0%, 100% { transform: translate(0px,  0px)   scale(1);    opacity: 1; }
+  33%       { transform: translate(-35px, 20px)  scale(1.06); opacity: 0.8; }
+  66%       { transform: translate(25px, -35px)  scale(0.96); opacity: 0.95; }
 }

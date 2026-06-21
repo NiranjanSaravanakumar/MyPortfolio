@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Mail, User } from "lucide-react";
+import { GraduationCap, MapPin, Mail, User, Rocket } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 
 const aboutPoints = [
@@ -14,7 +14,7 @@ const quickFacts = [
     { icon: MapPin,        label: "Location", value: "Erode, Tamil Nadu, India" },
     { icon: Mail,          label: "Email",    value: "nickniranjan2929@gmail.com", href: "mailto:nickniranjan2929@gmail.com" },
     { icon: GraduationCap, label: "Degree",   value: "B.Tech IT · 2023 – 2027" },
-    { icon: GraduationCap, label: "Available", value: "Open to full-time roles from 2027" },
+    { icon: Rocket,        label: "Available", value: "Open to full-time roles from 2027" },
 ];
 
 const education = [

@@ -120,7 +120,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             transition={{ delay: index * 0.12, duration: 0.5 }}
             className="flex flex-col h-full"
         >
-            <TiltCard className="h-full" glareEnabled={true}>
+            <TiltCard className="h-full">
                 <div
                     className="relative bg-[var(--surface-1)] p-7 h-full overflow-hidden flex flex-col"
                     style={{ borderTop: `3px solid ${project.color}` }}

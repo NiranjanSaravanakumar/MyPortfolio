@@ -43,7 +43,7 @@ export function Certifications() {
                     className="mb-16 text-center"
                 >
                     <span className="section-label inline-block text-[var(--secondary)] mb-3 px-3 py-1 border border-[var(--secondary)]/30 rounded-full">
-                        05 / Certifications
+                        07 / Certifications
                     </span>
                     <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4"
                         style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
@@ -60,7 +60,7 @@ export function Certifications() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.15, duration: 0.5 }}
-                            className="bg-[#0f0f0f] border border-[var(--border)] rounded-sm overflow-hidden hover:border-[var(--primary)]/35 transition-all duration-300 group"
+                            className="bg-[var(--surface-1)] border border-[var(--border)] rounded-sm overflow-hidden hover:border-[var(--primary)]/35 transition-all duration-300 group"
                             style={{ borderTop: `3px solid ${cert.color}` }}
                         >
                             {/* Card Header */}

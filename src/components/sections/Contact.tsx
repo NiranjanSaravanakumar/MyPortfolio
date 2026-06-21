@@ -232,8 +232,8 @@ export function Contact() {
 
                 {/* Footer */}
                 <div className="mt-20 text-center border-t border-[var(--border)] pt-8">
-                    <p className="font-mono text-[var(--foreground)]/22 text-xs">
-                        © 2026 NIRANJAN SARAVANAKUMAR · Built with Next.js 
+                    <p className="font-mono text-[var(--foreground)]/50 text-xs">
+                        &copy; {new Date().getFullYear()} NIRANJAN SARAVANAKUMAR &middot; Built with Next.js
                     </p>
                 </div>
             </div>

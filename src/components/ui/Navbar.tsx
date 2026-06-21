@@ -1,31 +1,63 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, User, Briefcase, Code, Award, Trophy, Mail, Cpu } from "lucide-react";
+import { Terminal, Briefcase, Code, Cpu, User, Award, Mail, Download } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-    { name: "About",          href: "#about",          icon: User      },
     { name: "Experience",     href: "#experience",     icon: Briefcase },
-    { name: "Skills",         href: "#skills",         icon: Cpu       },
     { name: "Projects",       href: "#projects",       icon: Code      },
-    { name: "Certifications", href: "#certifications", icon: Award     },
-    { name: "Achievements",   href: "#achievements",   icon: Trophy    },
+    { name: "Skills",         href: "#skills",         icon: Cpu       },
+    { name: "About",          href: "#about",          icon: User      },
+    { name: "Research",       href: "#publications",   icon: Award     },
     { name: "Contact",        href: "#contact",        icon: Mail      },
 ];
+
+// All section IDs in page order for IntersectionObserver
+const sectionIds = ["home", "experience", "projects", "skills", "about", "publications", "certifications", "achievements", "contact"];
 
 export function Navbar() {
     const [active,     setActive]     = useState("");
     const [scrolled,   setScrolled]   = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    // Active section via IntersectionObserver — updates on scroll automatically
+    useEffect(() => {
+        const observers: IntersectionObserver[] = [];
+
+        sectionIds.forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+
+            const obs = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setActive(`#${id}`);
+                    }
+                },
+                { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+            );
+            obs.observe(el);
+            observers.push(obs);
+        });
+
+        return () => observers.forEach((o) => o.disconnect());
+    }, []);
+
+    // Scroll shadow
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
+
+    // Mobile scroll-lock
+    useEffect(() => {
+        document.body.style.overflow = mobileOpen ? "hidden" : "";
+        return () => { document.body.style.overflow = ""; };
+    }, [mobileOpen]);
 
     return (
         <motion.nav
@@ -42,7 +74,7 @@ export function Navbar() {
         >
             <div className="container mx-auto px-4 flex items-center justify-between">
 
-                {/* Logo — mono is fitting for the terminal brand mark */}
+                {/* Logo */}
                 <Link href="/" aria-label="Back to top" className="flex items-center gap-2 group">
                     <Terminal size={20} className="text-[var(--primary)] group-hover:text-[var(--accent)] transition-colors" />
                     <span className="font-mono font-bold text-[var(--primary)] group-hover:text-[var(--accent)] transition-colors text-sm">
@@ -50,14 +82,15 @@ export function Navbar() {
                     </span>
                 </Link>
 
-                {/* Desktop nav — Inter for nav item labels */}
-                <div className="hidden lg:flex items-center space-x-0.5">
+                {/* Desktop nav */}
+                <div className="hidden lg:flex items-center gap-0.5">
                     {navItems.map((item) => (
                         <Link
                             key={item.name}
                             href={item.href}
+                            aria-current={active === item.href ? "true" : undefined}
                             className={cn(
-                                "flex items-center gap-1.5 px-3 py-2 rounded-sm text-xs transition-all",
+                                "flex items-center gap-1.5 px-3 py-2 rounded-sm text-sm transition-all",
                                 active === item.href
                                     ? "bg-[var(--primary)] text-black font-semibold"
                                     : "text-[var(--foreground)]/65 hover:text-[var(--primary)] hover:bg-[var(--muted)]"
@@ -65,10 +98,22 @@ export function Navbar() {
                             style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                             onClick={() => setActive(item.href)}
                         >
-                            <item.icon size={12} />
+                            <item.icon size={14} />
                             <span>{item.name}</span>
                         </Link>
                     ))}
+
+                    {/* Download Resume CTA */}
+                    <a
+                        href="/Niranjan_Resume.pdf"
+                        download="Niranjan_Saravanakumar_Resume.pdf"
+                        aria-label="Download resume"
+                        className="ml-3 flex items-center gap-1.5 px-3 py-2 rounded-sm text-sm font-semibold border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-black transition-all"
+                        style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                    >
+                        <Download size={14} />
+                        Resume
+                    </a>
                 </div>
 
                 {/* Mobile hamburger */}
@@ -97,6 +142,7 @@ export function Navbar() {
                         <Link
                             key={item.name}
                             href={item.href}
+                            aria-current={active === item.href ? "true" : undefined}
                             className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[var(--foreground)]/65 hover:text-[var(--primary)] hover:bg-[var(--muted)] rounded-sm transition-all"
                             style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                             onClick={() => { setActive(item.href); setMobileOpen(false); }}
@@ -105,6 +151,18 @@ export function Navbar() {
                             <span>{item.name}</span>
                         </Link>
                     ))}
+
+                    {/* Mobile resume download */}
+                    <a
+                        href="/Niranjan_Resume.pdf"
+                        download="Niranjan_Saravanakumar_Resume.pdf"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-semibold text-[var(--primary)] border border-[var(--primary)]/40 rounded-sm hover:bg-[var(--primary)]/10 transition-all mt-2"
+                        style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                        onClick={() => setMobileOpen(false)}
+                    >
+                        <Download size={15} />
+                        Download Resume
+                    </a>
                 </motion.div>
             )}
         </motion.nav>

@@ -6,10 +6,9 @@ import { motion } from "framer-motion";
 interface TiltCardProps {
     children: React.ReactNode;
     className?: string;
-    glareEnabled?: boolean;
 }
 
-export function TiltCard({ children, className = "", glareEnabled = true }: TiltCardProps) {
+export function TiltCard({ children, className = "" }: TiltCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const [transform, setTransform] = useState({ rotateX: 0, rotateY: 0 });
     const [isHovered, setIsHovered] = useState(false);

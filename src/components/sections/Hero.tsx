@@ -35,7 +35,7 @@ export function Hero() {
                         className="inline-flex items-center gap-3 px-4 py-1.5 bg-[var(--primary)]/10 border border-[var(--primary)]/30 rounded-full font-mono text-xs text-[var(--primary)] mb-8"
                     >
                         <span className="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse flex-shrink-0" />
-                        ABB Intern&nbsp;&nbsp;·&nbsp;&nbsp;Test Automation&nbsp;&nbsp;·&nbsp;&nbsp;Full-Stack&nbsp;&nbsp;·&nbsp;&nbsp;DevOps
+                        ABB Intern &apos;25&ndash;&apos;26&nbsp;&nbsp;&middot;&nbsp;&nbsp;Test Automation&nbsp;&nbsp;&middot;&nbsp;&nbsp;Full-Stack&nbsp;&nbsp;&middot;&nbsp;&nbsp;DevOps
                     </motion.div>
 
                     {/* Name — Poppins, bold gradient */}
@@ -74,7 +74,7 @@ export function Hero() {
                         className="text-sm max-w-xl mx-auto mb-10 tracking-wide"
                         style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                     >
-                        Final-year B.Tech IT&nbsp;·&nbsp;Software Engineering Intern at ABB&nbsp;·&nbsp;120+ automated tests&nbsp;·&nbsp;45% faster deployments
+                        Final-year B.Tech IT&nbsp;&middot;&nbsp;ABB Intern (Aug 2025–May 2026)&nbsp;&middot;&nbsp;120+ automated tests&nbsp;&middot;&nbsp;45% faster CI/CD
                     </motion.p>
 
                     {/* CTA Buttons */}
