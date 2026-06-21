@@ -1,21 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Mail, Phone, User } from "lucide-react";
+import { GraduationCap, MapPin, Mail, User } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 
 const aboutPoints = [
     "Final-year B.Tech Information Technology student at K S Rangasamy College of Technology (CGPA: 8.65 / 10), with hands-on industry experience through my internship at ABB, Bangalore.",
     "At ABB, I designed 120+ automated test cases, resolved 50+ code vulnerabilities, and streamlined CI/CD pipelines — directly improving release velocity and code quality across multiple production projects.",
     "Comfortable across the full technology stack: Python and C# on the backend, React and Angular on the frontend, and Docker/Kubernetes/Azure DevOps for infrastructure — always with a focus on maintainability and quality.",
-    "I thrive in agile, collaborative teams where clean code practices, meaningful code reviews, and continuous learning are the norm.",
 ];
 
 const quickFacts = [
     { icon: MapPin,        label: "Location", value: "Erode, Tamil Nadu, India" },
     { icon: Mail,          label: "Email",    value: "nickniranjan2929@gmail.com", href: "mailto:nickniranjan2929@gmail.com" },
-    { icon: Phone,         label: "Phone",    value: "+91 9080029293",             href: "tel:+919080029293" },
     { icon: GraduationCap, label: "Degree",   value: "B.Tech IT · 2023 – 2027" },
+    { icon: GraduationCap, label: "Available", value: "Open to full-time roles from 2027" },
 ];
 
 const education = [
@@ -58,7 +57,7 @@ export function About() {
                     className="mb-16 text-center"
                 >
                     <span className="section-label inline-block text-[var(--primary)] mb-3 px-3 py-1 border border-[var(--primary)]/30 rounded-full">
-                        01 / About
+                        04 / About
                     </span>
                     {/* Poppins heading */}
                     <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4"
@@ -97,8 +96,8 @@ export function About() {
                                     className="flex gap-3 items-start"
                                 >
                                     <span className="text-[var(--primary)] mt-1.5 text-sm flex-shrink-0">›</span>
-                                    <p className="text-[var(--foreground)]/70 text-sm leading-relaxed"
-                                       style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                    <p className="text-sm leading-relaxed"
+                                       style={{ color: "var(--text-body)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                         {point}
                                     </p>
                                 </motion.div>
@@ -197,8 +196,8 @@ export function About() {
                                         {item.points.map((point, pi) => (
                                             <div key={pi} className="flex gap-2 items-start">
                                                 <span className="text-xs mt-1 flex-shrink-0" style={{ color: item.badgeColor }}>›</span>
-                                                <p className="text-xs text-[var(--foreground)]/55 leading-relaxed"
-                                                   style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                                <p className="text-sm leading-relaxed"
+                                                   style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                                     {point}
                                                 </p>
                                             </div>

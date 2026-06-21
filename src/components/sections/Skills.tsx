@@ -5,9 +5,9 @@ import { SectionBackground } from "@/components/ui/SectionBackground";
 
 const skillCategories = [
     {
-        title: "Programming Languages",
+        title: "Languages",
         color: "var(--primary)",
-        skills: ["Python", "Java", "JavaScript", "TypeScript", "SQL", "C#"],
+        skills: ["Python", "Java", "JavaScript", "TypeScript", "C#"],
     },
     {
         title: "Frontend",
@@ -15,24 +15,24 @@ const skillCategories = [
         skills: ["React.js", "Next.js", "Angular", "HTML5", "CSS3", "Tailwind CSS"],
     },
     {
-        title: "Backend & Frameworks",
+        title: "Backend & APIs",
         color: "var(--secondary)",
-        skills: ["Node.js", "Express.js", "REST APIs", "PyTest", "Jasmine", "Karma"],
+        skills: ["Node.js", "Express.js", "REST APIs", "OpenAPI / Swagger", "SQL", "MongoDB"],
+    },
+    {
+        title: "Testing",
+        color: "var(--primary)",
+        skills: ["PyTest", "Jasmine", "Karma", "Unit Testing", "Integration Testing", "API Testing"],
     },
     {
         title: "DevOps & Cloud",
-        color: "var(--primary)",
-        skills: ["Docker", "Kubernetes", "Azure DevOps", "GitHub Actions", "CI/CD", "SonarQube"],
-    },
-    {
-        title: "Databases",
         color: "var(--accent)",
-        skills: ["SQL", "MongoDB"],
+        skills: ["Docker", "Kubernetes", "Azure DevOps", "GitHub Actions", "CI/CD", "SonarQube", "Linux / Bash"],
     },
     {
-        title: "Tools & Concepts",
+        title: "AI & Tools",
         color: "var(--secondary)",
-        skills: ["Git", "VS Code", "Visual Studio", "Postman", "Jira", "OOP", "Agile / Scrum", "API Testing", "Debugging"],
+        skills: ["Gemini AI", "Git", "Postman", "Jira", "VS Code", "Agile / Scrum"],
     },
 ];
 
@@ -59,9 +59,8 @@ export function Skills() {
                         Technical Expertise
                     </h2>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] mx-auto mb-4" />
-                    {/* Inter for description */}
-                    <p className="text-sm text-[var(--foreground)]/50 max-w-md mx-auto leading-relaxed"
-                       style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                    <p className="text-sm max-w-md mx-auto leading-relaxed"
+                       style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                         Technologies I use daily to build, test, and ship production-grade software.
                     </p>
                 </motion.div>
@@ -74,7 +73,7 @@ export function Skills() {
                             whileInView={{ opacity: 1, scale: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.07, duration: 0.4 }}
-                            className="bg-[#0f0f0f] border border-[var(--border)] p-6 rounded-sm hover:border-[var(--primary)]/35 transition-all duration-300 group relative overflow-hidden"
+                            className="bg-[var(--surface-1)] border border-[var(--border)] p-6 rounded-sm hover:border-[var(--primary)]/35 transition-all duration-300 group relative overflow-hidden"
                             style={{ borderTop: `2px solid ${category.color}` }}
                         >
                             {/* Radial glow on hover */}
@@ -87,18 +86,19 @@ export function Skills() {
                             <h3 className="text-sm font-semibold mb-4 pb-3 border-b border-[var(--border)] flex justify-between items-center relative z-10"
                                 style={{ color: category.color, fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
                                 {category.title}
-                                {/* mono badge for count */}
+                                {/* count badge */}
                                 <span className="font-mono text-[10px] opacity-0 group-hover:opacity-60 transition-opacity text-[var(--foreground)]">
                                     {category.skills.length} skills
                                 </span>
                             </h3>
 
-                            {/* Skill tags — mono, perfect for tech identifiers */}
+                            {/* Skill tags — mono */}
                             <div className="flex flex-wrap gap-2 relative z-10">
                                 {category.skills.map((skill) => (
                                     <span
                                         key={skill}
-                                        className="px-2.5 py-1 bg-[var(--muted)] text-[var(--foreground)]/75 text-xs font-mono rounded-xs cursor-default transition-all duration-200"
+                                        className="px-2.5 py-1 bg-[var(--muted)] text-xs font-mono rounded-xs cursor-default transition-all duration-200"
+                                        style={{ color: "var(--text-muted)" }}
                                         onMouseEnter={(e) => {
                                             const el = e.target as HTMLElement;
                                             el.style.backgroundColor = category.color;

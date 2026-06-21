@@ -12,7 +12,7 @@ const projects = [
         subtitle: "Brutally Honest AI Resume Analyzer",
         category: "Full-Stack Web App",
         description:
-            "Upload your resume and get Gordon Ramsay-level critique powered by Gemini AI — ATS scoring, bullet rewrites, radar chart visualization, interview prep, and a top 1% roadmap, all in one.",
+            "Upload your resume and receive Gemini AI-powered analysis — ATS compatibility scoring, quantified bullet rewrites, radar chart visualization across 6 dimensions, interview prep Q&A, and a targeted improvement roadmap.",
         problem:
             "Job seekers receive vague, generic resume feedback that fails to highlight real weaknesses, missing keywords, or ATS incompatibilities that cost them interviews.",
         solution:
@@ -51,7 +51,7 @@ const projects = [
         ],
         impact:
             "Enables informed personal finance decisions through clear category-based breakdowns and easy data retrieval.",
-        githubLink: "https://github.com/nickniranjan2929",
+        githubLink: "https://github.com/NiranjanSaravanakumar/Expense-Tracker",
         liveLink: null,
         color: "var(--accent)",
         techStack: ["HTML", "CSS", "JavaScript", "Python"],
@@ -122,7 +122,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         >
             <TiltCard className="h-full" glareEnabled={true}>
                 <div
-                    className="relative bg-[#0f0f0f] p-6 h-full overflow-hidden flex flex-col"
+                    className="relative bg-[var(--surface-1)] p-7 h-full overflow-hidden flex flex-col"
                     style={{ borderTop: `3px solid ${project.color}` }}
                 >
 
@@ -169,9 +169,9 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                         </p>
                     </div>
 
-                    {/* Description — Inter */}
-                    <p className="text-[var(--foreground)]/65 text-sm leading-relaxed mb-4 relative z-10 flex-grow"
-                       style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                    {/* Description — Inter, proper contrast */}
+                    <p className="text-[15px] leading-relaxed mb-5 relative z-10 flex-grow"
+                       style={{ color: "var(--text-body)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                         {project.description}
                     </p>
 
@@ -190,29 +190,29 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                                         { key: "Solution", text: project.solution },
                                     ].map(({ key, text }) => (
                                         <div key={key}>
-                                            {/* mono label */}
-                                            <div className="font-mono text-xs uppercase tracking-wider mb-1"
+                                            {/* section-label for key */}
+                                            <div className="section-label text-xs mb-1.5"
                                                  style={{ color: project.color }}>
                                                 {key}
                                             </div>
-                                            {/* Inter body */}
-                                            <p className="text-xs text-[var(--foreground)]/58 leading-relaxed"
-                                               style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                            {/* Inter body — readable size and contrast */}
+                                            <p className="text-sm leading-relaxed"
+                                               style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                                 {text}
                                             </p>
                                         </div>
                                     ))}
                                     <div>
-                                        <div className="font-mono text-xs uppercase tracking-wider mb-1"
+                                        <div className="section-label text-xs mb-1.5"
                                              style={{ color: project.color }}>
                                             Key Features
                                         </div>
-                                        <ul className="space-y-1">
+                                        <ul className="space-y-1.5">
                                             {project.features.map((f) => (
                                                 <li key={f} className="flex gap-2 items-start">
-                                                    <span className="text-[10px] mt-1 flex-shrink-0" style={{ color: project.color }}>›</span>
-                                                    <span className="text-xs text-[var(--foreground)]/58 leading-relaxed"
-                                                          style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                                    <span className="text-[10px] mt-1.5 flex-shrink-0" style={{ color: project.color }}>›</span>
+                                                    <span className="text-sm leading-relaxed"
+                                                          style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                                         {f}
                                                     </span>
                                                 </li>
@@ -220,12 +220,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                                         </ul>
                                     </div>
                                     <div>
-                                        <div className="font-mono text-xs uppercase tracking-wider mb-1"
+                                        <div className="section-label text-xs mb-1.5"
                                              style={{ color: project.color }}>
                                             Impact
                                         </div>
-                                        <p className="text-xs text-[var(--foreground)]/58 leading-relaxed"
-                                           style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                        <p className="text-sm leading-relaxed"
+                                           style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                             {project.impact}
                                         </p>
                                     </div>
@@ -249,14 +249,17 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                         ))}
                     </div>
 
-                    {/* Toggle details — mono toggle label */}
+                    {/* Toggle details — Inter, clean readable button */}
                     <button
                         onClick={() => setShowDetails(!showDetails)}
                         aria-expanded={showDetails}
-                        className="font-mono text-xs uppercase tracking-wider transition-colors relative z-10 text-left"
-                        style={{ color: showDetails ? project.color : "rgba(255,255,255,0.25)" }}
+                        className="flex items-center gap-1.5 text-sm font-medium transition-colors relative z-10 text-left mt-auto"
+                        style={{
+                            color: showDetails ? project.color : "var(--text-dim)",
+                            fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                        }}
                     >
-                        {showDetails ? "[ collapse ]" : "[ view details ]"}
+                        {showDetails ? "Collapse ↑" : "View Details →"}
                     </button>
 
 
@@ -284,7 +287,7 @@ export function Projects() {
                     className="mb-12 text-center"
                 >
                     <span className="section-label inline-block text-[var(--secondary)] mb-3 px-3 py-1 border border-[var(--secondary)]/30 rounded-full">
-                        04 / Projects
+                        02 / Projects
                     </span>
                     <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4"
                         style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
@@ -304,7 +307,7 @@ export function Projects() {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ scale: 1.05, y: -2 }}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-[var(--muted)]/50 border border-[var(--border)] rounded-full hover:border-[var(--primary)]/50 transition-all"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-[var(--surface-1)] border border-[var(--border)] rounded-full hover:border-[var(--primary)]/60 transition-all"
                         >
                             <span style={{ color: stat.color }}>{stat.icon}</span>
                             <span className="font-mono font-bold text-lg" style={{ color: stat.color }}>

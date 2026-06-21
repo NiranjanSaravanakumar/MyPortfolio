@@ -49,7 +49,7 @@ export function Experience() {
                     className="mb-16 text-center"
                 >
                     <span className="section-label inline-block text-[var(--accent)] mb-3 px-3 py-1 border border-[var(--accent)]/30 rounded-full">
-                        02 / Experience
+                        01 / Experience
                     </span>
                     <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4"
                         style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
@@ -75,8 +75,8 @@ export function Experience() {
                                 {stat.value}
                             </div>
                             {/* Inter for labels */}
-                            <div className="text-xs text-[var(--foreground)]/50"
-                                 style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                            <div className="text-xs"
+                                 style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                 {stat.label}
                             </div>
                         </motion.div>
@@ -156,9 +156,9 @@ export function Experience() {
                                                 className="flex gap-3 items-start"
                                             >
                                                 <span className="text-[var(--primary)] text-sm mt-0.5 flex-shrink-0">▸</span>
-                                                {/* Inter for body text */}
-                                                <p className="text-[var(--foreground)]/70 text-sm leading-relaxed"
-                                                   style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                                {/* Inter for body text — proper contrast */}
+                                                <p className="text-sm leading-relaxed"
+                                                   style={{ color: "var(--text-body)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                                     {point}
                                                 </p>
                                             </motion.li>

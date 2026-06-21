@@ -97,8 +97,8 @@ export function Certifications() {
                             {/* Card Body */}
                             <div className="p-6">
                                 {/* Inter for description */}
-                                <p className="text-sm text-[var(--foreground)]/62 leading-relaxed mb-5"
-                                   style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                <p className="text-sm leading-relaxed mb-5"
+                                   style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                     {cert.description}
                                 </p>
 

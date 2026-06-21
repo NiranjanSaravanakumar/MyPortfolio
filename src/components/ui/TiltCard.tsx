@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface TiltCardProps {
@@ -12,11 +12,21 @@ interface TiltCardProps {
 export function TiltCard({ children, className = "", glareEnabled = true }: TiltCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const [transform, setTransform] = useState({ rotateX: 0, rotateY: 0 });
-    const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50 });
     const [isHovered, setIsHovered] = useState(false);
+    const [reducedMotion, setReducedMotion] = useState(false);
+
+    useEffect(() => {
+        const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+        setReducedMotion(mq.matches);
+        const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+        mq.addEventListener("change", handler);
+        return () => mq.removeEventListener("change", handler);
+    }, []);
+
+    const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!cardRef.current) return;
+        if (!cardRef.current || reducedMotion) return;
 
         const rect = cardRef.current.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -58,9 +68,9 @@ export function TiltCard({ children, className = "", glareEnabled = true }: Tilt
                 perspective: "1000px",
             }}
             animate={{
-                rotateX: transform.rotateX,
-                rotateY: transform.rotateY,
-                scale: isHovered ? 1.02 : 1,
+                rotateX: reducedMotion ? 0 : transform.rotateX,
+                rotateY: reducedMotion ? 0 : transform.rotateY,
+                scale: (!reducedMotion && isHovered) ? 1.02 : 1,
             }}
             transition={{
                 type: "spring",
