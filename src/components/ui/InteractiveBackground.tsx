@@ -12,379 +12,148 @@ export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProp
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        let animationFrameId: number;
-        let time = 0;
-        let mouse = { x: 0.5, y: 0.5 };
+        let raf: number;
+        let t = 0;
 
-        // Neural network nodes
-        interface Node {
-            x: number;
-            y: number;
-            vx: number;
-            vy: number;
-            size: number;
-            pulsePhase: number;
-            connections: number[];
+        interface Particle {
+            x: number; y: number;
+            vx: number; vy: number;
+            size: number; alpha: number;
         }
 
-        // Code rain drops
-        interface CodeDrop {
-            x: number;
-            y: number;
-            speed: number;
-            length: number;
-            chars: string[];
-            opacity: number;
-        }
+        let particles: Particle[] = [];
 
-        // Floating orbs
-        interface Orb {
-            x: number;
-            y: number;
-            size: number;
-            phase: number;
-            color: string;
-            speedX: number;
-            speedY: number;
-        }
+        /* Hex grid size — larger hex = fewer lines on screen */
+        const HEX = 72;
+        const HEX_H = HEX * Math.sqrt(3);
 
-        let nodes: Node[] = [];
-        let codeDrops: CodeDrop[] = [];
-        let orbs: Orb[] = [];
-
-        const resize = () => {
+        const init = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            initElements();
+
+            /* Very low particle density — max 18 */
+            const count = Math.min(Math.floor((canvas.width * canvas.height) / 60000), 18);
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                /* Significantly slowed movement */
+                vx: (Math.random() - 0.5) * 0.06,
+                vy: (Math.random() - 0.5) * 0.06,
+                size: Math.random() * 1.2 + 0.5,
+                alpha: Math.random() * 0.18 + 0.06,
+            }));
         };
 
-        const initElements = () => {
-            // Initialize neural network nodes
-            nodes = [];
-            const nodeCount = Math.min(Math.floor((canvas.width * canvas.height) / 40000), 25);
-            for (let i = 0; i < nodeCount; i++) {
-                nodes.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.3,
-                    vy: (Math.random() - 0.5) * 0.3,
-                    size: Math.random() * 3 + 2,
-                    pulsePhase: Math.random() * Math.PI * 2,
-                    connections: []
-                });
-            }
+        const draw = () => {
+            t += 0.003; /* Slow global tick */
 
-            // Initialize code rain
-            codeDrops = [];
-            const dropCount = Math.floor(canvas.width / 50);
-            const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノ01";
-            for (let i = 0; i < dropCount; i++) {
-                const length = Math.floor(Math.random() * 15) + 5;
-                codeDrops.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height - canvas.height,
-                    speed: Math.random() * 2 + 1,
-                    length,
-                    chars: Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]),
-                    opacity: Math.random() * 0.3 + 0.1
-                });
-            }
-
-            // Initialize orbs
-            orbs = [];
-            const orbColors = ["#00ff41", "#00f0ff", "#ffb000"];
-            for (let i = 0; i < 6; i++) {
-                orbs.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 100 + 50,
-                    phase: Math.random() * Math.PI * 2,
-                    color: orbColors[i % 3],
-                    speedX: (Math.random() - 0.5) * 0.5,
-                    speedY: (Math.random() - 0.5) * 0.5
-                });
-            }
-        };
-
-        // Noise function
-        const noise = (x: number, y: number, t: number) => {
-            return Math.sin(x * 0.01 + t) * Math.cos(y * 0.01 + t) * 0.5 +
-                Math.sin(x * 0.02 - t * 0.5) * Math.cos(y * 0.015 + t * 0.7) * 0.3;
-        };
-
-        const animate = () => {
-            if (!ctx) return;
-
-            time += 0.008;
-
-            // Clear with dark background
-            ctx.fillStyle = "rgba(10, 10, 10, 1)";
+            /* ── 1. Deep black base ── */
+            ctx.fillStyle = "#050505";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // === LAYER 1: Gradient background ===
-            const gradient = ctx.createRadialGradient(
-                canvas.width * mouse.x,
-                canvas.height * mouse.y,
-                0,
-                canvas.width * 0.5,
-                canvas.height * 0.5,
-                canvas.width * 0.8
-            );
-            gradient.addColorStop(0, "rgba(0, 30, 15, 0.8)");
-            gradient.addColorStop(0.5, "rgba(5, 15, 20, 0.6)");
-            gradient.addColorStop(1, "rgba(10, 10, 10, 0)");
-            ctx.fillStyle = gradient;
+            /* ── 2. Left ambient glow (behind text) — very soft ── */
+            const lx = canvas.width * 0.22;
+            const ly = canvas.height * 0.5;
+            const lGrad = ctx.createRadialGradient(lx, ly, 0, lx, ly, canvas.width * 0.42);
+            lGrad.addColorStop(0, "rgba(0,200,83,0.045)");
+            lGrad.addColorStop(0.5, "rgba(0,200,83,0.012)");
+            lGrad.addColorStop(1, "rgba(5,5,5,0)");
+            ctx.fillStyle = lGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // === LAYER 2: Flowing aurora waves ===
-            for (let w = 0; w < 4; w++) {
-                ctx.beginPath();
-                const baseY = canvas.height * (0.25 + w * 0.18);
-                const waveOffset = w * 0.5;
+            /* ── 3. Right radial glow — centred behind portrait ── */
+            const rx = canvas.width * 0.76;
+            const ry = canvas.height * 0.44;
+            const rGrad = ctx.createRadialGradient(rx, ry, 0, rx, ry, canvas.width * 0.32);
+            rGrad.addColorStop(0, "rgba(0,200,83,0.07)");
+            rGrad.addColorStop(0.4, "rgba(0,200,83,0.028)");
+            rGrad.addColorStop(1, "rgba(5,5,5,0)");
+            ctx.fillStyle = rGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                ctx.moveTo(0, baseY);
-                for (let x = 0; x <= canvas.width; x += 4) {
-                    const noiseVal = noise(x, baseY, time + waveOffset);
-                    const y = baseY + noiseVal * 60 + Math.sin(x * 0.008 + time + waveOffset) * 25;
-                    ctx.lineTo(x, y);
-                }
-                ctx.lineTo(canvas.width, canvas.height);
-                ctx.lineTo(0, canvas.height);
-                ctx.closePath();
+            /* ── 4. Hexagonal grid — 8–12 % opacity, no bright lines ── */
+            ctx.lineWidth = 0.4;
+            for (let row = -1; row < canvas.height / HEX_H + 2; row++) {
+                for (let col = -1; col < canvas.width / (HEX * 1.5) + 2; col++) {
+                    const hcx = col * HEX * 1.5;
+                    const hcy = row * HEX_H + (col % 2 ? HEX_H / 2 : 0);
 
-                const waveGradient = ctx.createLinearGradient(0, baseY - 80, 0, canvas.height);
-                const colors = [
-                    ["rgba(0, 255, 65, 0.04)", "rgba(0, 150, 40, 0)"],
-                    ["rgba(0, 240, 255, 0.03)", "rgba(0, 100, 150, 0)"],
-                    ["rgba(255, 176, 0, 0.025)", "rgba(150, 80, 0, 0)"],
-                    ["rgba(0, 255, 65, 0.02)", "rgba(0, 100, 30, 0)"]
-                ];
-                waveGradient.addColorStop(0, colors[w][0]);
-                waveGradient.addColorStop(1, colors[w][1]);
-                ctx.fillStyle = waveGradient;
-                ctx.fill();
-            }
-
-            // === LAYER 3: Glowing orbs ===
-            orbs.forEach((orb, i) => {
-                orb.x += orb.speedX + Math.sin(time + orb.phase) * 0.3;
-                orb.y += orb.speedY + Math.cos(time + orb.phase) * 0.2;
-
-                // Wrap around
-                if (orb.x < -orb.size) orb.x = canvas.width + orb.size;
-                if (orb.x > canvas.width + orb.size) orb.x = -orb.size;
-                if (orb.y < -orb.size) orb.y = canvas.height + orb.size;
-                if (orb.y > canvas.height + orb.size) orb.y = -orb.size;
-
-                const pulse = Math.sin(time * 2 + orb.phase) * 0.3 + 0.7;
-                const orbGradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.size * pulse);
-
-                const alpha = 0.15 * pulse;
-                if (orb.color === "#00ff41") {
-                    orbGradient.addColorStop(0, `rgba(0, 255, 65, ${alpha})`);
-                    orbGradient.addColorStop(0.5, `rgba(0, 150, 40, ${alpha * 0.3})`);
-                } else if (orb.color === "#00f0ff") {
-                    orbGradient.addColorStop(0, `rgba(0, 240, 255, ${alpha})`);
-                    orbGradient.addColorStop(0.5, `rgba(0, 120, 180, ${alpha * 0.3})`);
-                } else {
-                    orbGradient.addColorStop(0, `rgba(255, 176, 0, ${alpha * 0.8})`);
-                    orbGradient.addColorStop(0.5, `rgba(180, 100, 0, ${alpha * 0.2})`);
-                }
-                orbGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-                ctx.beginPath();
-                ctx.arc(orb.x, orb.y, orb.size * pulse, 0, Math.PI * 2);
-                ctx.fillStyle = orbGradient;
-                ctx.fill();
-            });
-
-            // === LAYER 4: Code rain ===
-            ctx.font = "14px monospace";
-            codeDrops.forEach((drop) => {
-                drop.y += drop.speed;
-                if (drop.y > canvas.height + drop.length * 20) {
-                    drop.y = -drop.length * 20;
-                    drop.x = Math.random() * canvas.width;
-                }
-
-                drop.chars.forEach((char, i) => {
-                    const charY = drop.y + i * 18;
-                    if (charY > 0 && charY < canvas.height) {
-                        const fadeRatio = i / drop.length;
-                        const alpha = drop.opacity * (1 - fadeRatio * 0.8);
-
-                        if (i === 0) {
-                            ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 1.5})`;
-                        } else {
-                            ctx.fillStyle = `rgba(0, 255, 65, ${alpha})`;
-                        }
-                        ctx.fillText(char, drop.x, charY);
-                    }
-                });
-
-                // Randomly change characters
-                if (Math.random() < 0.02) {
-                    const idx = Math.floor(Math.random() * drop.chars.length);
-                    const chars = "アイウエオカキクケコ01";
-                    drop.chars[idx] = chars[Math.floor(Math.random() * chars.length)];
-                }
-            });
-
-            // === LAYER 5: Neural network ===
-            // Update nodes
-            nodes.forEach((node) => {
-                node.x += node.vx;
-                node.y += node.vy;
-
-                // Mouse attraction
-                const dx = mouse.x * canvas.width - node.x;
-                const dy = mouse.y * canvas.height - node.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 200) {
-                    node.x += dx * 0.001;
-                    node.y += dy * 0.001;
-                }
-
-                // Bounce
-                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-
-                node.pulsePhase += 0.05;
-            });
-
-            // Draw connections
-            const maxDist = 180;
-            ctx.lineWidth = 1;
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < maxDist) {
-                        const alpha = (1 - dist / maxDist) * 0.4;
-                        const pulse = Math.sin(time * 3 + i + j) * 0.3 + 0.7;
-
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 240, 255, ${alpha * pulse})`;
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.stroke();
-
-                        // Data pulse traveling along connection
-                        if (Math.sin(time * 5 + i * j) > 0.8) {
-                            const t = (Math.sin(time * 4 + i) + 1) / 2;
-                            const px = nodes[i].x + (nodes[j].x - nodes[i].x) * t;
-                            const py = nodes[i].y + (nodes[j].y - nodes[i].y) * t;
-
-                            ctx.beginPath();
-                            ctx.arc(px, py, 2, 0, Math.PI * 2);
-                            ctx.fillStyle = `rgba(0, 255, 65, ${alpha * 2})`;
-                            ctx.fill();
-                        }
-                    }
-                }
-            }
-
-            // Draw nodes
-            nodes.forEach((node) => {
-                const pulse = Math.sin(node.pulsePhase) * 0.4 + 1;
-                const size = node.size * pulse;
-
-                // Glow
-                const glowGradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, size * 4);
-                glowGradient.addColorStop(0, "rgba(0, 255, 65, 0.3)");
-                glowGradient.addColorStop(0.5, "rgba(0, 240, 255, 0.1)");
-                glowGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, size * 4, 0, Math.PI * 2);
-                ctx.fillStyle = glowGradient;
-                ctx.fill();
-
-                // Core
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, size, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(0, 255, 65, 0.8)";
-                ctx.fill();
-
-                // Inner highlight
-                ctx.beginPath();
-                ctx.arc(node.x - size * 0.2, node.y - size * 0.2, size * 0.4, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-                ctx.fill();
-            });
-
-            // === LAYER 6: Hexagonal grid (subtle) ===
-            ctx.strokeStyle = "rgba(0, 255, 65, 0.015)";
-            ctx.lineWidth = 1;
-            const hexSize = 40;
-            const hexHeight = hexSize * Math.sqrt(3);
-
-            for (let row = -1; row < canvas.height / hexHeight + 1; row++) {
-                for (let col = -1; col < canvas.width / (hexSize * 1.5) + 1; col++) {
-                    const x = col * hexSize * 1.5;
-                    const y = row * hexHeight + (col % 2 ? hexHeight / 2 : 0);
-
+                    /* Very gentle sine variation — no mouse-driven brightness spikes */
+                    const alpha = 0.07 + Math.sin(t * 0.6 + col * 0.25 + row * 0.35) * 0.018;
+                    ctx.strokeStyle = `rgba(0,200,83,${alpha})`;
                     ctx.beginPath();
                     for (let i = 0; i < 6; i++) {
-                        const angle = (Math.PI / 3) * i;
-                        const hx = x + hexSize * Math.cos(angle);
-                        const hy = y + hexSize * Math.sin(angle);
-                        if (i === 0) ctx.moveTo(hx, hy);
-                        else ctx.lineTo(hx, hy);
+                        const a = (Math.PI / 3) * i - Math.PI / 6;
+                        const px = hcx + HEX * Math.cos(a);
+                        const py = hcy + HEX * Math.sin(a);
+                        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
                     }
                     ctx.closePath();
                     ctx.stroke();
                 }
             }
 
-            // === LAYER 7: Vignette ===
-            const vignette = ctx.createRadialGradient(
-                canvas.width / 2, canvas.height / 2, canvas.height * 0.25,
-                canvas.width / 2, canvas.height / 2, canvas.height * 0.9
+            /* ── 5. Slow-drifting particles — no connection lines ── */
+            particles.forEach((p) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                const a = p.alpha;
+                /* Soft halo only */
+                const g2 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 5);
+                g2.addColorStop(0, `rgba(0,200,83,${a * 0.45})`);
+                g2.addColorStop(1, "rgba(0,0,0,0)");
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * 5, 0, Math.PI * 2);
+                ctx.fillStyle = g2;
+                ctx.fill();
+
+                /* Crisp core dot */
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0,200,83,${a})`;
+                ctx.fill();
+            });
+
+            /* ── 6. Strong vignette so edges fade cleanly ── */
+            const vig = ctx.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, canvas.height * 0.22,
+                canvas.width / 2, canvas.height / 2, canvas.height * 0.88
             );
-            vignette.addColorStop(0, "rgba(10, 10, 10, 0)");
-            vignette.addColorStop(1, "rgba(10, 10, 10, 0.8)"); // Match #0a0a0a
-            ctx.fillStyle = vignette;
+            vig.addColorStop(0, "rgba(5,5,5,0)");
+            vig.addColorStop(1, "rgba(5,5,5,0.78)");
+            ctx.fillStyle = vig;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // === LAYER 8: Bottom Fade to Seamlessly Connect ===
-            const bottomFade = ctx.createLinearGradient(0, canvas.height - 100, 0, canvas.height);
-            bottomFade.addColorStop(0, "rgba(10, 10, 10, 0)");
-            bottomFade.addColorStop(1, "rgba(10, 10, 10, 1)"); // Solid #0a0a0a at bottom
-            ctx.fillStyle = bottomFade;
-            ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+            /* ── 7. Bottom fade into page ── */
+            const bf = ctx.createLinearGradient(0, canvas.height - 120, 0, canvas.height);
+            bf.addColorStop(0, "rgba(5,5,5,0)");
+            bf.addColorStop(1, "rgba(5,5,5,1)");
+            ctx.fillStyle = bf;
+            ctx.fillRect(0, canvas.height - 120, canvas.width, 120);
 
-            animationFrameId = requestAnimationFrame(animate);
+            raf = requestAnimationFrame(draw);
         };
 
-        const handleMouseMove = (e: MouseEvent) => {
-            mouse.x = e.clientX / window.innerWidth;
-            mouse.y = e.clientY / window.innerHeight;
-        };
-
-        window.addEventListener("resize", resize);
-        window.addEventListener("mousemove", handleMouseMove);
-
-        resize();
-        animate();
+        window.addEventListener("resize", init);
+        init();
+        draw();
 
         return () => {
-            window.removeEventListener("resize", resize);
-            window.removeEventListener("mousemove", handleMouseMove);
-            cancelAnimationFrame(animationFrameId);
+            window.removeEventListener("resize", init);
+            cancelAnimationFrame(raf);
         };
     }, []);
 
     return (
-        <div
-            className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-1000"
-            style={{ opacity }}
-        >
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity }}>
             <canvas ref={canvasRef} className="block w-full h-full" />
         </div>
     );

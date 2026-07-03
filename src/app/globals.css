@@ -5,22 +5,28 @@
    ============================================================ */
 :root {
   /* Color palette */
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary: #00ff41;      /* CRT Green — accents, highlights */
-  --secondary: #ffb000;    /* Amber — secondary accents */
-  --accent: #00f0ff;       /* Cyber Cyan — contrast highlights */
-  --muted: #1a1a1a;
-  --border: #2e2e2e;
+  --background: #050505;
+  --foreground: #ffffff;
+  --primary: #00C853;
+  /* Green — primary accent */
+  --secondary: #00E676;
+  /* Light Green — secondary accent */
+  --accent: #00E676;
+  /* Light Green — contrast highlights */
+  --muted: #0d0d0d;
+  --border: #1E1E1E;
 
   /* Surface levels */
-  --surface-1: #111111;
-  --surface-2: #161616;
+  --surface-1: #0a0a0a;
+  --surface-2: #111111;
 
   /* Semantic text contrast tokens — use these instead of opacity hacks */
-  --text-body:  rgba(237, 237, 237, 0.88);  /* primary body text — ~7:1 contrast */
-  --text-muted: rgba(237, 237, 237, 0.62);  /* secondary text   — ~4.5:1 contrast */
-  --text-dim:   rgba(237, 237, 237, 0.42);  /* labels, dates    — ~3:1 (use only at 12px+) */
+  --text-body: rgba(255, 255, 255, 0.92);
+  /* primary body text — ~7:1 contrast */
+  --text-muted: rgba(181, 181, 181, 0.85);
+  /* secondary text   — #B5B5B5 ~4.5:1 contrast */
+  --text-dim: rgba(181, 181, 181, 0.55);
+  /* labels, dates    — ~3:1 (use only at 12px+) */
 }
 
 /* ============================================================
@@ -28,18 +34,21 @@
    ============================================================ */
 @theme {
   /* Fonts — registered for Tailwind utility classes */
-  --font-heading: var(--font-heading, 'Poppins', sans-serif);   /* font-heading */
-  --font-sans:    var(--font-sans,    'Inter',   sans-serif);   /* font-sans    */
-  --font-mono:    var(--font-mono, 'JetBrains Mono', monospace); /* font-mono  */
+  --font-heading: var(--font-heading, 'Poppins', sans-serif);
+  /* font-heading */
+  --font-sans: var(--font-sans, 'Inter', sans-serif);
+  /* font-sans    */
+  --font-mono: var(--font-mono, 'JetBrains Mono', monospace);
+  /* font-mono  */
 
   /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary:    var(--primary);
-  --color-secondary:  var(--secondary);
-  --color-accent:     var(--accent);
-  --color-muted:      var(--muted);
-  --color-border:     var(--border);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
 
   /* Custom keyframe animations — registered for arbitrary animate-[] classes */
   --animate-sectionOrb1: sectionOrb1 18s ease-in-out infinite;
@@ -49,7 +58,9 @@
 /* ============================================================
    BASE STYLES
    ============================================================ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -67,7 +78,12 @@ body {
 }
 
 /* Headings use Poppins — strong visual hierarchy */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading, 'Poppins', sans-serif);
   line-height: 1.25;
 }
@@ -78,7 +94,10 @@ p {
 }
 
 /* Mono elements: code, pre, kbd, tech tags — JetBrains Mono */
-code, pre, kbd, .font-mono {
+code,
+pre,
+kbd,
+.font-mono {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }
 
@@ -86,19 +105,18 @@ code, pre, kbd, .font-mono {
    CRT SCANLINE OVERLAY (subtle retro atmosphere)
    ============================================================ */
 .scanlines {
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0) 50%,
-    rgba(0, 0, 0, 0.18) 50%,
-    rgba(0, 0, 0, 0.18)
-  );
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.18) 50%,
+      rgba(0, 0, 0, 0.18));
   background-size: 100% 4px;
   position: fixed;
   pointer-events: none;
   inset: 0;
   z-index: 50;
-  opacity: 0.04; /* reduced from 0.1 — was darkening all content */
+  opacity: 0.04;
+  /* reduced from 0.1 — was darkening all content */
 }
 
 /* ============================================================
@@ -124,10 +142,22 @@ code, pre, kbd, .font-mono {
 /* ============================================================
    CUSTOM SCROLLBAR
    ============================================================ */
-::-webkit-scrollbar        { width: 6px; }
-::-webkit-scrollbar-track  { background: #0a0a0a; }
-::-webkit-scrollbar-thumb  { background: #2a2a2a; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E1E1E;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
 
 /* ============================================================
    ANIMATIONS
@@ -135,21 +165,51 @@ code, pre, kbd, .font-mono {
 
 /* Animated gradient for hero name */
 @keyframes gradientShift {
-  0%   { background-position: 0%   center; }
-  50%  { background-position: 100% center; }
-  100% { background-position: 0%   center; }
+  0% {
+    background-position: 0% center;
+  }
+
+  50% {
+    background-position: 100% center;
+  }
+
+  100% {
+    background-position: 0% center;
+  }
+}
+
+/* Shimmer sweep — primary button hover */
+@keyframes shimmerSlide {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
 }
 
 /* Subtle fade-up entrance */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Pulsing dot */
 @keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.5; transform: scale(0.8); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
 }
 
 /* ============================================================
@@ -159,6 +219,7 @@ code, pre, kbd, .font-mono {
   background-color: var(--primary);
   color: #000;
 }
+
 /* ============================================================
    FOCUS — keyboard navigation ring
    ============================================================ */
@@ -172,12 +233,39 @@ code, pre, kbd, .font-mono {
    SECTION BACKGROUND — CSS keyframes (replaces canvas loops)
    ============================================================ */
 @keyframes sectionOrb1 {
-  0%, 100% { transform: translate(0px,   0px)   scale(1);    opacity: 1; }
-  33%       { transform: translate(40px, -30px)  scale(1.08); opacity: 0.85; }
-  66%       { transform: translate(-20px, 25px)  scale(0.94); opacity: 0.9; }
+
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+  }
+
+  33% {
+    transform: translate(40px, -30px) scale(1.08);
+    opacity: 0.85;
+  }
+
+  66% {
+    transform: translate(-20px, 25px) scale(0.94);
+    opacity: 0.9;
+  }
 }
+
 @keyframes sectionOrb2 {
-  0%, 100% { transform: translate(0px,  0px)   scale(1);    opacity: 1; }
-  33%       { transform: translate(-35px, 20px)  scale(1.06); opacity: 0.8; }
-  66%       { transform: translate(25px, -35px)  scale(0.96); opacity: 0.95; }
+
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+  }
+
+  33% {
+    transform: translate(-35px, 20px) scale(1.06);
+    opacity: 0.8;
+  }
+
+  66% {
+    transform: translate(25px, -35px) scale(0.96);
+    opacity: 0.95;
+  }
 }

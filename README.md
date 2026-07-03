@@ -32,7 +32,7 @@ This portfolio is engineered to maximize technical credibility and user experien
 
 ### Modified & Improved
 - **Section Reordering:** Prioritized high-signal content: Experience -> Projects -> Skills -> About -> Publications.
-- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Intern '25–'26") and impact.
+- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Intern '25–'26'") and impact.
 - **Navbar Logic:** Replaced static click-based routing with a dynamic `IntersectionObserver` for accurate scroll tracking.
 - **Tailwind v4 Compliance:** Registered custom CSS animations directly into the `@theme` block.
 - **Contact Footer:** Improved legibility with increased opacity and dynamic copyright year calculation.

@@ -306,7 +306,6 @@ export function Projects() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            whileHover={{ scale: 1.05, y: -2 }}
                             className="flex items-center gap-2 px-5 py-2.5 bg-[var(--surface-1)] border border-[var(--border)] rounded-full hover:border-[var(--primary)]/60 transition-all"
                         >
                             <span style={{ color: stat.color }}>{stat.icon}</span>

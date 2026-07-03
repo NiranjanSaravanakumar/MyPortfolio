@@ -39,7 +39,7 @@ export function Contact() {
         { href: "tel:+919080029293",                            icon: Phone,    label: "Phone",    value: "+91 9080029293",             color: "var(--secondary)" },
         { href: "https://www.linkedin.com/in/niranjansaravanakumar/", icon: Linkedin, label: "LinkedIn", value: "Connect on LinkedIn",        color: "var(--accent)", external: true  },
         { href: "https://github.com/NiranjanSaravanakumar",          icon: Github,   label: "GitHub",   value: "NiranjanSaravanakumar",color: "var(--foreground)", external: true },
-        { href: "https://leetcode.com/u/Niranjan_S_2006/",                        icon: Code2,    label: "LeetCode", value: "Practice Profile",           color: "var(--secondary)", external: true },
+        { href: "https://leetcode.com/u/Niranjan_S_2006/",                        icon: Code2,    label: "LeetCode", value: "View Profile",           color: "var(--secondary)", external: true },
     ];
 
     return (

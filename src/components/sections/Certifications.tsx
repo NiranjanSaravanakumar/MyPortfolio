@@ -43,7 +43,7 @@ export function Certifications() {
                     className="mb-16 text-center"
                 >
                     <span className="section-label inline-block text-[var(--secondary)] mb-3 px-3 py-1 border border-[var(--secondary)]/30 rounded-full">
-                        07 / Certifications
+                        05 / Certifications
                     </span>
                     <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4"
                         style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
@@ -126,10 +126,6 @@ export function Certifications() {
                     transition={{ delay: 0.4 }}
                     className="mt-10 text-center"
                 >
-                    <p className="font-mono text-xs text-[var(--foreground)]/25 flex items-center justify-center gap-2">
-                        <ExternalLink size={10} />
-                        Continuously learning   more credentials in progress.
-                    </p>
                 </motion.div>
             </div>
         </section>

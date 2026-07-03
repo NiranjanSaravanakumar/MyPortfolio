@@ -11,10 +11,10 @@ const aboutPoints = [
 ];
 
 const quickFacts = [
-    { icon: MapPin,        label: "Location", value: "Erode, Tamil Nadu, India" },
-    { icon: Mail,          label: "Email",    value: "nickniranjan2929@gmail.com", href: "mailto:nickniranjan2929@gmail.com" },
-    { icon: GraduationCap, label: "Degree",   value: "B.Tech IT · 2023 – 2027" },
-    { icon: Rocket,        label: "Available", value: "Open to full-time roles from 2027" },
+    { icon: MapPin, label: "Location", value: "Erode, Tamil Nadu, India" },
+    { icon: Mail, label: "Email", value: "nickniranjan2929@gmail.com", href: "mailto:nickniranjan2929@gmail.com" },
+    { icon: GraduationCap, label: "Degree", value: "B.Tech IT · 2023 – 2027" },
+    { icon: Rocket, label: "Available", value: "Open to full-time roles from 2027" },
 ];
 
 const education = [
@@ -97,7 +97,7 @@ export function About() {
                                 >
                                     <span className="text-[var(--primary)] mt-1.5 text-sm flex-shrink-0">›</span>
                                     <p className="text-sm leading-relaxed"
-                                       style={{ color: "var(--text-body)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                        style={{ color: "var(--text-body)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                         {point}
                                     </p>
                                 </motion.div>
@@ -121,13 +121,13 @@ export function About() {
                                         <div className="section-label text-[var(--foreground)]/35 text-[10px] mb-0.5">{label}</div>
                                         {href ? (
                                             <a href={href}
-                                               className="text-xs text-[var(--foreground)]/75 hover:text-[var(--primary)] transition-colors truncate block"
-                                               style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                                className="text-xs text-[var(--foreground)]/75 hover:text-[var(--primary)] transition-colors truncate block"
+                                                style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                                 {value}
                                             </a>
                                         ) : (
                                             <div className="text-xs text-[var(--foreground)]/75 truncate"
-                                                 style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                                style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                                 {value}
                                             </div>
                                         )}
@@ -162,7 +162,7 @@ export function About() {
                                     className="relative pl-8"
                                 >
                                     <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[#0a0a0a] border-2"
-                                         style={{ borderColor: item.badgeColor }} />
+                                        style={{ borderColor: item.badgeColor }} />
 
                                     {/* mono for date/period */}
                                     <div className="font-mono text-xs mb-1" style={{ color: item.badgeColor, opacity: 0.7 }}>
@@ -177,17 +177,17 @@ export function About() {
 
                                     {/* Inter for school name */}
                                     <p className="text-sm text-[var(--foreground)]/65 mb-2"
-                                       style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                        style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                         {item.school}
                                     </p>
 
                                     {/* mono badge for score */}
                                     <span className="inline-block font-mono text-xs px-2 py-0.5 rounded-full border mb-3"
-                                          style={{
-                                              color: item.badgeColor,
-                                              borderColor: `${item.badgeColor}40`,
-                                              backgroundColor: `${item.badgeColor}10`,
-                                          }}>
+                                        style={{
+                                            color: item.badgeColor,
+                                            borderColor: `${item.badgeColor}40`,
+                                            backgroundColor: `${item.badgeColor}10`,
+                                        }}>
                                         {item.badge}
                                     </span>
 
@@ -197,7 +197,7 @@ export function About() {
                                             <div key={pi} className="flex gap-2 items-start">
                                                 <span className="text-xs mt-1 flex-shrink-0" style={{ color: item.badgeColor }}>›</span>
                                                 <p className="text-sm leading-relaxed"
-                                                   style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                                    style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                                                     {point}
                                                 </p>
                                             </div>
