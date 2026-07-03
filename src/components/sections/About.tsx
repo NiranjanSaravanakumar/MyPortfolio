@@ -11,10 +11,10 @@ const aboutPoints = [
 ];
 
 const quickFacts = [
-    { icon: MapPin, label: "Location", value: "Erode, Tamil Nadu, India" },
-    { icon: Mail, label: "Email", value: "nickniranjan2929@gmail.com", href: "mailto:nickniranjan2929@gmail.com" },
-    { icon: GraduationCap, label: "Degree", value: "B.Tech IT · 2023 – 2027" },
-    { icon: Rocket, label: "Available", value: "Open to full-time roles from 2027" },
+    { icon: MapPin,       label: "Location",  value: "Erode, Tamil Nadu, India"        },
+    { icon: Mail,         label: "Email",     value: "nickniranjan2929@gmail.com", href: "mailto:nickniranjan2929@gmail.com" },
+    { icon: GraduationCap,label: "Degree",    value: "B.Tech IT · 2023 – 2027"         },
+    { icon: Rocket,       label: "Available", value: "Open to full-time roles from 2027"},
 ];
 
 const education = [
@@ -24,7 +24,6 @@ const education = [
         school: "K S Rangasamy College of Technology",
         period: "2023 – 2027",
         badge: "CGPA: 8.65 / 10.0",
-        badgeColor: "var(--primary)",
         points: [
             "Core coursework in data structures, algorithms, database systems, software engineering, and web technologies.",
             "Active participant in technical fests, hackathons, and workshops — consistently building both depth and breadth.",
@@ -36,7 +35,6 @@ const education = [
         school: "Shri Janani Matric Higher Secondary School",
         period: "2022 – 2023",
         badge: "89.67%",
-        badgeColor: "var(--accent)",
         points: [
             "Excelled in Mathematics, Physics, and Computer Science, building a strong quantitative foundation.",
         ],
@@ -45,66 +43,86 @@ const education = [
 
 export function About() {
     return (
-        <section id="about" className="py-24 relative bg-[#0a0a0a] overflow-hidden" aria-label="About Niranjan">
+        <section id="about" className="py-28 relative overflow-hidden" style={{ background: "#080808" }} aria-label="About Niranjan">
             <SectionBackground variant="primary" intensity="medium" />
-            <div className="container mx-auto px-4 relative z-10">
 
-                {/* ── Section Header ───────────────────────── */}
+            <div className="relative z-10 w-full mx-auto px-6 lg:px-8" style={{ maxWidth: 1280 }}>
+
+                {/* ── Section Header ── */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="mb-16 text-center"
                 >
-                    <span className="section-label inline-block text-[var(--primary)] mb-3 px-3 py-1 border border-[var(--primary)]/30 rounded-full">
+                    <span
+                        className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
+                        style={{
+                            color: "#00FF66",
+                            border: "1px solid rgba(0,255,102,0.25)",
+                            background: "rgba(0,255,102,0.06)",
+                        }}
+                    >
                         04 / About
                     </span>
-                    {/* Poppins heading */}
-                    <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4"
-                        style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
+                    <h2
+                        className="font-extrabold mb-4"
+                        style={{
+                            fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
+                            color: "#ffffff",
+                            fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
+                            letterSpacing: "-0.02em",
+                        }}
+                    >
                         Who I Am
                     </h2>
-                    <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] mx-auto" />
+                    <div className="w-16 h-0.5 mx-auto" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                 </motion.div>
 
                 <div className="grid lg:grid-cols-2 gap-16">
 
-                    {/* ── Left: Profile + Quick Facts ─────── */}
+                    {/* ── Left: Profile + Quick Facts ── */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
+                        initial={{ opacity: 0, x: -24 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
                         <div className="flex items-center gap-3 mb-7">
-                            <User className="text-[var(--primary)] flex-shrink-0" size={20} />
-                            {/* Section sub-heading — Poppins */}
-                            <h3 className="text-lg font-semibold text-[var(--accent)]"
-                                style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
+                            <User size={20} style={{ color: "#00FF66", flexShrink: 0 }} />
+                            <h3
+                                className="text-lg font-bold"
+                                style={{ color: "#00FF66", fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
+                            >
                                 Profile
                             </h3>
                         </div>
 
-                        {/* Body text — Inter */}
                         <div className="space-y-4 mb-10">
                             {aboutPoints.map((point, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, x: -15 }}
+                                    initial={{ opacity: 0, x: -12 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
+                                    transition={{ delay: i * 0.08 }}
                                     className="flex gap-3 items-start"
                                 >
-                                    <span className="text-[var(--primary)] mt-1.5 text-sm flex-shrink-0">›</span>
-                                    <p className="text-sm leading-relaxed"
-                                        style={{ color: "var(--text-body)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                    <span style={{ color: "#00FF66", marginTop: 6, fontSize: "0.8rem", flexShrink: 0 }}>▸</span>
+                                    <p
+                                        style={{
+                                            color: "rgba(255,255,255,0.92)",
+                                            fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                                            fontSize: "1rem",
+                                            lineHeight: 1.8,
+                                        }}
+                                    >
                                         {point}
                                     </p>
                                 </motion.div>
                             ))}
                         </div>
 
-                        {/* Quick Facts grid */}
+                        {/* Quick Facts */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {quickFacts.map(({ icon: Icon, label, value, href }, i) => (
                                 <motion.div
@@ -112,22 +130,39 @@ export function About() {
                                     initial={{ opacity: 0, y: 10 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: 0.3 + i * 0.08 }}
-                                    className="flex items-center gap-3 p-3 bg-[var(--muted)]/50 border border-[var(--border)] rounded-sm hover:border-[var(--primary)]/40 transition-colors"
+                                    transition={{ delay: 0.25 + i * 0.07 }}
+                                    className="flex items-center gap-3 p-4 rounded-xl"
+                                    style={{
+                                        background: "#101010",
+                                        border: "1px solid rgba(0,255,102,0.20)",
+                                        transition: "border-color 0.22s ease",
+                                    }}
+                                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.50)"; }}
+                                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
                                 >
-                                    <Icon size={15} className="text-[var(--primary)] flex-shrink-0" />
+                                    <Icon size={16} style={{ color: "#00FF66", flexShrink: 0 }} />
                                     <div className="min-w-0">
-                                        {/* mono for label key */}
-                                        <div className="section-label text-[var(--foreground)]/35 text-[10px] mb-0.5">{label}</div>
+                                        <div
+                                            className="text-xs font-semibold uppercase tracking-wider mb-0.5"
+                                            style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                        >
+                                            {label}
+                                        </div>
                                         {href ? (
-                                            <a href={href}
-                                                className="text-xs text-[var(--foreground)]/75 hover:text-[var(--primary)] transition-colors truncate block"
-                                                style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                            <a
+                                                href={href}
+                                                className="text-sm font-medium truncate block transition-colors"
+                                                style={{ color: "rgba(255,255,255,0.92)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                                onMouseEnter={(e) => { (e.currentTarget).style.color = "#00FF66"; }}
+                                                onMouseLeave={(e) => { (e.currentTarget).style.color = "rgba(255,255,255,0.92)"; }}
+                                            >
                                                 {value}
                                             </a>
                                         ) : (
-                                            <div className="text-xs text-[var(--foreground)]/75 truncate"
-                                                style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                            <div
+                                                className="text-sm font-medium truncate"
+                                                style={{ color: "rgba(255,255,255,0.92)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                            >
                                                 {value}
                                             </div>
                                         )}
@@ -137,67 +172,91 @@ export function About() {
                         </div>
                     </motion.div>
 
-                    {/* ── Right: Education Timeline ────────── */}
+                    {/* ── Right: Education Timeline ── */}
                     <motion.div
-                        initial={{ opacity: 0, x: 30 }}
+                        initial={{ opacity: 0, x: 24 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
                         <div className="flex items-center gap-3 mb-7">
-                            <GraduationCap className="text-[var(--accent)] flex-shrink-0" size={20} />
-                            <h3 className="text-lg font-semibold text-[var(--accent)]"
-                                style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
+                            <GraduationCap size={20} style={{ color: "#00FF66", flexShrink: 0 }} />
+                            <h3
+                                className="text-lg font-bold"
+                                style={{ color: "#00FF66", fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
+                            >
                                 Education
                             </h3>
                         </div>
 
-                        <div className="border-l-2 border-[var(--accent)]/25 ml-3 space-y-10">
+                        <div
+                            className="ml-3 space-y-10"
+                            style={{ borderLeft: "2px solid rgba(0,255,102,0.22)" }}
+                        >
                             {education.map((item, index) => (
                                 <motion.div
                                     key={item.id}
-                                    initial={{ opacity: 0, x: -20 }}
+                                    initial={{ opacity: 0, x: -16 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: index * 0.15 }}
+                                    transition={{ delay: index * 0.12 }}
                                     className="relative pl-8"
                                 >
-                                    <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[#0a0a0a] border-2"
-                                        style={{ borderColor: item.badgeColor }} />
+                                    <div
+                                        className="absolute -left-[9px] top-1 w-4 h-4 rounded-full"
+                                        style={{
+                                            background: "#000000",
+                                            border: "2px solid #00FF66",
+                                        }}
+                                    />
 
-                                    {/* mono for date/period */}
-                                    <div className="font-mono text-xs mb-1" style={{ color: item.badgeColor, opacity: 0.7 }}>
+                                    <div
+                                        className="font-mono text-sm font-semibold mb-1.5"
+                                        style={{ color: "rgba(255,255,255,0.82)" }}
+                                    >
                                         {item.period}
                                     </div>
 
-                                    {/* Poppins for degree name */}
-                                    <h4 className="text-base font-semibold text-[var(--foreground)] leading-snug mb-0.5"
-                                        style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
+                                    <h4
+                                        className="font-bold leading-snug mb-1"
+                                        style={{
+                                            fontSize: "1.05rem",
+                                            color: "#ffffff",
+                                            fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
+                                        }}
+                                    >
                                         {item.degree}
                                     </h4>
 
-                                    {/* Inter for school name */}
-                                    <p className="text-sm text-[var(--foreground)]/65 mb-2"
-                                        style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                    <p
+                                        className="text-sm font-medium mb-2.5"
+                                        style={{ color: "rgba(255,255,255,0.88)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                    >
                                         {item.school}
                                     </p>
 
-                                    {/* mono badge for score */}
-                                    <span className="inline-block font-mono text-xs px-2 py-0.5 rounded-full border mb-3"
+                                    <span
+                                        className="inline-block font-mono text-xs px-3 py-1 rounded-full mb-3"
                                         style={{
-                                            color: item.badgeColor,
-                                            borderColor: `${item.badgeColor}40`,
-                                            backgroundColor: `${item.badgeColor}10`,
-                                        }}>
+                                            color: "#00FF66",
+                                            border: "1px solid rgba(0,255,102,0.30)",
+                                            background: "rgba(0,255,102,0.07)",
+                                        }}
+                                    >
                                         {item.badge}
                                     </span>
 
-                                    {/* Inter for bullet points */}
                                     <div className="space-y-1.5">
                                         {item.points.map((point, pi) => (
                                             <div key={pi} className="flex gap-2 items-start">
-                                                <span className="text-xs mt-1 flex-shrink-0" style={{ color: item.badgeColor }}>›</span>
-                                                <p className="text-sm leading-relaxed"
-                                                    style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                                <span style={{ color: "#00FF66", fontSize: "0.75rem", marginTop: 5, flexShrink: 0 }}>›</span>
+                                                <p
+                                                    className="text-sm"
+                                                    style={{
+                                                        color: "rgba(255,255,255,0.88)",
+                                                        fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                                                        lineHeight: 1.75,
+                                                    }}
+                                                >
                                                     {point}
                                                 </p>
                                             </div>
@@ -207,7 +266,6 @@ export function About() {
                             ))}
                         </div>
                     </motion.div>
-
                 </div>
             </div>
         </section>

@@ -5,41 +5,37 @@
    ============================================================ */
 :root {
   /* Color palette */
-  --background: #050505;
+  --background: #000000;
   --foreground: #ffffff;
-  --primary: #00C853;
-  /* Green — primary accent */
-  --secondary: #00E676;
-  /* Light Green — secondary accent */
-  --accent: #00E676;
-  /* Light Green — contrast highlights */
-  --muted: #0d0d0d;
-  --border: #1E1E1E;
+  --primary: #00FF66;        /* Emerald accent */
+  --secondary: #00FF66;      /* Unified accent */
+  --accent: #00FF66;         /* Same accent */
+  --muted: #101010;
+  --border: rgba(0, 255, 102, 0.20);
+  --border-hover: rgba(0, 255, 102, 0.55);
 
   /* Surface levels */
-  --surface-1: #0a0a0a;
-  --surface-2: #111111;
+  --surface-1: #101010;
+  --surface-2: #080808;
 
-  /* Semantic text contrast tokens — use these instead of opacity hacks */
-  --text-body: rgba(255, 255, 255, 0.92);
-  /* primary body text — ~7:1 contrast */
-  --text-muted: rgba(181, 181, 181, 0.85);
-  /* secondary text   — #B5B5B5 ~4.5:1 contrast */
-  --text-dim: rgba(181, 181, 181, 0.55);
-  /* labels, dates    — ~3:1 (use only at 12px+) */
+  /* Semantic text contrast tokens — white-only, no gray */
+  --text-heading: #ffffff;                    /* section headings */
+  --text-body: rgba(255, 255, 255, 0.92);     /* primary body text */
+  --text-desc: rgba(255, 255, 255, 0.88);     /* descriptions */
+  --text-label: rgba(255, 255, 255, 0.82);    /* small labels, dates */
+  --text-nav: rgba(255, 255, 255, 0.95);      /* navigation */
+  --text-muted: rgba(255, 255, 255, 0.88);    /* formerly gray — now readable white */
+  --text-dim: rgba(255, 255, 255, 0.82);      /* formerly very dim — now readable */
 }
 
 /* ============================================================
    TAILWIND THEME EXTENSION
    ============================================================ */
 @theme {
-  /* Fonts — registered for Tailwind utility classes */
+  /* Fonts */
   --font-heading: var(--font-heading, 'Poppins', sans-serif);
-  /* font-heading */
   --font-sans: var(--font-sans, 'Inter', sans-serif);
-  /* font-sans    */
   --font-mono: var(--font-mono, 'JetBrains Mono', monospace);
-  /* font-mono  */
 
   /* Colors */
   --color-background: var(--background);
@@ -49,10 +45,6 @@
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-border: var(--border);
-
-  /* Custom keyframe animations — registered for arbitrary animate-[] classes */
-  --animate-sectionOrb1: sectionOrb1 18s ease-in-out infinite;
-  --animate-sectionOrb2: sectionOrb2 22s ease-in-out infinite;
 }
 
 /* ============================================================
@@ -71,13 +63,12 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  /* Default body font: Inter — readable, modern, ATS-friendly */
   font-family: var(--font-sans, 'Inter', Arial, sans-serif);
-  line-height: 1.6;
+  line-height: 1.8;
   overflow-x: hidden;
 }
 
-/* Headings use Poppins — strong visual hierarchy */
+/* Headings use Poppins */
 h1,
 h2,
 h3,
@@ -85,15 +76,15 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading, 'Poppins', sans-serif);
-  line-height: 1.25;
+  line-height: 1.2;
+  color: var(--text-heading);
 }
 
-/* Paragraphs & long text use Inter */
 p {
   font-family: var(--font-sans, 'Inter', sans-serif);
+  line-height: 1.8;
 }
 
-/* Mono elements: code, pre, kbd, tech tags — JetBrains Mono */
 code,
 pre,
 kbd,
@@ -102,56 +93,18 @@ kbd,
 }
 
 /* ============================================================
-   CRT SCANLINE OVERLAY (subtle retro atmosphere)
-   ============================================================ */
-.scanlines {
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0) 50%,
-      rgba(0, 0, 0, 0.18) 50%,
-      rgba(0, 0, 0, 0.18));
-  background-size: 100% 4px;
-  position: fixed;
-  pointer-events: none;
-  inset: 0;
-  z-index: 50;
-  opacity: 0.04;
-  /* reduced from 0.1 — was darkening all content */
-}
-
-/* ============================================================
-   UTILITY CLASSES
-   ============================================================ */
-.glow-text {
-  text-shadow: 0 0 6px var(--primary), 0 0 12px var(--primary);
-}
-
-.glow-box {
-  box-shadow: 0 0 12px var(--primary);
-}
-
-/* Section label style — Inter for legibility, mono only for pure code identifiers */
-.section-label {
-  font-family: var(--font-sans, 'Inter', sans-serif);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-/* ============================================================
    CUSTOM SCROLLBAR
    ============================================================ */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E1E1E;
+  background: rgba(0, 255, 102, 0.25);
   border-radius: 3px;
 }
 
@@ -160,22 +113,34 @@ kbd,
 }
 
 /* ============================================================
-   ANIMATIONS
+   UTILITY CLASSES
+   ============================================================ */
+.glow-text {
+  text-shadow: 0 0 24px rgba(0, 255, 102, 0.5);
+}
+
+.glow-box {
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.25);
+}
+
+/* Section label — Inter, uppercase, small */
+.section-label {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-label);
+}
+
+/* ============================================================
+   ANIMATIONS — Keep only purposeful, short-duration ones
    ============================================================ */
 
-/* Animated gradient for hero name */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% center;
-  }
-
-  50% {
-    background-position: 100% center;
-  }
-
-  100% {
-    background-position: 0% center;
-  }
+/* Page load fade */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Shimmer sweep — primary button hover */
@@ -190,26 +155,24 @@ kbd,
     opacity: 0;
     transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+/* Pulsing border — for "View Details" project highlight */
+@keyframes pulseBorder {
+  0%   { box-shadow: 0 0 0 0 rgba(0,255,102,0), 0 0 0 1px rgba(0,255,102,0.55); }
+  40%  { box-shadow: 0 0 0 6px rgba(0,255,102,0.18), 0 0 0 1px rgba(0,255,102,0.80); }
+  80%  { box-shadow: 0 0 0 12px rgba(0,255,102,0.06), 0 0 0 1px rgba(0,255,102,0.55); }
+  100% { box-shadow: 0 0 0 0 rgba(0,255,102,0), 0 0 0 1px rgba(0,255,102,0.20); }
+}
+
 /* Pulsing dot */
 @keyframes pulseDot {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.5;
-    transform: scale(0.8);
-  }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
 }
 
 /* ============================================================
@@ -226,46 +189,13 @@ kbd,
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 /* ============================================================
-   SECTION BACKGROUND — CSS keyframes (replaces canvas loops)
+   SECTION DIVIDERS — subtle static separators
    ============================================================ */
-@keyframes sectionOrb1 {
-
-  0%,
-  100% {
-    transform: translate(0px, 0px) scale(1);
-    opacity: 1;
-  }
-
-  33% {
-    transform: translate(40px, -30px) scale(1.08);
-    opacity: 0.85;
-  }
-
-  66% {
-    transform: translate(-20px, 25px) scale(0.94);
-    opacity: 0.9;
-  }
-}
-
-@keyframes sectionOrb2 {
-
-  0%,
-  100% {
-    transform: translate(0px, 0px) scale(1);
-    opacity: 1;
-  }
-
-  33% {
-    transform: translate(-35px, 20px) scale(1.06);
-    opacity: 0.8;
-  }
-
-  66% {
-    transform: translate(25px, -35px) scale(0.96);
-    opacity: 0.95;
-  }
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,102,0.15), transparent);
 }

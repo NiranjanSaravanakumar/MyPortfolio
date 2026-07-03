@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, ExternalLink, CheckCircle } from "lucide-react";
+import { Award, CheckCircle } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 
 const certifications = [
@@ -11,7 +11,6 @@ const certifications = [
         title: "Oracle Certified Foundations Associate",
         issuer: "Oracle University",
         type: "Professional Certification",
-        color: "var(--primary)",
         description:
             "Industry-recognized credential validating core knowledge in Oracle technologies — covering relational database design, SQL fundamentals, data management principles, and cloud computing basics.",
         skills: ["Database Design", "SQL", "Cloud Fundamentals", "Data Management", "Oracle Technologies"],
@@ -22,7 +21,6 @@ const certifications = [
         title: "Design & Implementation of Human-Computer Interfaces",
         issuer: "NPTEL Online — IIT",
         type: "Academic Certification",
-        color: "var(--accent)",
         description:
             "NPTEL course by IIT faculty covering HCI principles, user research methodologies, interface design patterns, cognitive ergonomics, usability evaluation, and prototyping techniques.",
         skills: ["UI/UX Design", "User Research", "Usability Testing", "Cognitive Ergonomics", "Interface Prototyping"],
@@ -31,84 +29,146 @@ const certifications = [
 
 export function Certifications() {
     return (
-        <section id="certifications" className="py-24 bg-[#080808] relative overflow-hidden" aria-label="Certifications">
+        <section id="certifications" className="py-28 relative overflow-hidden" style={{ background: "#000000" }} aria-label="Certifications">
             <SectionBackground variant="secondary" intensity="low" />
-            <div className="container mx-auto px-4 relative z-10">
 
-                {/* ── Section Header ───────────────────────── */}
+            <div className="relative z-10 w-full mx-auto px-6 lg:px-8" style={{ maxWidth: 1280 }}>
+
+                {/* ── Section Header ── */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="mb-16 text-center"
                 >
-                    <span className="section-label inline-block text-[var(--secondary)] mb-3 px-3 py-1 border border-[var(--secondary)]/30 rounded-full">
+                    <span
+                        className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
+                        style={{
+                            color: "#00FF66",
+                            border: "1px solid rgba(0,255,102,0.25)",
+                            background: "rgba(0,255,102,0.06)",
+                        }}
+                    >
                         05 / Certifications
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4"
-                        style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
+                    <h2
+                        className="font-extrabold mb-4"
+                        style={{
+                            fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
+                            color: "#ffffff",
+                            fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
+                            letterSpacing: "-0.02em",
+                        }}
+                    >
                         Certifications & Credentials
                     </h2>
-                    <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--secondary)] to-[var(--accent)] mx-auto" />
+                    <div className="w-16 h-0.5 mx-auto" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-8 items-stretch" style={{ maxWidth: 900, margin: "0 auto" }}>
                     {certifications.map((cert, index) => (
                         <motion.div
                             key={cert.id}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 28 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.15, duration: 0.5 }}
-                            className="bg-[var(--surface-1)] border border-[var(--border)] rounded-sm overflow-hidden hover:border-[var(--primary)]/35 transition-all duration-300 group"
-                            style={{ borderTop: `3px solid ${cert.color}` }}
+                            transition={{ delay: index * 0.12, duration: 0.48 }}
+                            className="flex flex-col"
+                            style={{
+                                background: "#101010",
+                                border: "1px solid rgba(0,255,102,0.20)",
+                                borderTop: "3px solid #00FF66",
+                                borderRadius: 16,
+                                overflow: "hidden",
+                                transition: "border-color 0.22s ease, box-shadow 0.22s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                const el = e.currentTarget as HTMLDivElement;
+                                el.style.borderColor = "rgba(0,255,102,0.55)";
+                                el.style.boxShadow   = "0 0 0 1px rgba(0,255,102,0.55), 0 8px 40px rgba(0,0,0,0.5)";
+                            }}
+                            onMouseLeave={(e) => {
+                                const el = e.currentTarget as HTMLDivElement;
+                                el.style.borderColor = "rgba(0,255,102,0.20)";
+                                el.style.boxShadow   = "none";
+                            }}
                         >
                             {/* Card Header */}
-                            <div className="p-6 border-b border-[var(--border)]">
-                                <div className="flex items-start justify-between gap-4 mb-4">
+                            <div
+                                className="p-8 flex-shrink-0"
+                                style={{ borderBottom: "1px solid rgba(0,255,102,0.10)" }}
+                            >
+                                <div className="flex items-start justify-between gap-4 mb-5">
                                     <span className="text-4xl" aria-hidden="true">{cert.icon}</span>
-                                    {/* mono for type badge */}
-                                    <span className="font-mono text-xs px-2 py-0.5 rounded-full border mt-1 flex-shrink-0"
-                                          style={{
-                                              color: cert.color,
-                                              borderColor: `${cert.color}40`,
-                                              backgroundColor: `${cert.color}10`,
-                                          }}>
+                                    <span
+                                        className="text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0 mt-1"
+                                        style={{
+                                            color: "#00FF66",
+                                            border: "1px solid rgba(0,255,102,0.25)",
+                                            background: "rgba(0,255,102,0.07)",
+                                            fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                                        }}
+                                    >
                                         {cert.type}
                                     </span>
                                 </div>
 
-                                {/* Poppins for cert title */}
-                                <h3 className="text-lg font-semibold text-[var(--foreground)] mb-1.5 leading-snug group-hover:text-[var(--primary)] transition-colors"
-                                    style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}>
+                                <h3
+                                    className="font-bold leading-snug mb-3"
+                                    style={{
+                                        fontSize: "1.15rem",
+                                        color: "#ffffff",
+                                        fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
+                                    }}
+                                >
                                     {cert.title}
                                 </h3>
 
                                 <div className="flex items-center gap-2">
-                                    <Award size={13} style={{ color: cert.color }} />
-                                    {/* Inter for issuer */}
-                                    <span className="text-sm font-medium" style={{ color: cert.color,
-                                          fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                                    <Award size={14} style={{ color: "#00FF66" }} />
+                                    <span
+                                        className="text-sm font-semibold"
+                                        style={{ color: "#00FF66", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                    >
                                         {cert.issuer}
                                     </span>
                                 </div>
                             </div>
 
                             {/* Card Body */}
-                            <div className="p-6">
-                                {/* Inter for description */}
-                                <p className="text-sm leading-relaxed mb-5"
-                                   style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                            <div className="p-8 flex flex-col flex-1">
+                                <p
+                                    className="mb-6 flex-grow"
+                                    style={{
+                                        color: "rgba(255,255,255,0.92)",
+                                        fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                                        fontSize: "0.975rem",
+                                        lineHeight: 1.8,
+                                    }}
+                                >
                                     {cert.description}
                                 </p>
 
                                 <div>
-                                    <div className="section-label text-[var(--foreground)]/35 mb-3">Skills Validated</div>
+                                    <div
+                                        className="text-xs font-bold uppercase tracking-widest mb-3"
+                                        style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                    >
+                                        Skills Validated
+                                    </div>
                                     <div className="flex flex-wrap gap-2">
                                         {cert.skills.map((skill) => (
-                                            <span key={skill}
-                                                  className="flex items-center gap-1 px-2.5 py-1 text-xs font-mono bg-[var(--muted)] border border-[var(--border)] rounded-xs text-[var(--foreground)]/65 hover:border-[var(--primary)]/35 transition-colors">
-                                                <CheckCircle size={9} style={{ color: cert.color }} />
+                                            <span
+                                                key={skill}
+                                                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg"
+                                                style={{
+                                                    background: "rgba(0,255,102,0.06)",
+                                                    border: "1px solid rgba(0,255,102,0.18)",
+                                                    color: "rgba(255,255,255,0.88)",
+                                                    fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                                                }}
+                                            >
+                                                <CheckCircle size={10} style={{ color: "#00FF66", flexShrink: 0 }} />
                                                 {skill}
                                             </span>
                                         ))}
@@ -118,15 +178,6 @@ export function Certifications() {
                         </motion.div>
                     ))}
                 </div>
-
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                    className="mt-10 text-center"
-                >
-                </motion.div>
             </div>
         </section>
     );
