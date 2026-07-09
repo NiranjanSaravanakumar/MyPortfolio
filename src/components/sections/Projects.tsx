@@ -79,10 +79,34 @@ const projects = [
         techStack: ["FastAPI", "Python", "Gemini API", "GitHub API", "React.js", "Vite"],
         icon: "🧭",
     },
+    {
+        title: "DataRefinery",
+        subtitle: "CSV ETL Pipeline & Quality Report Generator",
+        category: "Data Engineering / Full-Stack",
+        description:
+            "A Python ETL project that turns messy CSV order files into clean, validated data and downloadable quality reports. Includes a core pipeline library and a Flask web app for uploading files and reviewing results in the browser.",
+        problem:
+            "CSV exports from order systems are rife with formatting errors, invalid values, duplicates, and inconsistent categories — making downstream processing unreliable without a proper validation layer.",
+        solution:
+            "Built a dependency-light Python pipeline using only the standard library for core ETL logic, wrapped with a Flask web interface for file uploads, session-based processing, and downloadable audit reports.",
+        features: [
+            "Validates required fields, dates, quantities, prices, statuses & regions",
+            "Assigns a pipeline quality score (0–100) per run",
+            "Produces 3 outputs: cleaned CSV, issues log & summary JSON",
+            "Browser-based upload flow with progress feedback & ZIP download",
+            "33 automated tests with GitHub Actions CI",
+        ],
+        impact:
+            "Demonstrates end-to-end data engineering skills — from validation rule design and ETL architecture to Flask API development and automated testing with 100% CI coverage.",
+        githubLink: "https://github.com/NiranjanSaravanakumar/DataRefinery",
+        liveLink: null as string | null,
+        techStack: ["Python", "Flask", "pytest", "GitHub Actions", "Jinja2"],
+        icon: "🧹",
+    },
 ];
 
 const overviewStats = [
-    { label: "Projects Built",  value: 3,  suffix: "+", icon: <Code2 size={16} />,    color: "#00FF66"   },
+    { label: "Projects Built",  value: 4,  suffix: "+", icon: <Code2 size={16} />,    color: "#00FF66"   },
     { label: "Internship",      value: 1,  suffix: "",  icon: <Briefcase size={16} />, color: "#00FF66"   },
     { label: "Tech Skills",     value: 15, suffix: "+", icon: <Cpu size={16} />,       color: "#00FF66"   },
 ];
