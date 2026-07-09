@@ -56,30 +56,6 @@ const projects = [
         icon: "💰",
     },
     {
-        title: "Codebase Onboarder",
-        subtitle: "AI-Powered Repository Onboarding Tool",
-        category: "AI / Full-Stack Tool",
-        description:
-            "Drop a GitHub URL and instantly receive a structured onboarding document for the codebase, plus an interactive chat interface powered by Gemini to ask questions about the repo's architecture, patterns, and code.",
-        problem:
-            "Joining a new codebase is slow and painful — developers waste hours reading scattered docs, skimming README files, and chasing context across files just to get oriented.",
-        solution:
-            "Built a FastAPI backend that fetches repository contents via the GitHub API and feeds them into Gemini to generate a structured onboarding doc. A React + Vite frontend provides an interactive chat interface for follow-up questions.",
-        features: [
-            "GitHub URL input → auto-generated onboarding document",
-            "Gemini-powered interactive chat for codebase Q&A",
-            "GitHub API integration for real-time repo content fetching",
-            "FastAPI backend with clean REST endpoints",
-            "React + Vite frontend for fast, responsive UX",
-        ],
-        impact:
-            "Dramatically reduces ramp-up time for new contributors by converting any public GitHub repo into a navigable, queryable knowledge base in seconds.",
-        githubLink: "https://github.com/NiranjanSaravanakumar/Codebase-Onboarder",
-        liveLink: null as string | null,
-        techStack: ["FastAPI", "Python", "Gemini API", "GitHub API", "React.js", "Vite"],
-        icon: "🧭",
-    },
-    {
         title: "DataRefinery",
         subtitle: "CSV ETL Pipeline & Quality Report Generator",
         category: "Data Engineering / Full-Stack",
@@ -126,6 +102,30 @@ const projects = [
         liveLink: null as string | null,
         techStack: ["FastAPI", "Python", "Gemini 2.5 Flash", "GitHub API", "React 19", "Vite 8"],
         icon: "🧠",
+    },
+    {
+        title: "Senti AI",
+        subtitle: "Binary Sentiment Analyzer — ML Web App",
+        category: "Machine Learning / NLP",
+        description:
+            "An end-to-end machine learning web app that classifies any text as Positive or Negative using Logistic Regression trained on 1.6 million real tweets from the Sentiment140 dataset, achieving ~86% test accuracy.",
+        problem:
+            "Sentiment analysis typically requires complex NLP pipelines that are hard to deploy and interpret. Most demos lack production-grade tooling, confidence scoring, or a usable web interface.",
+        solution:
+            "Built a full 12-step ML pipeline — from raw CSV ingestion to regex cleaning, Porter Stemming, TF-IDF vectorization, Logistic Regression training, and pickle serialization — then exposed it through a Flask web app with a dark glassmorphism UI and a JSON API endpoint.",
+        features: [
+            "Logistic Regression + TF-IDF trained on 1.6M tweets (~86% accuracy)",
+            "Confidence scoring via predict_proba() shown as animated progress bar",
+            "POST /api/analyze JSON endpoint for programmatic integration",
+            "Docker multi-stage build + Docker Compose for one-command deployment",
+            "Pytest suite covering preprocessing, routing, API & prediction logic",
+        ],
+        impact:
+            "Demonstrates a complete, production-aware ML lifecycle — from raw data to trained model to deployed web application with Docker, test coverage, and developer tooling (Ruff, Black, mypy).",
+        githubLink: "https://github.com/NiranjanSaravanakumar/SentiAI",
+        liveLink: null as string | null,
+        techStack: ["Python", "scikit-learn", "NLTK", "Flask", "TF-IDF", "Docker", "pytest"],
+        icon: "📊",
     },
 ];
 
