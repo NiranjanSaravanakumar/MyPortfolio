@@ -11,6 +11,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:   # enables the "Run workflow" button in GitHub Actions UI
 
 # Cancel any in-flight deployment if a new push arrives on main
 concurrency:
