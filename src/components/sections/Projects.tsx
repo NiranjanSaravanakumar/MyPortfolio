@@ -103,10 +103,34 @@ const projects = [
         techStack: ["Python", "Flask", "pytest", "GitHub Actions", "Jinja2"],
         icon: "🧹",
     },
+    {
+        title: "CodeCompass",
+        subtitle: "AI Codebase Onboarding & Chat Tool",
+        category: "AI / Full-Stack Tool",
+        description:
+            "Paste any public GitHub URL and get a structured AI-written onboarding guide instantly, plus a persistent multi-turn chat interface powered by Gemini 2.5 Flash to ask follow-up questions about the repo's architecture, patterns, and setup.",
+        problem:
+            "Onboarding onto a new codebase is repetitive and slow — developers spend hours manually reading scattered files and inferring architecture before they can contribute anything.",
+        solution:
+            "Built a service-oriented FastAPI backend that fetches the repository tree and key files via the GitHub API, feeds them into Gemini to generate a structured onboarding doc, and stores context in-memory for a stateful multi-turn chat session. A React 19 + Vite 8 frontend renders Markdown and manages the full chat UX.",
+        features: [
+            "GitHub repo URL → AI-generated structured onboarding doc",
+            "Multi-turn chat with full conversation history sent to Gemini",
+            "Gemini 2.5 Flash model with structured prompts & token limits",
+            "Pydantic request validation on all API routes",
+            "React 19 + Vite 8 frontend with react-markdown rendering",
+        ],
+        impact:
+            "Turns any public GitHub repository into a queryable knowledge base in seconds — reducing contributor ramp-up time and demonstrating full-stack AI integration from GitHub API to Gemini to React.",
+        githubLink: "https://github.com/NiranjanSaravanakumar/CodeCompass",
+        liveLink: null as string | null,
+        techStack: ["FastAPI", "Python", "Gemini 2.5 Flash", "GitHub API", "React 19", "Vite 8"],
+        icon: "🧠",
+    },
 ];
 
 const overviewStats = [
-    { label: "Projects Built",  value: 4,  suffix: "+", icon: <Code2 size={16} />,    color: "#00FF66"   },
+    { label: "Projects Built",  value: 5,  suffix: "+", icon: <Code2 size={16} />,    color: "#00FF66"   },
     { label: "Internship",      value: 1,  suffix: "",  icon: <Briefcase size={16} />, color: "#00FF66"   },
     { label: "Tech Skills",     value: 15, suffix: "+", icon: <Cpu size={16} />,       color: "#00FF66"   },
 ];
