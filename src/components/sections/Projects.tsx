@@ -8,7 +8,7 @@ import { SectionBackground } from "@/components/ui/SectionBackground";
 /* ─── Project data ──────────────────────────────────────── */
 const projects = [
     {
-        title: "AI Roast My Resume",
+        title: "AI-Resume-Analyzer",
         subtitle: "Brutally Honest AI Resume Analyzer",
         category: "Full-Stack Web App",
         description:
@@ -56,28 +56,28 @@ const projects = [
         icon: "💰",
     },
     {
-        title: "Web Blog Platform",
-        subtitle: "Full-Stack Content Management System",
-        category: "Full-Stack Web App",
+        title: "Codebase Onboarder",
+        subtitle: "AI-Powered Repository Onboarding Tool",
+        category: "AI / Full-Stack Tool",
         description:
-            "A modern full-stack blogging platform with a React + TypeScript frontend, RESTful API backend, and MongoDB for scalable content storage. Features reusable UI components and full CRUD capabilities.",
+            "Drop a GitHub URL and instantly receive a structured onboarding document for the codebase, plus an interactive chat interface powered by Gemini to ask questions about the repo's architecture, patterns, and code.",
         problem:
-            "Developers need a customizable, fast blogging platform that supports dynamic content management without sacrificing code maintainability.",
+            "Joining a new codebase is slow and painful — developers waste hours reading scattered docs, skimming README files, and chasing context across files just to get oriented.",
         solution:
-            "Built a component-driven React frontend with TypeScript for type safety, paired with a Node.js/Express backend and MongoDB for flexible, scalable content management.",
+            "Built a FastAPI backend that fetches repository contents via the GitHub API and feeds them into Gemini to generate a structured onboarding doc. A React + Vite frontend provides an interactive chat interface for follow-up questions.",
         features: [
-            "Full CRUD operations for blog posts",
-            "Reusable React component library",
-            "TypeScript for end-to-end type safety",
-            "MongoDB for flexible, scalable content storage",
-            "Optimized API response and content retrieval",
+            "GitHub URL input → auto-generated onboarding document",
+            "Gemini-powered interactive chat for codebase Q&A",
+            "GitHub API integration for real-time repo content fetching",
+            "FastAPI backend with clean REST endpoints",
+            "React + Vite frontend for fast, responsive UX",
         ],
         impact:
-            "Demonstrates end-to-end full-stack proficiency — from UI architecture and state management to RESTful API design and NoSQL schema modeling.",
-        githubLink: "https://github.com/NiranjanSaravanakumar/Web-blog",
+            "Dramatically reduces ramp-up time for new contributors by converting any public GitHub repo into a navigable, queryable knowledge base in seconds.",
+        githubLink: "https://github.com/NiranjanSaravanakumar/Codebase-Onboarder",
         liveLink: null as string | null,
-        techStack: ["React.js", "TypeScript", "MongoDB", "Node.js", "Express.js"],
-        icon: "📝",
+        techStack: ["FastAPI", "Python", "Gemini API", "GitHub API", "React.js", "Vite"],
+        icon: "🧭",
     },
 ];
 
