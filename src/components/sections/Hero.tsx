@@ -93,7 +93,8 @@ function PortraitCard() {
                             fill
                             priority
                             sizes="340px"
-                            className="object-cover object-top"
+                            className="object-cover"
+                            style={{ objectPosition: "45% 30%" }}
                             draggable={false}
                         />
 
@@ -135,7 +136,7 @@ export function Hero() {
                     {/* ═══════════════════════════════════════
                         LEFT — Text content
                     ═══════════════════════════════════════ */}
-                    <div className="flex-1 flex flex-col justify-center" style={{ maxWidth: 620 }}>
+                    <div className="flex-1 flex flex-col justify-center" style={{ maxWidth: 620, transform: "translateX(50px)" }}>
 
                         {/* Badge */}
                         <motion.div {...fadeUp(0.05)} className="mb-7">
@@ -420,7 +421,7 @@ export function Hero() {
                     {/* ═══════════════════════════════════════
                         RIGHT — Portrait card
                     ═══════════════════════════════════════ */}
-                    <div className="hidden lg:flex items-start justify-center flex-shrink-0" style={{ paddingTop: 8 }}>
+                    <div className="hidden lg:flex items-start justify-center flex-shrink-0" style={{ transform: "translateX(100px) translateY(-60px)" }}>
                         <PortraitCard />
                     </div>
                 </div>

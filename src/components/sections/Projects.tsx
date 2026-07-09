@@ -5,8 +5,32 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ExternalLink, Github, Folder, Zap, Code2, Briefcase, Cpu, ChevronDown, ChevronUp } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 
-/* ─── Project data ──────────────────────────────────────── */
+/* ─── Project data ──────────────────────────────────── */
 const projects = [
+    {
+        title: "CodeCompass",
+        subtitle: "AI Codebase Onboarding & Chat Tool",
+        category: "AI / Full-Stack Tool",
+        description:
+            "Paste any public GitHub URL and get a structured AI-written onboarding guide instantly, plus a persistent multi-turn chat interface powered by Gemini 2.5 Flash to ask follow-up questions about the repo's architecture, patterns, and setup.",
+        problem:
+            "Onboarding onto a new codebase is repetitive and slow — developers spend hours manually reading scattered files and inferring architecture before they can contribute anything.",
+        solution:
+            "Built a service-oriented FastAPI backend that fetches the repository tree and key files via the GitHub API, feeds them into Gemini to generate a structured onboarding doc, and stores context in-memory for a stateful multi-turn chat session. A React 19 + Vite 8 frontend renders Markdown and manages the full chat UX.",
+        features: [
+            "GitHub repo URL → AI-generated structured onboarding doc",
+            "Multi-turn chat with full conversation history sent to Gemini",
+            "Gemini 2.5 Flash model with structured prompts & token limits",
+            "Pydantic request validation on all API routes",
+            "React 19 + Vite 8 frontend with react-markdown rendering",
+        ],
+        impact:
+            "Turns any public GitHub repository into a queryable knowledge base in seconds — reducing contributor ramp-up time and demonstrating full-stack AI integration from GitHub API to Gemini to React.",
+        githubLink: "https://github.com/NiranjanSaravanakumar/CodeCompass",
+        liveLink: null as string | null,
+        techStack: ["FastAPI", "Python", "Gemini 2.5 Flash", "GitHub API", "React 19", "Vite 8"],
+        icon: "🧠",
+    },
     {
         title: "AI-Resume-Analyzer",
         subtitle: "Brutally Honest AI Resume Analyzer",
@@ -30,30 +54,7 @@ const projects = [
         githubLink: "https://github.com/NiranjanSaravanakumar/AI-Resume-Analyzer",
         liveLink: null as string | null,
         techStack: ["React", "Vite", "Flask", "Gemini AI", "SQLite", "Python"],
-        icon: "🔥",
-    },
-    {
-        title: "Expense Tracker",
-        subtitle: "Personal Finance Web App",
-        category: "Web Application",
-        description:
-            "A responsive web-based expense tracking application for logging, categorizing, and analyzing daily spending — built with a focus on intuitive UX, real-time dynamic updates, and persistent backend storage.",
-        problem:
-            "Users lack a simple, accessible tool to monitor daily spending, identify patterns, and make informed financial decisions.",
-        solution:
-            "Designed a single-page web app with dynamic frontend interactions and a Python backend API for data persistence and retrieval.",
-        features: [
-            "Dynamic expense logging with categories and dates",
-            "Responsive layout optimized for all screen sizes",
-            "Summary views and spending breakdowns",
-            "Backend API for secure data persistence",
-        ],
-        impact:
-            "Enables informed personal finance decisions through clear category-based breakdowns and easy data retrieval.",
-        githubLink: "https://github.com/NiranjanSaravanakumar/Expense-Tracker",
-        liveLink: null as string | null,
-        techStack: ["HTML", "CSS", "JavaScript", "Python"],
-        icon: "💰",
+        icon: "📜",
     },
     {
         title: "DataRefinery",
@@ -80,30 +81,6 @@ const projects = [
         icon: "🧹",
     },
     {
-        title: "CodeCompass",
-        subtitle: "AI Codebase Onboarding & Chat Tool",
-        category: "AI / Full-Stack Tool",
-        description:
-            "Paste any public GitHub URL and get a structured AI-written onboarding guide instantly, plus a persistent multi-turn chat interface powered by Gemini 2.5 Flash to ask follow-up questions about the repo's architecture, patterns, and setup.",
-        problem:
-            "Onboarding onto a new codebase is repetitive and slow — developers spend hours manually reading scattered files and inferring architecture before they can contribute anything.",
-        solution:
-            "Built a service-oriented FastAPI backend that fetches the repository tree and key files via the GitHub API, feeds them into Gemini to generate a structured onboarding doc, and stores context in-memory for a stateful multi-turn chat session. A React 19 + Vite 8 frontend renders Markdown and manages the full chat UX.",
-        features: [
-            "GitHub repo URL → AI-generated structured onboarding doc",
-            "Multi-turn chat with full conversation history sent to Gemini",
-            "Gemini 2.5 Flash model with structured prompts & token limits",
-            "Pydantic request validation on all API routes",
-            "React 19 + Vite 8 frontend with react-markdown rendering",
-        ],
-        impact:
-            "Turns any public GitHub repository into a queryable knowledge base in seconds — reducing contributor ramp-up time and demonstrating full-stack AI integration from GitHub API to Gemini to React.",
-        githubLink: "https://github.com/NiranjanSaravanakumar/CodeCompass",
-        liveLink: null as string | null,
-        techStack: ["FastAPI", "Python", "Gemini 2.5 Flash", "GitHub API", "React 19", "Vite 8"],
-        icon: "🧠",
-    },
-    {
         title: "Senti AI",
         subtitle: "Binary Sentiment Analyzer — ML Web App",
         category: "Machine Learning / NLP",
@@ -126,6 +103,29 @@ const projects = [
         liveLink: null as string | null,
         techStack: ["Python", "scikit-learn", "NLTK", "Flask", "TF-IDF", "Docker", "pytest"],
         icon: "📊",
+    },
+    {
+        title: "Expense Tracker",
+        subtitle: "Personal Finance Web App",
+        category: "Web Application",
+        description:
+            "A responsive web-based expense tracking application for logging, categorizing, and analyzing daily spending — built with a focus on intuitive UX, real-time dynamic updates, and persistent backend storage.",
+        problem:
+            "Users lack a simple, accessible tool to monitor daily spending, identify patterns, and make informed financial decisions.",
+        solution:
+            "Designed a single-page web app with dynamic frontend interactions and a Python backend API for data persistence and retrieval.",
+        features: [
+            "Dynamic expense logging with categories and dates",
+            "Responsive layout optimized for all screen sizes",
+            "Summary views and spending breakdowns",
+            "Backend API for secure data persistence",
+        ],
+        impact:
+            "Enables informed personal finance decisions through clear category-based breakdowns and easy data retrieval.",
+        githubLink: "https://github.com/NiranjanSaravanakumar/Expense-Tracker",
+        liveLink: null as string | null,
+        techStack: ["HTML", "CSS", "JavaScript", "Python"],
+        icon: "💰",
     },
     {
         title: "Store Management System",
