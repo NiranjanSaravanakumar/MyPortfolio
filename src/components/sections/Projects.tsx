@@ -127,10 +127,34 @@ const projects = [
         techStack: ["Python", "scikit-learn", "NLTK", "Flask", "TF-IDF", "Docker", "pytest"],
         icon: "📊",
     },
+    {
+        title: "Store Management System",
+        subtitle: "Desktop Inventory & Billing App",
+        category: "Desktop App / Python GUI",
+        description:
+            "A Tkinter-based desktop GUI app for small electronics retailers to manage product inventory, customer records, payment methods, and billing — all without a browser or server.",
+        problem:
+            "Small retail shops need a quick, offline tool to track products and process sales without the overhead of a full web application or database server.",
+        solution:
+            "Built a self-contained Python desktop application using Tkinter that handles inventory CRUD, customer capture, discount toggling, and payment selection in a clean, interactive GUI.",
+        features: [
+            "Add, update & remove products with ID, name & quantity",
+            "Dropdown category selector & payment method (GPay / Cash)",
+            "Discount toggle via checkbox with live total calculation",
+            "Customer name & contact capture",
+            "Zero-dependency GUI — runs on any Python 3.x installation",
+        ],
+        impact:
+            "A foundational Python project demonstrating GUI design, event-driven programming, and state management using only the standard library — no frameworks required.",
+        githubLink: "https://github.com/NiranjanSaravanakumar/Store-Management-System-using-Tkinter-Python-GUI-.git",
+        liveLink: null as string | null,
+        techStack: ["Python", "Tkinter"],
+        icon: "🛒",
+    },
 ];
 
 const overviewStats = [
-    { label: "Projects Built",  value: 5,  suffix: "+", icon: <Code2 size={16} />,    color: "#00FF66"   },
+    { label: "Projects Built",  value: 6,  suffix: "+", icon: <Code2 size={16} />,    color: "#00FF66"   },
     { label: "Internship",      value: 1,  suffix: "",  icon: <Briefcase size={16} />, color: "#00FF66"   },
     { label: "Tech Skills",     value: 15, suffix: "+", icon: <Cpu size={16} />,       color: "#00FF66"   },
 ];
