@@ -1,7 +1,232 @@
 # Niranjan Saravanakumar — Personal Portfolio
 
-> A high-performance, recruiter-ready developer portfolio built with **Next.js 14+**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.  
-> Designed to instantly highlight enterprise experience, technical depth, and research publications.
+> A high-performance, recruiter-ready developer portfolio built with **Next.js 16**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.  
+> Designed to instantly highlight enterprise experience, technical depth, and full-stack engineering capabilities.
+
+---
+
+## 1. Project Overview
+
+This portfolio is engineered to maximize technical credibility and user experience. It serves as a comprehensive showcase of Niranjan Saravanakumar's software engineering capabilities — specifically highlighting an automation-heavy internship at ABB, full-stack projects, structured skills, and verified certifications. The architecture prioritizes instant load times, accessible navigation, and high-impact visual design.
+
+---
+
+## 2. Features
+
+- ⚡ **Instant Hero Entry** — Optimized for recruiter workflows with immediate, no-gate loading and animated typewriter role titles.
+- 🧭 **Context-Aware Navbar** — `IntersectionObserver`-driven active states with mobile scroll-lock and a persistent "Download Resume" CTA.
+- 🤖 **AI Assistant** — Embedded Gemini-powered chat assistant for interactive portfolio exploration.
+- ✍️ **Scramble Text** — Cyberpunk-style character scramble animation on key headings.
+- 💼 **Enterprise Experience** — Quantified impact metrics and strategically sorted tech stacks from the ABB internship.
+- 📂 **Interactive Projects** — Expandable detail panels with 3D tilt hover effects powered by `TiltCard`.
+- 🔧 **Structured Skills Grid** — Logical categories covering Full-Stack, DevOps, Testing, and AI tooling.
+- 📊 **Animated Stats Counter** — Animated counters showcasing key achievement metrics.
+- 📜 **Verified Certifications** — Clean credential cards with validated skill tags.
+- 📬 **Working Contact Form** — Integrated with EmailJS for direct, validated communication.
+- ✨ **Performant Animations** — Hardware-accelerated CSS keyframes and optimized Framer Motion `whileInView` transitions.
+- ♿ **Accessible** — `:focus-visible` rings, `prefers-reduced-motion` guards, semantic HTML, and ARIA labels.
+
+---
+
+## 3. Changelog
+
+### [Latest] Dependency Audit & Stabilization
+- **Fixed:** Unpinned hard-pinned versions (`next: "16.1.4"`, `react: "19.2.3"`) in favor of proper semver ranges (`^16`, `^19`) so future installs always resolve to the latest compatible patch.
+- **Updated:** `next` → `^16` (resolves to **16.2.10**, current stable), `eslint-config-next` → `^16` to match.
+- **Confirmed stable:** React 19 (stable since Dec 2024) and Tailwind CSS v4 (stable since Jan 2025) — no alpha/beta software in use.
+
+### Added & Restored
+- **AI Assistant:** Embedded Gemini-powered interactive chat widget (`AIAssistant.tsx`).
+- **Interactive Background:** Dynamic ambient background component (`InteractiveBackground.tsx`).
+- **Scramble Text Effect:** Cyberpunk text scramble on section headings (`ScrambleText.tsx`).
+- **Animated Stats Counter:** Smooth count-up animation for achievement numbers (`StatsCounter.tsx`).
+- **Typewriter Effect:** Animated role cycling in the Hero section (`Typewriter.tsx`).
+- **Global Focus Ring:** `:focus-visible` styling for comprehensive keyboard navigation.
+- **Download Resume CTA:** Persistent resume access in the Navbar.
+
+### Modified & Improved
+- **Section Order:** `Hero → Experience → Projects → Skills → About → Certifications → Achievements → Contact`.
+- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Intern '25–'26'") and impact.
+- **Navbar Logic:** Replaced static click routing with dynamic `IntersectionObserver` for accurate scroll tracking.
+- **Contact Footer:** Improved legibility with increased opacity and dynamic copyright year.
+
+### Optimized & Fixed
+- **Performance Overhaul:** Replaced heavy Canvas particle loops with pure CSS `@keyframes`, drastically reducing CPU/battery drain.
+- **Reduced Motion Support:** Added `prefers-reduced-motion` guards to `TiltCard` and animated components.
+- **Security & Clarity:** Removed personal identifiers from public-facing copy and replaced clichés with concrete capability statements.
+
+---
+
+## 4. Tech Stack
+
+| Category | Technology | Version |
+|---|---|---|
+| **Framework** | [Next.js](https://nextjs.org/) (App Router) | `^16` |
+| **Language** | TypeScript | `^5` |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | `^4` |
+| **Animations** | [Framer Motion](https://www.framer.com/motion/) | `^12` |
+| **Icons** | [Lucide React](https://lucide.dev/) | `^0.563` |
+| **Fonts** | Poppins (Headings) · Inter (Body) · JetBrains Mono (Code) | via `next/font/google` |
+| **Email** | [@emailjs/browser](https://www.emailjs.com/) | `^4` |
+| **Utilities** | clsx · tailwind-merge | `^2` · `^3` |
+
+---
+
+## 5. Project Architecture
+
+The application follows a modular, component-driven architecture using the Next.js App Router (single-page, statically exported).
+
+- **State Management:** React Hooks (`useState`, `useEffect`, `useRef`) for all local component state — no external state library.
+- **Styling System:** Tailwind CSS v4 with custom CSS variables (`--primary`, `--surface-1`, `--text-muted`, etc.) defined in `:root` and exposed via `@theme {}` for consistent theming and enforced dark mode.
+- **Animation Strategy:** `framer-motion` for complex entrance and layout animations; CSS `@keyframes` for continuous ambient background effects to save CPU cycles.
+- **Routing:** Single-page smooth scrolling via native anchor tags combined with an `IntersectionObserver` for navbar state sync.
+- **Output:** Static export (`output: 'export'`) — fully deployable to any CDN, Firebase Hosting, or Vercel.
+
+---
+
+## 6. Installation Guide
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/NiranjanSaravanakumar/portfolio.git
+cd portfolio
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure environment variables
+# Create a .env.local file in the project root with the following:
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+
+# 4. Start the development server
+npm run dev
+# → Navigate to http://localhost:3000
+```
+
+---
+
+## 7. Usage Instructions
+
+- **Development:** Run `npm run dev` → `http://localhost:3000`. Component changes hot-reload instantly.
+- **Content Updates:** Personal data (projects list, experience entries, skills, etc.) lives inside the data arrays at the top of each section component (e.g., `projects` array in `Projects.tsx`, `experiences` array in `Experience.tsx`).
+- **Styling Updates:** Modify global design tokens in the `:root` block of `src/app/globals.css` (colors, fonts, spacing). Tailwind theme extensions live in the `@theme {}` block in the same file.
+- **Adding Sections:** Create a new `.tsx` file in `src/components/sections/`, then import and render it inside `src/app/page.tsx`.
+
+---
+
+## 8. Folder Structure
+
+```text
+MyPortfolio/
+├── public/                         # Static assets (resume PDF, OG images, favicons)
+├── src/
+│   ├── app/
+│   │   ├── globals.css             # Design tokens (:root), Tailwind @theme, CSS keyframes
+│   │   ├── layout.tsx              # Root layout: next/font setup, metadata, SEO tags
+│   │   └── page.tsx                # Main page — assembles all sections in order
+│   ├── components/
+│   │   ├── sections/               # Full-page feature sections
+│   │   │   ├── Hero.tsx            # Landing hero with typewriter & animated badges
+│   │   │   ├── Experience.tsx      # ABB internship timeline & tech stacks
+│   │   │   ├── Projects.tsx        # Expandable project cards with TiltCard wrapper
+│   │   │   ├── Skills.tsx          # Categorized skills grid
+│   │   │   ├── About.tsx           # Bio, values, and personal snapshot
+│   │   │   ├── Certifications.tsx  # Credential cards with skill tags
+│   │   │   ├── Achievements.tsx    # Animated stats & impact metrics
+│   │   │   └── Contact.tsx         # EmailJS contact form with validation
+│   │   └── ui/                     # Reusable UI primitives & interactive widgets
+│   │       ├── Navbar.tsx          # IntersectionObserver-tracked responsive nav
+│   │       ├── AIAssistant.tsx     # Gemini-powered chat assistant widget
+│   │       ├── InteractiveBackground.tsx  # CSS-driven ambient background
+│   │       ├── ScrambleText.tsx    # Character-scramble text animation
+│   │       ├── SectionBackground.tsx     # Per-section background wrapper
+│   │       ├── StatsCounter.tsx    # Animated count-up stat display
+│   │       ├── TiltCard.tsx        # 3D perspective tilt on hover (mouse-tracked)
+│   │       └── Typewriter.tsx      # Cycling role-title typewriter effect
+│   └── lib/
+│       └── utils.ts                # cn() helper — clsx + tailwind-merge
+├── next.config.ts                  # Static export config (output: 'export')
+├── postcss.config.mjs              # Tailwind v4 PostCSS plugin config
+├── tsconfig.json                   # TypeScript config with path aliases (@/)
+└── package.json                    # Dependencies with ^-pinned semver ranges
+```
+
+---
+
+## 9. Performance Optimizations
+
+- **CSS-Driven Ambient Backgrounds:** Replaced expensive Canvas-based particle loops with CSS `@keyframes` + `radial-gradient` for zero-JS background animations.
+- **Next.js Font Optimization:** `next/font/google` loads Poppins, Inter, and JetBrains Mono with zero layout shift (`display: swap`).
+- **Lazy Animations:** `whileInView` + `once: true` on all Framer Motion components prevents off-screen render costs.
+- **Static Export:** `output: 'export'` in `next.config.ts` generates a fully static site — no server needed, deployable to any CDN.
+- **Image Optimization Bypass:** `images: { unoptimized: true }` is set for static export compatibility.
+
+---
+
+## 10. Accessibility
+
+- **Keyboard Navigation:** Global `:focus-visible` styles provide clear focus indicators for screen readers and power users.
+- **Reduced Motion:** `prefers-reduced-motion` media queries guard `TiltCard` and animation-heavy components against vestibular discomfort.
+- **Semantic HTML:** Correct heading hierarchy (`h1` → `h2` → `h3`), landmark regions (`<main>`, `<nav>`, `<section>`), and `aria-label`s on icon-only buttons.
+- **Contrast Compliance:** All `--text-*` tokens are tested against `--background` for WCAG AA contrast ratios.
+
+---
+
+## 11. Responsive Design
+
+- **Mobile-First Layouts:** Tailwind breakpoints (`sm:`, `md:`, `lg:`, `xl:`) scale from single-column mobile to multi-column desktop grids.
+- **Mobile Scroll-Lock:** Body scrolling is disabled when the hamburger navigation menu is open.
+- **Fluid Typography:** Heading font sizes and spacing are tuned per breakpoint for optimal touch-target sizing.
+
+---
+
+## 12. Future Enhancements
+
+- **Live Markdown Blog:** Add a `/blog` route using MDX for in-portfolio technical writing.
+- **GitHub API Integration:** Dynamically pull latest repositories and contribution graphs.
+- **Theme Toggle:** Context-based light/dark mode switcher.
+- **Publications Section:** Restore a dedicated section for filed patents and research papers.
+
+---
+
+## 13. Deployment
+
+The project is statically exported and ready for deployment to Firebase Hosting, Vercel, GitHub Pages, or any static CDN.
+
+```bash
+# Build the static export
+npm run build
+# → Generates the /out directory with all static files
+
+# Preview locally (optional)
+npx serve out
+```
+
+> **Note:** Ensure all `NEXT_PUBLIC_*` environment variables are configured in your hosting provider's dashboard before deploying.
+
+---
+
+## 14. Contributing
+
+As this is a personal portfolio, direct contributions are not expected. However, if you spot a bug or have a suggestion:
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b fix/your-fix-name`
+3. Commit your changes: `git commit -m 'fix: describe the fix'`
+4. Push the branch: `git push origin fix/your-fix-name`
+5. Open a Pull Request with a clear description.
+
+---
+
+## 15. Contact
+
+**Niranjan Saravanakumar**
+
+- **Email:** [nickniranjan2929@gmail.com](mailto:nickniranjan2929@gmail.com)
+- **LinkedIn:** [linkedin.com/in/niranjansaravanakumar](https://www.linkedin.com/in/niranjansaravanakumar/)
+- **GitHub:** [github.com/NiranjanSaravanakumar](https://github.com/NiranjanSaravanakumar)
 
 ---
 
