@@ -253,7 +253,7 @@ export function Contact() {
                                         onChange={handleChange}
                                         required
                                         autoComplete="name"
-                                        placeholder="Jane Smith"
+                                        placeholder="Your Name"
                                         style={{
                                             ...inputStyle,
                                             caretColor: "#00FF66",
@@ -286,7 +286,7 @@ export function Contact() {
                                         onChange={handleChange}
                                         required
                                         autoComplete="email"
-                                        placeholder="jane@company.com"
+                                        placeholder="yourmail@gmail.com"
                                         style={{
                                             ...inputStyle,
                                             caretColor: "#00FF66",
