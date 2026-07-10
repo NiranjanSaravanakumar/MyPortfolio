@@ -136,7 +136,7 @@ export function Hero() {
                     {/* ═══════════════════════════════════════
                         LEFT — Text content
                     ═══════════════════════════════════════ */}
-                    <div className="flex-1 flex flex-col justify-center" style={{ maxWidth: 620, transform: "translateX(35px)" }}>
+                    <div className="flex-1 flex flex-col justify-center" style={{ maxWidth: 620, transform: "translateX(25px)" }}>
 
                         {/* Badge */}
                         <motion.div {...fadeUp(0.05)} className="mb-7">
