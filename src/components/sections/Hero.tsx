@@ -286,7 +286,7 @@ export function Hero() {
 
                             {/* Secondary — Download Resume */}
                             <a
-                                href="/Niranjan_Resume.pdf"
+                                href="/Niranjan_Saravanakumar_Resume.pdf"
                                 download="Niranjan_Saravanakumar_Resume.pdf"
                                 aria-label="Download resume"
                                 className="group inline-flex items-center gap-2.5 font-semibold select-none"
