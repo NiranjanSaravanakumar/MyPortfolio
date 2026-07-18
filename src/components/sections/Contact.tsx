@@ -396,8 +396,7 @@ export function Contact() {
                         className="text-sm font-medium"
                         style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                     >
-                        © {new Date().getFullYear()} Niranjan Saravanakumar · Built with Next.js
-                    </p>
+                        © {new Date().getFullYear()} Niranjan Saravanakumar                     </p>
                 </div>
             </div>
         </section>

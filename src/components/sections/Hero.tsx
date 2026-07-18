@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Github, Linkedin, Code2, Download, ArrowRight, Mail } from "lucide-react";
 import Image from "next/image";
 import { InteractiveBackground } from "@/components/ui/InteractiveBackground";
@@ -27,6 +28,85 @@ const fadeUp = (delay = 0) => ({
     animate:    { opacity: 1, y: 0  },
     transition: { delay, duration: 0.55, ease: [0.16, 1, 0.3, 1] as const },
 });
+
+/* ─── Cycling role typewriter ───────────────────────────── */
+const ROLES = [
+    "Software Engineer",
+    "Full Stack Developer",
+    "AI & Machine Learning Enthusiast",
+    "Building with React, Python & LLMs",
+    "DSA Enthusiast",
+    "Analytical Problem Solver",
+    "Critical Thinker",
+];
+
+function RoleTypewriter() {
+    const [roleIndex, setRoleIndex] = useState(0);
+    const [displayed, setDisplayed]  = useState("");
+    const [phase, setPhase]          = useState<"typing" | "hold" | "erasing">("typing");
+
+    useEffect(() => {
+        const current = ROLES[roleIndex];
+
+        if (phase === "typing") {
+            if (displayed.length < current.length) {
+                const t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 55);
+                return () => clearTimeout(t);
+            } else {
+                const t = setTimeout(() => setPhase("hold"), 1600);
+                return () => clearTimeout(t);
+            }
+        }
+
+        if (phase === "hold") {
+            const t = setTimeout(() => setPhase("erasing"), 400);
+            return () => clearTimeout(t);
+        }
+
+        if (phase === "erasing") {
+            if (displayed.length > 0) {
+                const t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 30);
+                return () => clearTimeout(t);
+            } else {
+                setRoleIndex((i) => (i + 1) % ROLES.length);
+                setPhase("typing");
+            }
+        }
+    }, [displayed, phase, roleIndex]);
+
+    return (
+        <motion.div {...fadeUp(0.17)} style={{ marginBottom: 12, marginTop: -12 }}>
+            <span
+                style={{
+                    fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
+                    fontSize: "clamp(1.4rem, 2.8vw, 2rem)",
+                    fontWeight: 600,
+                    color: "#00FF66",
+                    letterSpacing: "0.01em",
+                    display: "inline-block",
+                    minHeight: "2em",
+                }}
+            >
+                {displayed}
+                <span
+                    style={{
+                        display: "inline-block",
+                        width: 2,
+                        height: "1.1em",
+                        background: "#00FF66",
+                        marginLeft: 3,
+                        verticalAlign: "middle",
+                        borderRadius: 1,
+                        animation: "pulseDot 1.1s ease-in-out infinite",
+                        boxShadow: "0 0 8px rgba(0,255,102,0.7)",
+                    }}
+                />
+            </span>
+        </motion.div>
+    );
+}
+
+
 
 /* ─── Portrait Card — fully static after entrance ──────── */
 function PortraitCard() {
@@ -138,32 +218,7 @@ export function Hero() {
                     ═══════════════════════════════════════ */}
                     <div className="flex-1 flex flex-col justify-center" style={{ maxWidth: 620, transform: "translateX(25px)" }}>
 
-                        {/* Badge */}
-                        <motion.div {...fadeUp(0.05)} className="mb-7">
-                            <span
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide"
-                                style={{
-                                    background: "rgba(0,255,102,0.07)",
-                                    border: "1px solid rgba(0,255,102,0.22)",
-                                    color: "#00FF66",
-                                    letterSpacing: "0.06em",
-                                }}
-                            >
-                                <span
-                                    style={{
-                                        width: 7,
-                                        height: 7,
-                                        borderRadius: "50%",
-                                        background: "#00FF66",
-                                        display: "inline-block",
-                                        flexShrink: 0,
-                                        boxShadow: "0 0 6px #00FF66",
-                                        animation: "pulseDot 2.4s ease-in-out infinite",
-                                    }}
-                                />
-                                Software Engineer&nbsp;•&nbsp;Test Automation&nbsp;•&nbsp;Full-Stack
-                            </span>
-                        </motion.div>
+
 
                         {/* Heading */}
                         <motion.h1
@@ -197,6 +252,9 @@ export function Hero() {
                                 NIRANJAN
                             </span>
                         </motion.h1>
+
+                        {/* Cycling role typewriter */}
+                        <RoleTypewriter />
 
                         {/* Description */}
                         <motion.p

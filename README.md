@@ -1,5 +1,9 @@
 # Niranjan Saravanakumar — Personal Portfolio
 
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=600&size=24&pause=1000&color=00C896&center=true&vCenter=true&width=700&lines=Software+Engineer;Full+Stack+Developer;AI+%26+Machine+Learning+Enthusiast;Building+with+React%2C+Python+%26+LLMs" alt="Typing animation" />
+</p>
+
 > A high-performance, recruiter-ready developer portfolio built with **Next.js 16**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.  
 > Designed to instantly highlight enterprise experience, technical depth, and full-stack engineering capabilities.
 
