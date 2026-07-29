@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Github, Linkedin, Code2, Download, ArrowRight, Mail } from "lucide-react";
+import { Github, Linkedin, Code2, ArrowRight, ExternalLink, Mail } from "lucide-react";
 import Image from "next/image";
 import { InteractiveBackground } from "@/components/ui/InteractiveBackground";
 
@@ -344,11 +344,12 @@ export function Hero() {
                                 <span className="relative z-10">Explore Projects</span>
                             </a>
 
-                            {/* Secondary — Download Resume */}
+                            {/* Secondary — View Resume */}
                             <a
                                 href="/Niranjan_Saravanakumar_Resume.pdf"
-                                download="Niranjan_Saravanakumar_Resume.pdf"
-                                aria-label="Download resume"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="View resume"
                                 className="group inline-flex flex-1 lg:flex-none items-center justify-center gap-2.5 font-semibold select-none"
                                 style={{
                                     height: 60,
@@ -380,8 +381,8 @@ export function Hero() {
                                     el.style.transform = "scale(1)";
                                 }}
                             >
-                                <Download size={17} className="flex-shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5" />
-                                Download Resume
+                                <ExternalLink size={17} className="flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                                View Resume
                             </a>
                         </motion.div>
 

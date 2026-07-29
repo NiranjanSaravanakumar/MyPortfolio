@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 
 const stats = [
-    { value: "120+", label: "Automated Test Cases Written"  },
-    { value: "80%",  label: "Test Coverage Increase"        },
-    { value: "50+",  label: "Vulnerabilities Resolved"      },
-    { value: "45%",  label: "Faster CI/CD Release Cycles"   },
-    { value: "35%",  label: "Faster Defect Detection"       },
-    { value: "8.65", label: "CGPA / 10.0"                   },
+    { value: "120+", label: "Automated Test Cases Written" },
+    { value: "80%", label: "Test Coverage Increase" },
+    { value: "50+", label: "Vulnerabilities Resolved" },
+    { value: "45%", label: "Faster CI/CD Release Cycles" },
+    { value: "35%", label: "Faster Defect Detection" },
+    { value: "8.62", label: "CGPA / 10.0" },
 ];
 
 export function Achievements() {
@@ -62,7 +62,7 @@ export function Achievements() {
                         }}
                     >
                         Measurable impact delivered during my Software Engineering Internship at{" "}
-                        <span style={{ color: "#00FF66", fontWeight: 600 }}>ABB</span> — a Fortune 500 global technology company.
+                        <span style={{ color: "#00FF66", fontWeight: 600 }}>ABB Global Industries and Services Private Limited</span> — a Fortune 500 global technology company.
                     </p>
                 </motion.div>
 
@@ -86,12 +86,12 @@ export function Achievements() {
                             onMouseEnter={(e) => {
                                 const el = e.currentTarget as HTMLDivElement;
                                 el.style.borderColor = "rgba(0,255,102,0.55)";
-                                el.style.boxShadow   = "0 0 0 1px rgba(0,255,102,0.30), 0 4px 24px rgba(0,0,0,0.5)";
+                                el.style.boxShadow = "0 0 0 1px rgba(0,255,102,0.30), 0 4px 24px rgba(0,0,0,0.5)";
                             }}
                             onMouseLeave={(e) => {
                                 const el = e.currentTarget as HTMLDivElement;
                                 el.style.borderColor = "rgba(0,255,102,0.20)";
-                                el.style.boxShadow   = "none";
+                                el.style.boxShadow = "none";
                             }}
                         >
                             <div
@@ -129,7 +129,7 @@ export function Achievements() {
                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                     }}
                 >
-                    Metrics from Software Engineering Internship at ABB, Bangalore — Aug 2025 to May 2026
+                    Metrics from Software Engineering Internship at ABB Global Industries and Services Private Limited, Bangalore — Aug 2025 to May 2026
                 </motion.p>
             </div>
         </section>

@@ -11,7 +11,7 @@
 
 ## 1. Project Overview
 
-This portfolio is engineered to maximize technical credibility and user experience. It serves as a comprehensive showcase of Niranjan Saravanakumar's software engineering capabilities — specifically highlighting an automation-heavy internship at ABB, full-stack projects, structured skills, and verified certifications. The architecture prioritizes instant load times, accessible navigation, and high-impact visual design.
+This portfolio is engineered to maximize technical credibility and user experience. It serves as a comprehensive showcase of Niranjan Saravanakumar's software engineering capabilities — specifically highlighting an automation-heavy internship at ABB Global Industries and Services Private Limited, full-stack projects, structured skills, and verified certifications. The architecture prioritizes instant load times, accessible navigation, and high-impact visual design.
 
 ---
 
@@ -21,7 +21,7 @@ This portfolio is engineered to maximize technical credibility and user experien
 - 🧭 **Context-Aware Navbar** — `IntersectionObserver`-driven active states with mobile scroll-lock and a persistent "Download Resume" CTA.
 - 🤖 **AI Assistant** — Embedded Gemini-powered chat assistant for interactive portfolio exploration.
 - ✍️ **Scramble Text** — Cyberpunk-style character scramble animation on key headings.
-- 💼 **Enterprise Experience** — Quantified impact metrics and strategically sorted tech stacks from the ABB internship.
+- 💼 **Enterprise Experience** — Quantified impact metrics and strategically sorted tech stacks from the ABB Global Industries and Services Private Limited internship.
 - 📂 **Interactive Projects** — Expandable detail panels with 3D tilt hover effects powered by `TiltCard`.
 - 🔧 **Structured Skills Grid** — Logical categories covering Full-Stack, DevOps, Testing, and AI tooling.
 - 📊 **Animated Stats Counter** — Animated counters showcasing key achievement metrics.
@@ -50,7 +50,7 @@ This portfolio is engineered to maximize technical credibility and user experien
 
 ### Modified & Improved
 - **Section Order:** `Hero → Experience → Projects → Skills → About → Certifications → Achievements → Contact`.
-- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Intern '25–'26'") and impact.
+- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Global Industries and Services Private Limited Intern '25–'26'") and impact.
 - **Navbar Logic:** Replaced static click routing with dynamic `IntersectionObserver` for accurate scroll tracking.
 - **Contact Footer:** Improved legibility with increased opacity and dynamic copyright year.
 
@@ -133,7 +133,7 @@ MyPortfolio/
 │   ├── components/
 │   │   ├── sections/               # Full-page feature sections
 │   │   │   ├── Hero.tsx            # Landing hero with typewriter & animated badges
-│   │   │   ├── Experience.tsx      # ABB internship timeline & tech stacks
+│   │   │   ├── Experience.tsx      # ABB Global Industries and Services Private Limited internship timeline & tech stacks
 │   │   │   ├── Projects.tsx        # Expandable project cards with TiltCard wrapper
 │   │   │   ├── Skills.tsx          # Categorized skills grid
 │   │   │   ├── About.tsx           # Bio, values, and personal snapshot
@@ -235,7 +235,7 @@ As this is a personal portfolio, direct contributions are not expected. However,
 ---
 
 ## 1. Project Overview
-This portfolio is engineered to maximize technical credibility and user experience. It serves as a comprehensive showcase of Niranjan Saravanakumar's software engineering capabilities, specifically highlighting an automation-heavy internship at ABB, full-stack projects, and notable research publications (patents and papers). The architecture prioritizes instantaneous load times, accessible navigation, and high-impact visual design.
+This portfolio is engineered to maximize technical credibility and user experience. It serves as a comprehensive showcase of Niranjan Saravanakumar's software engineering capabilities, specifically highlighting an automation-heavy internship at ABB Global Industries and Services Private Limited, full-stack projects, and notable research publications (patents and papers). The architecture prioritizes instantaneous load times, accessible navigation, and high-impact visual design.
 
 ---
 
@@ -261,7 +261,7 @@ This portfolio is engineered to maximize technical credibility and user experien
 
 ### Modified & Improved
 - **Section Reordering:** Prioritized high-signal content: Experience -> Projects -> Skills -> About -> Publications.
-- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Intern '25–'26'") and impact.
+- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Global Industries and Services Private Limited Intern '25–'26'") and impact.
 - **Navbar Logic:** Replaced static click-based routing with a dynamic `IntersectionObserver` for accurate scroll tracking.
 - **Tailwind v4 Compliance:** Registered custom CSS animations directly into the `@theme` block.
 - **Contact Footer:** Improved legibility with increased opacity and dynamic copyright year calculation.

@@ -8,7 +8,7 @@ const experience = [
     {
         id: 1,
         role: "Software Engineering Intern",
-        company: "ABB",
+        company: "ABB Global Industries and Services Private Limited",
         period: "Aug 2025 – May 2026",
         location: "Bangalore, India",
         type: "Industry Internship",
@@ -29,9 +29,9 @@ const experience = [
 
 const impactStats = [
     { label: "Test Cases Written", value: "120+", color: "#00FF66" },
-    { label: "Coverage Increase",  value: "80%",  color: "#00FF66" },
-    { label: "Bugs Eliminated",    value: "50+",  color: "#00FF66" },
-    { label: "Faster CI/CD",       value: "45%",  color: "#00FF66" },
+    { label: "Coverage Increase", value: "80%", color: "#00FF66" },
+    { label: "Bugs Eliminated", value: "50+", color: "#00FF66" },
+    { label: "Faster CI/CD", value: "45%", color: "#00FF66" },
 ];
 
 export function Experience() {
@@ -92,12 +92,12 @@ export function Experience() {
                             onMouseEnter={(e) => {
                                 const el = e.currentTarget as HTMLDivElement;
                                 el.style.borderColor = "rgba(0,255,102,0.50)";
-                                el.style.boxShadow   = "0 4px 28px rgba(0,0,0,0.5)";
+                                el.style.boxShadow = "0 4px 28px rgba(0,0,0,0.5)";
                             }}
                             onMouseLeave={(e) => {
                                 const el = e.currentTarget as HTMLDivElement;
                                 el.style.borderColor = "rgba(0,255,102,0.20)";
-                                el.style.boxShadow   = "none";
+                                el.style.boxShadow = "none";
                             }}
                         >
                             <div
@@ -261,12 +261,12 @@ export function Experience() {
                                                     onMouseEnter={(e) => {
                                                         const el = e.target as HTMLElement;
                                                         el.style.borderColor = "rgba(0,255,102,0.45)";
-                                                        el.style.color       = "#00FF66";
+                                                        el.style.color = "#00FF66";
                                                     }}
                                                     onMouseLeave={(e) => {
                                                         const el = e.target as HTMLElement;
                                                         el.style.borderColor = "rgba(255,255,255,0.10)";
-                                                        el.style.color       = "rgba(255,255,255,0.88)";
+                                                        el.style.color = "rgba(255,255,255,0.88)";
                                                     }}
                                                 >
                                                     {tech}

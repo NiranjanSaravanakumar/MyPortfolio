@@ -22,8 +22,8 @@ const botResponses: { [key: string]: string[] } = {
         "His core stack includes Python, TensorFlow/PyTorch, LangChain, FastAPI, and various vector databases like Qdrant. He's a full-stack AI engineer!",
     ],
     experience: [
-        "Currently, Krisvanth works as an Associate Software Engineer at ABB Ltd., where he's building LLMOps pipelines and SQL generation systems using custom LLMs!",
-        "He has experience at multiple companies including ABB, Goldstone Technologies, TensorGo, and ResearchBrains - all focused on AI/ML and Computer Vision.",
+        "Currently, Krisvanth works as an Associate Software Engineer at ABB Global Industries and Services Private Limited Ltd., where he's building LLMOps pipelines and SQL generation systems using custom LLMs!",
+        "He has experience at multiple companies including ABB Global Industries and Services Private Limited, Goldstone Technologies, TensorGo, and ResearchBrains - all focused on AI/ML and Computer Vision.",
     ],
     projects: [
         "Check out his projects section! Highlights include Txt2Img Generation, DocQueryBot (RAG system), and an Impersonation Detection system for exam centers.",

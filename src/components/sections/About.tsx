@@ -1,20 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Mail, User, Rocket } from "lucide-react";
+import { GraduationCap, MapPin, Mail, User, Download } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 
 const aboutPoints = [
-    "Final-year B.Tech Information Technology student at K S Rangasamy College of Technology (CGPA: 8.65 / 10), with hands-on industry experience through my internship at ABB, Bangalore.",
-    "At ABB, I designed 120+ automated test cases, resolved 50+ code vulnerabilities, and streamlined CI/CD pipelines — directly improving release velocity and code quality across multiple production projects.",
+    "Final-year B.Tech Information Technology student at K S Rangasamy College of Technology (CGPA: 8.62 / 10), with hands-on industry experience through my internship at ABB Global Industries and Services Private Limited, Bangalore.",
+    "At ABB Global Industries and Services Private Limited, I designed 120+ automated test cases, resolved 50+ code vulnerabilities, and streamlined CI/CD pipelines — directly improving release velocity and code quality across multiple production projects.",
     "Comfortable across the full technology stack: Python and C# on the backend, React and Angular on the frontend, and Docker/Kubernetes/Azure DevOps for infrastructure — always with a focus on maintainability and quality.",
 ];
 
 const quickFacts = [
-    { icon: MapPin,       label: "Location",  value: "Erode, Tamil Nadu, India"        },
-    { icon: Mail,         label: "Email",     value: "niranjan29293@gmail.com", href: "mailto:niranjan29293@gmail.com" },
-    { icon: GraduationCap,label: "Degree",    value: "B.Tech IT · 2023 – 2027"         },
-    { icon: Rocket,       label: "Available", value: "Open to full-time roles from 2027"},
+    { icon: MapPin, label: "Location", value: "Erode, Tamil Nadu, India", href: undefined, download: false },
+    { icon: Mail, label: "Email", value: "niranjan29293@gmail.com", href: "mailto:niranjan29293@gmail.com", download: false },
+    { icon: GraduationCap, label: "Degree", value: "B.Tech IT · 2023 – 2027", href: undefined, download: false },
+    { icon: Download, label: "Resume", value: "Download PDF", href: "/Niranjan_Saravanakumar_Resume.pdf", download: true },
 ];
 
 const education = [
@@ -23,7 +23,7 @@ const education = [
         degree: "Bachelor of Technology — Information Technology",
         school: "K S Rangasamy College of Technology",
         period: "2023 – 2027",
-        badge: "CGPA: 8.65 / 10.0",
+        badge: "CGPA: 8.62 / 10.0",
         points: [
             "Core coursework in data structures, algorithms, database systems, software engineering, and web technologies.",
             "Active participant in technical fests, hackathons, and workshops — consistently building both depth and breadth.",
@@ -124,51 +124,71 @@ export function About() {
 
                         {/* Quick Facts */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {quickFacts.map(({ icon: Icon, label, value, href }, i) => (
-                                <motion.div
-                                    key={label}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.25 + i * 0.07 }}
-                                    className="flex items-center gap-3 p-4 rounded-xl"
-                                    style={{
-                                        background: "#101010",
-                                        border: "1px solid rgba(0,255,102,0.20)",
-                                        transition: "border-color 0.22s ease",
-                                    }}
-                                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.50)"; }}
-                                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
-                                >
-                                    <Icon size={16} style={{ color: "#00FF66", flexShrink: 0 }} />
-                                    <div className="min-w-0">
-                                        <div
-                                            className="text-xs font-semibold uppercase tracking-wider mb-0.5"
-                                            style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
-                                        >
-                                            {label}
-                                        </div>
-                                        {href ? (
-                                            <a
-                                                href={href}
-                                                className="text-sm font-medium truncate block transition-colors"
-                                                style={{ color: "rgba(255,255,255,0.92)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
-                                                onMouseEnter={(e) => { (e.currentTarget).style.color = "#00FF66"; }}
-                                                onMouseLeave={(e) => { (e.currentTarget).style.color = "rgba(255,255,255,0.92)"; }}
+                            {quickFacts.map(({ icon: Icon, label, value, href, download }, i) => {
+                                const inner = (
+                                    <>
+                                        <Icon size={16} style={{ color: "#00FF66", flexShrink: 0 }} />
+                                        <div className="min-w-0">
+                                            <div
+                                                className="text-xs font-semibold uppercase tracking-wider mb-0.5"
+                                                style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                             >
-                                                {value}
-                                            </a>
-                                        ) : (
+                                                {label}
+                                            </div>
                                             <div
                                                 className="text-sm font-medium truncate"
-                                                style={{ color: "rgba(255,255,255,0.92)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                                style={{
+                                                    color: href ? "#00FF66" : "rgba(255,255,255,0.92)",
+                                                    fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                                                }}
                                             >
                                                 {value}
                                             </div>
+                                        </div>
+                                    </>
+                                );
+
+                                const cardStyle = {
+                                    background: "#101010",
+                                    border: "1px solid rgba(0,255,102,0.20)",
+                                    transition: "border-color 0.22s ease",
+                                };
+
+                                return (
+                                    <motion.div
+                                        key={label}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.25 + i * 0.07 }}
+                                    >
+                                        {href ? (
+                                            <a
+                                                href={href}
+                                                {...(download
+                                                    ? { download: "Niranjan_Saravanakumar_Resume.pdf" }
+                                                    : { target: "_self" })}
+                                                aria-label={label}
+                                                className="flex items-center gap-3 p-4 rounded-xl w-full"
+                                                style={{ ...cardStyle, textDecoration: "none", display: "flex" }}
+                                                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,255,102,0.50)"; }}
+                                                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
+                                            >
+                                                {inner}
+                                            </a>
+                                        ) : (
+                                            <div
+                                                className="flex items-center gap-3 p-4 rounded-xl"
+                                                style={cardStyle}
+                                                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.50)"; }}
+                                                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
+                                            >
+                                                {inner}
+                                            </div>
                                         )}
-                                    </div>
-                                </motion.div>
-                            ))}
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </motion.div>
 

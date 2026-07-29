@@ -27,22 +27,22 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Niranjan Saravanakumar | Software Engineer",
   description:
-    "Portfolio of Niranjan Saravanakumar — Software Engineering Intern at ABB with expertise in test automation, full-stack development, and DevOps. CGPA 8.65 | Python | React | TypeScript | Azure DevOps.",
+    "Portfolio of Niranjan Saravanakumar — Software Engineering Intern at ABB Global Industries and Services Private Limited with expertise in test automation, full-stack development, and DevOps. CGPA 8.62 | Python | React | TypeScript | Azure DevOps.",
   keywords:
-    "Niranjan Saravanakumar, Software Engineer, Software Engineering Intern, ABB, Full Stack Developer, Python, React, TypeScript, Test Automation, DevOps, CI/CD, SonarQube, Portfolio",
+    "Niranjan Saravanakumar, Software Engineer, Software Engineering Intern, ABB Global Industries and Services Private Limited, Full Stack Developer, Python, React, TypeScript, Test Automation, DevOps, CI/CD, SonarQube, Portfolio",
   authors: [{ name: "Niranjan Saravanakumar" }],
   robots: "index, follow",
   openGraph: {
     title: "Niranjan Saravanakumar | Software Engineer",
     description:
-      "Software Engineering Intern @ ABB | Test Automation | Full-Stack | DevOps | Python | React",
+      "Software Engineering Intern @ ABB Global Industries and Services Private Limited | Test Automation | Full-Stack | DevOps | Python | React",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
     title: "Niranjan Saravanakumar | Software Engineer",
-    description: "Software Engineering Intern @ ABB | Python · React · TypeScript · DevOps",
+    description: "Software Engineering Intern @ ABB Global Industries and Services Private Limited | Python · React · TypeScript · DevOps",
   },
 };
 
