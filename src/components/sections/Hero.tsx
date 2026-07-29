@@ -297,16 +297,18 @@ export function Hero() {
                         {/* CTA buttons */}
                         <motion.div
                             {...fadeUp(0.32)}
-                            className="flex flex-wrap items-center gap-4"
+                            className="flex flex-wrap items-center justify-center lg:justify-start gap-4"
                             style={{ marginBottom: 48 }}
                         >
                             {/* Primary — Explore Projects */}
                             <a
                                 href="#projects"
                                 aria-label="Explore projects"
-                                className="group relative inline-flex items-center gap-2.5 font-semibold overflow-hidden select-none"
+                                className="group relative inline-flex flex-1 lg:flex-none items-center justify-center gap-2.5 font-semibold overflow-hidden select-none"
                                 style={{
                                     height: 60,
+                                    minWidth: 180,
+                                    maxWidth: 260,
                                     padding: "0 32px",
                                     background: "#00FF66",
                                     color: "#000000",
@@ -347,9 +349,11 @@ export function Hero() {
                                 href="/Niranjan_Saravanakumar_Resume.pdf"
                                 download="Niranjan_Saravanakumar_Resume.pdf"
                                 aria-label="Download resume"
-                                className="group inline-flex items-center gap-2.5 font-semibold select-none"
+                                className="group inline-flex flex-1 lg:flex-none items-center justify-center gap-2.5 font-semibold select-none"
                                 style={{
                                     height: 60,
+                                    minWidth: 180,
+                                    maxWidth: 260,
                                     padding: "0 32px",
                                     background: "rgba(0,255,102,0.06)",
                                     color: "#00FF66",
