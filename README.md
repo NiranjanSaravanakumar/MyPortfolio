@@ -228,7 +228,7 @@ As this is a personal portfolio, direct contributions are not expected. However,
 
 **Niranjan Saravanakumar**
 
-- **Email:** [nickniranjan2929@gmail.com](mailto:nickniranjan2929@gmail.com)
+- **Email:** [niranjan29293@gmail.com](mailto:niranjan29293@gmail.com)
 - **LinkedIn:** [linkedin.com/in/niranjansaravanakumar](https://www.linkedin.com/in/niranjansaravanakumar/)
 - **GitHub:** [github.com/NiranjanSaravanakumar](https://github.com/NiranjanSaravanakumar)
 
@@ -414,6 +414,6 @@ As this is a personal portfolio, direct code contributions are not typically exp
 
 ## 16. Contact Information
 **Niranjan Saravanakumar**
-- **Email:** [nickniranjan2929@gmail.com](mailto:nickniranjan2929@gmail.com)
+- **Email:** [niranjan29293@gmail.com](mailto:niranjan29293@gmail.com)
 - **LinkedIn:** [linkedin.com/in/niranjansaravanakumar](https://www.linkedin.com/in/niranjansaravanakumar/)
 - **GitHub:** [github.com/NiranjanSaravanakumar](https://github.com/NiranjanSaravanakumar)

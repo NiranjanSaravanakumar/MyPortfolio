@@ -12,7 +12,7 @@ const aboutPoints = [
 
 const quickFacts = [
     { icon: MapPin,       label: "Location",  value: "Erode, Tamil Nadu, India"        },
-    { icon: Mail,         label: "Email",     value: "nickniranjan2929@gmail.com", href: "mailto:nickniranjan2929@gmail.com" },
+    { icon: Mail,         label: "Email",     value: "niranjan29293@gmail.com", href: "mailto:niranjan29293@gmail.com" },
     { icon: GraduationCap,label: "Degree",    value: "B.Tech IT · 2023 – 2027"         },
     { icon: Rocket,       label: "Available", value: "Open to full-time roles from 2027"},
 ];

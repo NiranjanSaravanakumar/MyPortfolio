@@ -35,7 +35,7 @@ export function Contact() {
     };
 
     const contactLinks = [
-        { href: "mailto:nickniranjan2929@gmail.com",                          icon: Mail,     label: "Email",    value: "nickniranjan2929@gmail.com",  external: false },
+        { href: "mailto:niranjan29293@gmail.com",                          icon: Mail,     label: "Email",    value: "niranjan29293@gmail.com",  external: false },
         { href: "tel:+919080029293",                                          icon: Phone,    label: "Phone",    value: "+91 9080029293",               external: false },
         { href: "https://www.linkedin.com/in/niranjansaravanakumar/",         icon: Linkedin, label: "LinkedIn", value: "Connect on LinkedIn",          external: true  },
         { href: "https://github.com/NiranjanSaravanakumar",                   icon: Github,   label: "GitHub",   value: "NiranjanSaravanakumar",        external: true  },
@@ -379,7 +379,7 @@ export function Contact() {
                                 )}
                                 {status === "error" && (
                                     <p className="text-center text-sm font-medium" style={{ color: "rgba(255, 100, 100, 0.90)" }}>
-                                        Something went wrong. Email me at nickniranjan2929@gmail.com
+                                        Something went wrong. Email me at niranjan29293@gmail.com
                                     </p>
                                 )}
                             </form>
