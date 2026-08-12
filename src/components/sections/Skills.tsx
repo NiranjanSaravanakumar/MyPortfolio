@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
+import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 const skillCategories = [
     {
@@ -88,7 +89,7 @@ export function Skills() {
                                 letterSpacing: "-0.02em",
                             }}
                         >
-                            Technical Expertise
+                            <ScrollBounceText as="span">Technical Expertise</ScrollBounceText>
                         </h2>
                         <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                         <p

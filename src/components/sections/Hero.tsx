@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { Github, Linkedin, Code2, ArrowRight, ExternalLink, Mail } from "lucide-react";
 import Image from "next/image";
 import { InteractiveBackground } from "@/components/ui/InteractiveBackground";
+import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 /* ─── Social links ─────────────────────────────────────── */
 const socialLinks = [
@@ -232,10 +233,10 @@ export function Hero() {
                             style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)", lineHeight: 1.06, marginBottom: 28 }}
                         >
                             <span className="block font-bold" style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.75rem)", color: "rgba(255,255,255,0.92)", marginBottom: 6 }}>
-                                Hello, I&apos;m
+                                <ScrollBounceText as="span" intensity={0.7}>Hello, I&apos;m</ScrollBounceText>
                             </span>
                             <span className="block font-black" style={{ fontSize: "clamp(4rem, 9vw, 7rem)", color: "#2dd43bff", letterSpacing: "-0.03em", lineHeight: 0.95, textShadow: "0 0 80px rgba(0,255,102,0.18)" }}>
-                                NIRANJAN
+                                <ScrollBounceText as="span" intensity={1.5}>NIRANJAN</ScrollBounceText>
                             </span>
                         </motion.h1>
 

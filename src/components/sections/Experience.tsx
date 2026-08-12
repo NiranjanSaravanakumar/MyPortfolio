@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { Calendar, Briefcase, TrendingUp, MapPin } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
+import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 const experience = [
     {
@@ -87,7 +88,7 @@ export function Experience() {
                                 letterSpacing: "-0.02em",
                             }}
                         >
-                            Work Experience
+                            <ScrollBounceText as="span">Work Experience</ScrollBounceText>
                         </h2>
                         <div className="w-16 h-0.5 mx-auto" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                     </motion.div>

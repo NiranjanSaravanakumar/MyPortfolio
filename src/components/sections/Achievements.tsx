@@ -4,9 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
+import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 const stats = [
-    { value: "120+", label: "Automated Test Cases Written" },
+    { value: "300+", label: "Automated Test Cases Written" },
     { value: "80%",  label: "Test Coverage Increase" },
     { value: "50+",  label: "Vulnerabilities Resolved" },
     { value: "45%",  label: "Faster CI/CD Release Cycles" },
@@ -64,7 +65,7 @@ export function Achievements() {
                                 letterSpacing: "-0.02em",
                             }}
                         >
-                            By The Numbers
+                            <ScrollBounceText as="span">By The Numbers</ScrollBounceText>
                         </h2>
                         <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                         <p

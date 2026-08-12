@@ -6,6 +6,7 @@ import { Mail, Phone, MapPin, Linkedin, Send, Github, Loader2, CheckCircle, Aler
 import { useRef, useState } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { fadeUp3D, card3DEntrance, stagger3D } from "@/components/ui/ScrollAnimationWrapper";
+import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 const SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
@@ -102,7 +103,7 @@ export function Contact() {
                             letterSpacing: "-0.02em",
                         }}
                     >
-                        Let&apos;s Connect
+                        <ScrollBounceText as="span">Let&apos;s Connect</ScrollBounceText>
                     </h2>
                     <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                     <p

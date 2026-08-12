@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useInView, useScroll, useTransform } from "fra
 import { ExternalLink, Github, Folder, Zap, Code2, Briefcase, Cpu, ChevronDown, ChevronUp } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
+import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 /* ─── Project data ──────────────────────────────────── */
 const projects = [
@@ -417,7 +418,7 @@ export function Projects() {
                             letterSpacing: "-0.02em",
                         }}
                     >
-                        Featured Projects
+                        <ScrollBounceText as="span">Featured Projects</ScrollBounceText>
                     </h2>
                     <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                     <p style={{ color: "rgba(255,255,255,0.88)", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 480, margin: "0 auto" }}>

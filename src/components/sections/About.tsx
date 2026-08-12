@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { GraduationCap, MapPin, Mail, User, Download } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
+import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 const aboutPoints = [
     "Final-year B.Tech Information Technology student at K S Rangasamy College of Technology (CGPA: 8.62 / 10), with hands-on industry experience through my internship at ABB Global Industries and Services Private Limited, Bangalore.",
@@ -36,7 +37,7 @@ const education = [
         degree: "Higher Secondary Education — Science",
         school: "Shri Janani Matric Higher Secondary School",
         period: "2022 – 2023",
-        badge: "89.67%",
+        badge: "89%",
         points: [
             "Excelled in Mathematics, Physics, and Computer Science, building a strong quantitative foundation.",
         ],
@@ -91,7 +92,7 @@ export function About() {
                             letterSpacing: "-0.02em",
                         }}
                     >
-                        Who I Am
+                        <ScrollBounceText as="span">Who I Am</ScrollBounceText>
                     </h2>
                     <div className="w-16 h-0.5 mx-auto" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
                 </motion.div>
