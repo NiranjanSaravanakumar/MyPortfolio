@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 
 /* Primary heading font — bold & modern */
 const poppins = Poppins({
@@ -57,6 +58,7 @@ export default function RootLayout({
         className={`${poppins.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-[var(--background)] text-[var(--foreground)]`}
       >
         <div className="scanlines" />
+        <ScrollProgressBar />
         {children}
       </body>
     </html>

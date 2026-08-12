@@ -1,19 +1,26 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, Phone, MapPin, Linkedin, Send, Github, Loader2, CheckCircle, AlertCircle, Code2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
+import { fadeUp3D, card3DEntrance, stagger3D } from "@/components/ui/ScrollAnimationWrapper";
 
 const SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
 const PUBLIC_KEY  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
 export function Contact() {
-    const formRef = useRef<HTMLFormElement>(null);
+    const formRef    = useRef<HTMLFormElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+    const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [8, 0, 0, -5]);
+    const translateY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [50, 0, 0, -15]);
+    const scale      = useTransform(scrollYProgress, [0, 0.25, 0.8, 1], [0.96, 1, 1, 0.97]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,16 +63,24 @@ export function Contact() {
     };
 
     return (
-        <section id="contact" className="py-28 relative overflow-hidden" style={{ background: "#0a0a0a" }} aria-label="Contact">
+        <section
+            id="contact"
+            ref={sectionRef}
+            className="py-28 relative overflow-hidden"
+            style={{ background: "#0a0a0a", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            aria-label="Contact"
+        >
             <SectionBackground variant="primary" intensity="low" />
 
+            <motion.div style={{ rotateX, y: translateY, scale, transformStyle: "preserve-3d", willChange: "transform" }}>
             <div className="relative z-10 w-full mx-auto px-6 lg:px-8" style={{ maxWidth: 1100 }}>
 
                 {/* ── Section Header ── */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    variants={fadeUp3D}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-80px" }}
                     className="text-center mb-16"
                 >
                     <span
@@ -399,6 +414,7 @@ export function Contact() {
                         © {new Date().getFullYear()} Niranjan Saravanakumar                     </p>
                 </div>
             </div>
+            </motion.div>
         </section>
     );
 }

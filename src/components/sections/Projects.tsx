@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { ExternalLink, Github, Folder, Zap, Code2, Briefcase, Cpu, ChevronDown, ChevronUp } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
+import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
 
 /* ─── Project data ──────────────────────────────────── */
 const projects = [
@@ -191,11 +192,19 @@ function ProjectCard({
 }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.10, duration: 0.48 }}
+            variants={card3DEntrance}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ delay: index * 0.1 }}
             className="flex flex-col h-full"
+            whileHover={{
+                scale: 1.03,
+                rotateY: 4,
+                rotateX: -2,
+                y: -8,
+                transition: { duration: 0.3 },
+            }}
         >
             <div
                 className="relative flex flex-col h-full"
@@ -341,9 +350,15 @@ function ProjectCard({
 export function Projects() {
     const statsRef    = useRef<HTMLDivElement>(null);
     const detailRef   = useRef<HTMLDivElement>(null);
+    const sectionRef  = useRef<HTMLElement>(null);
     const isInView    = useInView(statsRef, { once: true, margin: "-50px" });
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [isPulsing, setIsPulsing] = useState(false);
+
+    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+    const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [8, 0, 0, -5]);
+    const translateY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [50, 0, 0, -15]);
+    const scale      = useTransform(scrollYProgress, [0, 0.25, 0.8, 1], [0.96, 1, 1, 0.97]);
 
     const handleSelect = useCallback((i: number | null) => {
         setSelectedIndex(i);
@@ -363,16 +378,24 @@ export function Projects() {
     const selectedProject = selectedIndex !== null ? projects[selectedIndex] : null;
 
     return (
-        <section id="projects" className="py-28 relative overflow-hidden" style={{ background: "#080808" }} aria-label="Projects">
+        <section
+            id="projects"
+            ref={sectionRef}
+            className="py-28 relative overflow-hidden"
+            style={{ background: "#080808", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            aria-label="Projects"
+        >
             <SectionBackground variant="primary" intensity="medium" />
 
+            <motion.div style={{ rotateX, y: translateY, scale, transformStyle: "preserve-3d", willChange: "transform" }}>
             <div className="relative z-10 w-full mx-auto px-6 lg:px-8" style={{ maxWidth: 1280 }}>
 
                 {/* ── Section Header ── */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    variants={fadeUp3D}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-80px" }}
                     className="mb-16 text-center"
                 >
                     <span
@@ -432,7 +455,13 @@ export function Projects() {
                 </div>
 
                 {/* ── Project cards grid ── */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <motion.div
+                    variants={stagger3D}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-60px" }}
+                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
                     {projects.map((project, index) => (
                         <ProjectCard
                             key={index}
@@ -442,7 +471,7 @@ export function Projects() {
                             onSelect={handleSelect}
                         />
                     ))}
-                </div>
+                </motion.div>
 
                 {/* ── Detail panel ── */}
                 <AnimatePresence>
@@ -579,6 +608,7 @@ export function Projects() {
                     )}
                 </AnimatePresence>
             </div>
+            </motion.div>
         </section>
     );
 }
