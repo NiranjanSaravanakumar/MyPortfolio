@@ -9,7 +9,7 @@ import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
 
 const aboutPoints = [
     "Final-year B.Tech Information Technology student at K S Rangasamy College of Technology (CGPA: 8.62 / 10), with hands-on industry experience through my internship at ABB Global Industries and Services Private Limited, Bangalore.",
-    "At ABB Global Industries and Services Private Limited, I designed 120+ automated test cases, resolved 50+ code vulnerabilities, and streamlined CI/CD pipelines — directly improving release velocity and code quality across multiple production projects.",
+    "At ABB Global Industries and Services Private Limited, I designed 300+ automated test cases, resolved 50+ code vulnerabilities, and streamlined CI/CD pipelines — directly improving release velocity and code quality across multiple production projects.",
     "Comfortable across the full technology stack: Python and C# on the backend, React and Angular on the frontend, and Docker/Kubernetes/Azure DevOps for infrastructure — always with a focus on maintainability and quality.",
 ];
 

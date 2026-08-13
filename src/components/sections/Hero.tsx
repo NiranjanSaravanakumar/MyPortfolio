@@ -17,7 +17,7 @@ const socialLinks = [
 
 /* ─── Stats ─────────────────────────────────────────────── */
 const stats = [
-    { value: "120+", label: "Automated Tests"    },
+    { value: "300+", label: "Automated Tests"    },
     { value: "45%",  label: "Faster CI/CD"       },
     { value: "15+",  label: "Projects"           },
     { value: "3+",   label: "Engineering Domains"},
@@ -346,4 +346,4 @@ export function Hero() {
             </div>
         </section>
     );
-}
+}

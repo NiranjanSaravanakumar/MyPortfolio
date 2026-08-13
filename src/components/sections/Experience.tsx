@@ -16,7 +16,7 @@ const experience = [
         location: "Bangalore, India",
         type: "Industry Internship",
         highlights: [
-            "Engineered 120+ unit and integration test cases using Python, PyTest, Angular (Jasmine/Karma), and C#, boosting automated test coverage by 80% across critical production systems.",
+            "Engineered 300+ unit and integration test cases using Python, PyTest, Angular (Jasmine/Karma), and C#, boosting automated test coverage by 80% across critical production systems.",
             "Containerized test environments with Docker and Kubernetes, integrated Azure DevOps CI/CD pipelines, cutting release validation cycles by 45%.",
             "Identified and remediated 50+ SonarQube vulnerabilities across UI and API layers, reducing critical code defects by 70% and improving long-term maintainability.",
             "Optimized .NET-based automation pipelines in Python and C#, reducing defect identification time by 35% and accelerating QA throughput.",
