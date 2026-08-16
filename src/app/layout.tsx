@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 /* Primary heading font — bold & modern */
 const poppins = Poppins({
@@ -53,13 +54,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        {/* Anti-FOUT: set data-theme before first paint to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}})();`,
+          }}
+        />
+      </head>
       <body
         className={`${poppins.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-[var(--background)] text-[var(--foreground)]`}
       >
-        <div className="scanlines" />
-        <ScrollProgressBar />
-        {children}
+        <ThemeProvider>
+          <div className="scanlines" />
+          <ScrollProgressBar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

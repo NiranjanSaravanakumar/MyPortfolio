@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 interface InteractiveBackgroundProps {
     opacity?: number;
 }
 
-export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProps) {
+/* ── Inner dark-mode canvas (only mounted in dark mode) ── */
+function DarkCanvas({ opacity }: { opacity: number }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const themeRef  = useRef<"dark" | "light">("dark");
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -16,7 +20,6 @@ export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProp
         if (!ctx) return;
 
         let raf: number;
-        let t = 0;
 
         interface Particle {
             x: number; y: number;
@@ -26,15 +29,13 @@ export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProp
 
         let particles: Particle[] = [];
 
-        /* Large hex = fewer grid lines on screen */
-        const HEX = 90;
+        const HEX   = 90;
         const HEX_H = HEX * Math.sqrt(3);
 
         const init = () => {
             canvas.width  = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            /* Very sparse — max 8 particles */
             const count = Math.min(Math.floor((canvas.width * canvas.height) / 100000), 8);
             particles = Array.from({ length: count }, () => ({
                 x:     Math.random() * canvas.width,
@@ -47,30 +48,29 @@ export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProp
         };
 
         const draw = () => {
-            t += 0.002;
+            const c = themeColors["dark"];
 
-            /* 1. Pure black base */
-            ctx.fillStyle = "#000000";
+            /* 1. Base fill */
+            ctx.fillStyle = c.canvasBg;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            /* 2. Single soft ambient glow centred on right (behind portrait) — very subtle */
+            /* 2. Ambient glow (right side, behind portrait) */
             const rx = canvas.width * 0.78;
             const ry = canvas.height * 0.42;
             const rGrad = ctx.createRadialGradient(rx, ry, 0, rx, ry, canvas.width * 0.28);
-            rGrad.addColorStop(0, "rgba(0,255,102,0.045)");
+            rGrad.addColorStop(0, c.canvasGlow);
             rGrad.addColorStop(0.5, "rgba(0,255,102,0.012)");
             rGrad.addColorStop(1, "rgba(0,0,0,0)");
             ctx.fillStyle = rGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            /* 3. Hex grid — static opacity below 6%, no pulsing */
+            /* 3. Hex grid */
             ctx.lineWidth = 0.35;
             for (let row = -1; row < canvas.height / HEX_H + 2; row++) {
                 for (let col = -1; col < canvas.width / (HEX * 1.5) + 2; col++) {
                     const hcx = col * HEX * 1.5;
                     const hcy = row * HEX_H + (col % 2 ? HEX_H / 2 : 0);
-
-                    ctx.strokeStyle = "rgba(0,255,102,0.05)";
+                    ctx.strokeStyle = c.canvasGrid;
                     ctx.beginPath();
                     for (let i = 0; i < 6; i++) {
                         const a  = (Math.PI / 3) * i - Math.PI / 6;
@@ -83,14 +83,14 @@ export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProp
                 }
             }
 
-            /* 4. Sparse drifting particles — halo only, no connection lines */
+            /* 4. Sparse drifting particles */
             particles.forEach((p) => {
                 p.x += p.vx;
                 p.y += p.vy;
-                if (p.x < 0)               p.x = canvas.width;
-                if (p.x > canvas.width)    p.x = 0;
-                if (p.y < 0)               p.y = canvas.height;
-                if (p.y > canvas.height)   p.y = 0;
+                if (p.x < 0)             p.x = canvas.width;
+                if (p.x > canvas.width)  p.x = 0;
+                if (p.y < 0)             p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
 
                 const g2 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
                 g2.addColorStop(0, `rgba(0,255,102,${p.alpha * 0.35})`);
@@ -106,13 +106,13 @@ export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProp
                 ctx.fill();
             });
 
-            /* 5. Strong vignette — edges stay dark */
+            /* 5. Vignette */
             const vig = ctx.createRadialGradient(
                 canvas.width / 2, canvas.height / 2, canvas.height * 0.25,
                 canvas.width / 2, canvas.height / 2, canvas.height * 0.85
             );
             vig.addColorStop(0, "rgba(0,0,0,0)");
-            vig.addColorStop(1, "rgba(0,0,0,0.82)");
+            vig.addColorStop(1, c.canvasVignette);
             ctx.fillStyle = vig;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -141,4 +141,13 @@ export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProp
             <canvas ref={canvasRef} className="block w-full h-full" />
         </div>
     );
+}
+
+/* ── Public export — renders canvas in dark, nothing in light ── */
+export function InteractiveBackground({ opacity = 1 }: InteractiveBackgroundProps) {
+    const { theme } = useTheme();
+
+    if (theme === "light") return null;
+
+    return <DarkCanvas opacity={opacity} />;
 }

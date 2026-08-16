@@ -6,6 +6,8 @@ import { ExternalLink, Github, Folder, Zap, Code2, Briefcase, Cpu, ChevronDown, 
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 /* ─── Project data ──────────────────────────────────── */
 const projects = [
@@ -155,12 +157,6 @@ const projects = [
     },
 ];
 
-const overviewStats = [
-    { label: "Projects Built",  value: 6,  suffix: "+", icon: <Code2 size={16} />,    color: "#00FF66"   },
-    { label: "Internship",      value: 1,  suffix: "",  icon: <Briefcase size={16} />, color: "#00FF66"   },
-    { label: "Tech Skills",     value: 15, suffix: "+", icon: <Cpu size={16} />,       color: "#00FF66"   },
-];
-
 /* ─── Animated counter ──────────────────────────────────── */
 function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
     const [count, setCount] = useState(0);
@@ -191,6 +187,9 @@ function ProjectCard({
     isSelected: boolean;
     onSelect: (i: number | null) => void;
 }) {
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     return (
         <motion.div
             variants={card3DEntrance}
@@ -210,31 +209,33 @@ function ProjectCard({
             <div
                 className="relative flex flex-col h-full"
                 style={{
-                    background: "#101010",
-                    borderRight: `1px solid ${isSelected ? "rgba(0,255,102,0.55)" : "rgba(0,255,102,0.20)"}`,
-                    borderBottom: `1px solid ${isSelected ? "rgba(0,255,102,0.55)" : "rgba(0,255,102,0.20)"}`,
-                    borderLeft: `1px solid ${isSelected ? "rgba(0,255,102,0.55)" : "rgba(0,255,102,0.20)"}`,
+                    background: c.cardBg,
+                    borderRight: `1px solid ${isSelected ? c.borderHover : c.border}`,
+                    borderBottom: `1px solid ${isSelected ? c.borderHover : c.border}`,
+                    borderLeft: `1px solid ${isSelected ? c.borderHover : c.border}`,
                     borderRadius: 16,
-                    borderTop: `3px solid #00FF66`,
+                    borderTop: `3px solid ${c.primary}`,
                     transition: "border-color 0.22s ease, box-shadow 0.22s ease",
-                    boxShadow: isSelected ? "0 0 0 1px rgba(0,255,102,0.55), 0 8px 40px rgba(0,0,0,0.6)" : "none",
+                    boxShadow: isSelected ? `0 0 0 1px ${c.borderHover}, 0 8px 40px rgba(0,0,0,0.3)` : "none",
                     overflow: "hidden",
                     padding: "32px",
                 }}
                 onMouseEnter={(e) => {
                     if (!isSelected) {
-                        (e.currentTarget as HTMLDivElement).style.borderRightColor = "rgba(0,255,102,0.45)";
-                        (e.currentTarget as HTMLDivElement).style.borderBottomColor = "rgba(0,255,102,0.45)";
-                        (e.currentTarget as HTMLDivElement).style.borderLeftColor = "rgba(0,255,102,0.45)";
-                        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 32px rgba(0,0,0,0.5)";
+                        const el = e.currentTarget as HTMLDivElement;
+                        el.style.borderRightColor = c.border;
+                        el.style.borderBottomColor = c.border;
+                        el.style.borderLeftColor = c.border;
+                        el.style.boxShadow = "0 4px 32px rgba(0,0,0,0.15)";
                     }
                 }}
                 onMouseLeave={(e) => {
                     if (!isSelected) {
-                        (e.currentTarget as HTMLDivElement).style.borderRightColor = "rgba(0,255,102,0.20)";
-                        (e.currentTarget as HTMLDivElement).style.borderBottomColor = "rgba(0,255,102,0.20)";
-                        (e.currentTarget as HTMLDivElement).style.borderLeftColor = "rgba(0,255,102,0.20)";
-                        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                        const el = e.currentTarget as HTMLDivElement;
+                        el.style.borderRightColor = c.border;
+                        el.style.borderBottomColor = c.border;
+                        el.style.borderLeftColor = c.border;
+                        el.style.boxShadow = "none";
                     }
                 }}
             >
@@ -242,7 +243,7 @@ function ProjectCard({
                 <div className="flex justify-between items-start mb-5">
                     <div className="flex items-center gap-2.5">
                         <span className="text-2xl" aria-hidden="true">{project.icon}</span>
-                        <Folder size={18} style={{ color: "rgba(255,255,255,0.30)" }} />
+                        <Folder size={18} style={{ color: c.textDim }} />
                     </div>
                     <div className="flex items-center gap-3">
                         {project.liveLink && (
@@ -251,8 +252,9 @@ function ProjectCard({
                                 target="_blank"
                                 rel="noreferrer"
                                 aria-label={`Live demo — ${project.title}`}
-                                style={{ color: "rgba(255,255,255,0.50)" }}
-                                className="transition-colors hover:text-[#00FF66]"
+                                style={{ color: c.textDim, transition: "color 0.2s" }}
+                                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = c.primary; }}
+                                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = c.textDim; }}
                             >
                                 <ExternalLink size={15} />
                             </a>
@@ -262,8 +264,9 @@ function ProjectCard({
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`GitHub — ${project.title}`}
-                            style={{ color: "rgba(255,255,255,0.50)" }}
-                            className="transition-colors hover:text-[#00FF66]"
+                            style={{ color: c.textDim, transition: "color 0.2s" }}
+                            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = c.primary; }}
+                            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = c.textDim; }}
                         >
                             <Github size={17} />
                         </a>
@@ -276,7 +279,7 @@ function ProjectCard({
                         className="font-bold leading-snug mb-1.5"
                         style={{
                             fontSize: "clamp(1.2rem, 1.8vw, 1.45rem)",
-                            color: "#ffffff",
+                            color: c.textHeading,
                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                         }}
                     >
@@ -284,12 +287,12 @@ function ProjectCard({
                     </h3>
                     <p
                         className="text-sm font-medium mb-1"
-                        style={{ color: "rgba(255,255,255,0.88)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                        style={{ color: c.textDesc, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                     >
                         {project.subtitle}
                     </p>
                     <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider"
-                       style={{ color: "#00FF66", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+                       style={{ color: c.primary, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
                         <Zap size={10} />
                         {project.category}
                     </p>
@@ -300,7 +303,7 @@ function ProjectCard({
                     className="leading-relaxed mb-5 flex-grow"
                     style={{
                         fontSize: "clamp(0.92rem, 1.2vw, 1rem)",
-                        color: "rgba(255,255,255,0.92)",
+                        color: c.textBody,
                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                         lineHeight: 1.8,
                     }}
@@ -315,9 +318,9 @@ function ProjectCard({
                             key={tech}
                             className="px-2.5 py-1 text-xs font-mono rounded-lg"
                             style={{
-                                background: "rgba(0,255,102,0.06)",
-                                border: "1px solid rgba(0,255,102,0.18)",
-                                color: "rgba(255,255,255,0.88)",
+                                background: c.primarySoft,
+                                border: `1px solid ${c.border}`,
+                                color: c.textDesc,
                             }}
                         >
                             {tech}
@@ -331,7 +334,7 @@ function ProjectCard({
                     aria-expanded={isSelected}
                     className="flex items-center gap-2 text-sm font-semibold transition-colors mt-auto"
                     style={{
-                        color: isSelected ? "#00FF66" : "rgba(255,255,255,0.82)",
+                        color: isSelected ? c.primary : c.textLabel,
                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                         background: "none",
                         border: "none",
@@ -355,6 +358,14 @@ export function Projects() {
     const isInView    = useInView(statsRef, { once: true, margin: "-50px" });
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [isPulsing, setIsPulsing] = useState(false);
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
+    const overviewStats = [
+        { label: "Projects Built",  value: 6,  suffix: "+", icon: <Code2 size={16} />,    color: c.primary },
+        { label: "Internship",      value: 1,  suffix: "",  icon: <Briefcase size={16} />, color: c.primary },
+        { label: "Tech Skills",     value: 15, suffix: "+", icon: <Cpu size={16} />,       color: c.primary },
+    ];
 
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
     const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [8, 0, 0, -5]);
@@ -383,7 +394,7 @@ export function Projects() {
             id="projects"
             ref={sectionRef}
             className="py-28 relative overflow-hidden"
-            style={{ background: "#080808", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            style={{ background: "var(--surface-2)", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
             aria-label="Projects"
         >
             <SectionBackground variant="primary" intensity="medium" />
@@ -402,9 +413,9 @@ export function Projects() {
                     <span
                         className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
                         style={{
-                            color: "#00FF66",
-                            border: "1px solid rgba(0,255,102,0.25)",
-                            background: "rgba(0,255,102,0.06)",
+                            color: c.primary,
+                            border: `1px solid ${c.border}`,
+                            background: c.primarySoft,
                         }}
                     >
                         02 / Projects
@@ -413,15 +424,15 @@ export function Projects() {
                         className="font-extrabold mb-4"
                         style={{
                             fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                            color: "#ffffff",
+                            color: c.textHeading,
                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                             letterSpacing: "-0.02em",
                         }}
                     >
                         <ScrollBounceText as="span">Featured Projects</ScrollBounceText>
                     </h2>
-                    <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
-                    <p style={{ color: "rgba(255,255,255,0.88)", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 480, margin: "0 auto" }}>
+                    <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: `linear-gradient(90deg, ${c.primary}, ${c.border})` }} />
+                    <p style={{ color: c.textDesc, fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 480, margin: "0 auto" }}>
                         Projects I&apos;ve built across full-stack, AI, and automation engineering.
                     </p>
                 </motion.div>
@@ -437,18 +448,18 @@ export function Projects() {
                             transition={{ delay: index * 0.08 }}
                             className="flex items-center gap-2.5 px-6 py-3 rounded-full"
                             style={{
-                                background: "#101010",
-                                border: "1px solid rgba(0,255,102,0.20)",
+                                background: c.cardBg,
+                                border: `1px solid ${c.border}`,
                                 transition: "border-color 0.22s ease",
                             }}
-                            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.50)"; }}
-                            onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
+                            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = c.borderHover; }}
+                            onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = c.border; }}
                         >
                             <span style={{ color: stat.color }}>{stat.icon}</span>
                             <span className="font-mono font-bold text-xl" style={{ color: stat.color }}>
                                 <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={isInView} />
                             </span>
-                            <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.88)", fontFamily: "var(--font-sans)" }}>
+                            <span className="text-sm font-medium" style={{ color: c.textDesc, fontFamily: "var(--font-sans)" }}>
                                 {stat.label}
                             </span>
                         </motion.div>
@@ -486,8 +497,8 @@ export function Projects() {
                             transition={{ duration: 0.35, ease: "easeOut" }}
                             style={{
                                 marginTop: 40,
-                                background: "#101010",
-                                border: "1px solid rgba(0,255,102,0.20)",
+                                background: c.cardBg,
+                                border: `1px solid ${c.border}`,
                                 borderRadius: 16,
                                 padding: "40px",
                                 animation: isPulsing ? "pulseBorder 2s ease-out" : "none",
@@ -496,22 +507,22 @@ export function Projects() {
                             aria-label={`Details for ${selectedProject.title}`}
                         >
                             {/* Detail header */}
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8" style={{ borderBottom: "1px solid rgba(0,255,102,0.12)" }}>
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8" style={{ borderBottom: `1px solid ${c.border}` }}>
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: "#00FF66" }}>
+                                    <p className="text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: c.primary }}>
                                         Project Deep Dive
                                     </p>
                                     <h3
                                         className="font-bold"
                                         style={{
                                             fontSize: "clamp(1.4rem, 2.5vw, 2rem)",
-                                            color: "#ffffff",
+                                            color: c.textHeading,
                                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                         }}
                                     >
                                         {selectedProject.title}
                                     </h3>
-                                    <p className="text-base mt-1" style={{ color: "rgba(255,255,255,0.88)" }}>{selectedProject.subtitle}</p>
+                                    <p className="text-base mt-1" style={{ color: c.textDesc }}>{selectedProject.subtitle}</p>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <a
@@ -520,12 +531,12 @@ export function Projects() {
                                         rel="noreferrer"
                                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all"
                                         style={{
-                                            background: "rgba(0,255,102,0.08)",
-                                            border: "1px solid rgba(0,255,102,0.30)",
-                                            color: "#00FF66",
+                                            background: c.primarySoft,
+                                            border: `1px solid ${c.border}`,
+                                            color: c.primary,
                                         }}
-                                        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,255,102,0.60)"; }}
-                                        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,255,102,0.30)"; }}
+                                        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = c.borderHover; }}
+                                        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = c.border; }}
                                     >
                                         <Github size={15} /> View on GitHub
                                     </a>
@@ -544,13 +555,13 @@ export function Projects() {
                                         <div key={key}>
                                             <div
                                                 className="text-xs font-bold uppercase tracking-widest mb-2"
-                                                style={{ color: "#00FF66" }}
+                                                style={{ color: c.primary }}
                                             >
                                                 {key}
                                             </div>
                                             <p
                                                 style={{
-                                                    color: "rgba(255,255,255,0.92)",
+                                                    color: c.textBody,
                                                     lineHeight: 1.8,
                                                     fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                                     fontSize: "0.975rem",
@@ -564,16 +575,16 @@ export function Projects() {
 
                                 {/* Right column */}
                                 <div>
-                                    <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#00FF66" }}>
+                                    <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: c.primary }}>
                                         Key Features
                                     </div>
                                     <ul className="space-y-2.5 mb-7">
                                         {selectedProject.features.map((f) => (
                                             <li key={f} className="flex gap-3 items-start">
-                                                <span style={{ color: "#00FF66", fontSize: "0.8rem", marginTop: 3, flexShrink: 0 }}>▸</span>
+                                                <span style={{ color: c.primary, fontSize: "0.8rem", marginTop: 3, flexShrink: 0 }}>▸</span>
                                                 <span
                                                     style={{
-                                                        color: "rgba(255,255,255,0.92)",
+                                                        color: c.textBody,
                                                         fontSize: "0.975rem",
                                                         lineHeight: 1.8,
                                                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
@@ -585,7 +596,7 @@ export function Projects() {
                                         ))}
                                     </ul>
 
-                                    <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#00FF66" }}>
+                                    <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: c.primary }}>
                                         Tech Stack
                                     </div>
                                     <div className="flex flex-wrap gap-2">
@@ -594,9 +605,9 @@ export function Projects() {
                                                 key={tech}
                                                 className="px-3 py-1.5 text-sm font-mono rounded-lg"
                                                 style={{
-                                                    background: "rgba(0,255,102,0.07)",
-                                                    border: "1px solid rgba(0,255,102,0.22)",
-                                                    color: "rgba(255,255,255,0.92)",
+                                                    background: c.primarySoft,
+                                                    border: `1px solid ${c.border}`,
+                                                    color: c.textBody,
                                                 }}
                                             >
                                                 {tech}

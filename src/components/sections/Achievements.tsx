@@ -5,6 +5,8 @@ import { useRef } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 const stats = [
     { value: "300+", label: "Automated Test Cases Written" },
@@ -17,6 +19,9 @@ const stats = [
 
 export function Achievements() {
     const sectionRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
 
     const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [12, 0, 0, -6]);
@@ -28,7 +33,7 @@ export function Achievements() {
             id="achievements"
             ref={sectionRef}
             className="py-24 relative overflow-hidden"
-            style={{ background: "#080808", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            style={{ background: "var(--surface-2)", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
             aria-label="Impact by the numbers"
         >
             <SectionBackground variant="primary" intensity="low" />
@@ -49,9 +54,9 @@ export function Achievements() {
                         <span
                             className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
                             style={{
-                                color: "#00FF66",
-                                border: "1px solid rgba(0,255,102,0.25)",
-                                background: "rgba(0,255,102,0.06)",
+                                color: c.primary,
+                                border: `1px solid ${c.border}`,
+                                background: c.primarySoft,
                             }}
                         >
                             06 / Impact
@@ -60,20 +65,20 @@ export function Achievements() {
                             className="font-extrabold mb-4"
                             style={{
                                 fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                                color: "#ffffff",
+                                color: c.textHeading,
                                 fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                 letterSpacing: "-0.02em",
                             }}
                         >
                             <ScrollBounceText as="span">By The Numbers</ScrollBounceText>
                         </h2>
-                        <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
+                        <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: `linear-gradient(90deg, ${c.primary}, ${c.border})` }} />
                         <p
                             className="max-w-md mx-auto"
-                            style={{ color: "rgba(255,255,255,0.88)", fontSize: "1.05rem", lineHeight: 1.8 }}
+                            style={{ color: c.textDesc, fontSize: "1.05rem", lineHeight: 1.8 }}
                         >
                             Measurable impact delivered during my Software Engineering Internship at{" "}
-                            <span style={{ color: "#00FF66", fontWeight: 600 }}>ABB Global Industries and Services Private Limited</span> — a Fortune 500 global technology company.
+                            <span style={{ color: c.primary, fontWeight: 600 }}>ABB Global Industries and Services Private Limited</span> — a Fortune 500 global technology company.
                         </p>
                     </motion.div>
 
@@ -92,8 +97,8 @@ export function Achievements() {
                                 variants={card3DEntrance}
                                 className="text-center"
                                 style={{
-                                    background: "#101010",
-                                    border: "1px solid rgba(0,255,102,0.20)",
+                                    background: c.cardBg,
+                                    border: `1px solid ${c.border}`,
                                     borderRadius: 16,
                                     padding: "24px 16px",
                                 }}
@@ -102,8 +107,8 @@ export function Achievements() {
                                     rotateY: 8,
                                     rotateX: -4,
                                     y: -8,
-                                    borderColor: "rgba(0,255,102,0.55)",
-                                    boxShadow: "0 0 0 1px rgba(0,255,102,0.30), 0 12px 40px rgba(0,0,0,0.5)",
+                                    borderColor: c.borderHover,
+                                    boxShadow: `0 0 0 1px ${c.border}, 0 12px 40px rgba(0,0,0,0.20)`,
                                     transition: { duration: 0.25 },
                                 }}
                             >
@@ -111,7 +116,7 @@ export function Achievements() {
                                     className="font-black font-mono mb-2"
                                     style={{
                                         fontSize: "clamp(1.7rem, 2.5vw, 2.2rem)",
-                                        color: "#00FF66",
+                                        color: c.primary,
                                         letterSpacing: "-0.02em",
                                     }}
                                 >
@@ -120,7 +125,7 @@ export function Achievements() {
                                 <div
                                     className="text-xs font-medium leading-snug"
                                     style={{
-                                        color: "rgba(255,255,255,0.88)",
+                                        color: c.textDesc,
                                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                     }}
                                 >
@@ -138,7 +143,7 @@ export function Achievements() {
                         viewport={{ once: true }}
                         className="text-center mt-8 text-sm"
                         style={{
-                            color: "rgba(255,255,255,0.82)",
+                            color: c.textLabel,
                             fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                         }}
                     >

@@ -6,6 +6,8 @@ import { GraduationCap, MapPin, Mail, User, Download } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 const aboutPoints = [
     "Final-year B.Tech Information Technology student at K S Rangasamy College of Technology (CGPA: 8.62 / 10), with hands-on industry experience through my internship at ABB Global Industries and Services Private Limited, Bangalore.",
@@ -46,18 +48,27 @@ const education = [
 
 export function About() {
     const sectionRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
 
     const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [8, 0, 0, -5]);
     const translateY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [50, 0, 0, -15]);
     const scale      = useTransform(scrollYProgress, [0, 0.25, 0.8, 1], [0.96, 1, 1, 0.97]);
 
+    const cardStyle = {
+        background: c.cardBg,
+        border: `1px solid ${c.border}`,
+        transition: "border-color 0.22s ease",
+    };
+
     return (
         <section
             id="about"
             ref={sectionRef}
             className="py-28 relative overflow-hidden"
-            style={{ background: "#080808", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            style={{ background: "var(--surface-2)", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
             aria-label="About Niranjan"
         >
             <SectionBackground variant="primary" intensity="medium" />
@@ -76,9 +87,9 @@ export function About() {
                     <span
                         className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
                         style={{
-                            color: "#00FF66",
-                            border: "1px solid rgba(0,255,102,0.25)",
-                            background: "rgba(0,255,102,0.06)",
+                            color: c.primary,
+                            border: `1px solid ${c.border}`,
+                            background: c.primarySoft,
                         }}
                     >
                         04 / About
@@ -87,14 +98,14 @@ export function About() {
                         className="font-extrabold mb-4"
                         style={{
                             fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                            color: "#ffffff",
+                            color: c.textHeading,
                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                             letterSpacing: "-0.02em",
                         }}
                     >
                         <ScrollBounceText as="span">Who I Am</ScrollBounceText>
                     </h2>
-                    <div className="w-16 h-0.5 mx-auto" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
+                    <div className="w-16 h-0.5 mx-auto" style={{ background: `linear-gradient(90deg, ${c.primary}, ${c.border})` }} />
                 </motion.div>
 
                 <div className="grid lg:grid-cols-2 gap-16">
@@ -107,10 +118,10 @@ export function About() {
                         viewport={{ once: true, margin: "-60px" }}
                     >
                         <div className="flex items-center gap-3 mb-7">
-                            <User size={20} style={{ color: "#00FF66", flexShrink: 0 }} />
+                            <User size={20} style={{ color: c.primary, flexShrink: 0 }} />
                             <h3
                                 className="text-lg font-bold"
-                                style={{ color: "#00FF66", fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
+                                style={{ color: c.primary, fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
                             >
                                 Profile
                             </h3>
@@ -129,10 +140,10 @@ export function About() {
                                     variants={fadeUp3D}
                                     className="flex gap-3 items-start"
                                 >
-                                    <span style={{ color: "#00FF66", marginTop: 6, fontSize: "0.8rem", flexShrink: 0 }}>▸</span>
+                                    <span style={{ color: c.primary, marginTop: 6, fontSize: "0.8rem", flexShrink: 0 }}>▸</span>
                                     <p
                                         style={{
-                                            color: "rgba(255,255,255,0.92)",
+                                            color: c.textBody,
                                             fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                             fontSize: "1rem",
                                             lineHeight: 1.8,
@@ -149,18 +160,18 @@ export function About() {
                             {quickFacts.map(({ icon: Icon, label, value, href, download }, i) => {
                                 const inner = (
                                     <>
-                                        <Icon size={16} style={{ color: "#00FF66", flexShrink: 0 }} />
+                                        <Icon size={16} style={{ color: c.primary, flexShrink: 0 }} />
                                         <div className="min-w-0">
                                             <div
                                                 className="text-xs font-semibold uppercase tracking-wider mb-0.5"
-                                                style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                                style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                             >
                                                 {label}
                                             </div>
                                             <div
                                                 className="text-sm font-medium truncate"
                                                 style={{
-                                                    color: href ? "#00FF66" : "rgba(255,255,255,0.92)",
+                                                    color: href ? c.primary : c.textBody,
                                                     fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                                 }}
                                             >
@@ -170,12 +181,6 @@ export function About() {
                                     </>
                                 );
 
-                                const cardStyle = {
-                                    background: "#101010",
-                                    border: "1px solid rgba(0,255,102,0.20)",
-                                    transition: "border-color 0.22s ease",
-                                };
-
                                 return (
                                     <motion.div
                                         key={label}
@@ -184,7 +189,7 @@ export function About() {
                                             scale: 1.04,
                                             rotateY: 3,
                                             y: -3,
-                                            borderColor: "rgba(0,255,102,0.55)",
+                                            borderColor: c.borderHover,
                                             transition: { duration: 0.2 },
                                         }}
                                     >
@@ -197,8 +202,8 @@ export function About() {
                                                 aria-label={label}
                                                 className="flex items-center gap-3 p-4 rounded-xl w-full"
                                                 style={{ ...cardStyle, textDecoration: "none", display: "flex" }}
-                                                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,255,102,0.50)"; }}
-                                                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
+                                                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = c.borderHover; }}
+                                                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = c.border; }}
                                             >
                                                 {inner}
                                             </a>
@@ -206,8 +211,8 @@ export function About() {
                                             <div
                                                 className="flex items-center gap-3 p-4 rounded-xl"
                                                 style={cardStyle}
-                                                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.50)"; }}
-                                                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
+                                                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = c.borderHover; }}
+                                                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = c.border; }}
                                             >
                                                 {inner}
                                             </div>
@@ -226,10 +231,10 @@ export function About() {
                         viewport={{ once: true, margin: "-60px" }}
                     >
                         <div className="flex items-center gap-3 mb-7">
-                            <GraduationCap size={20} style={{ color: "#00FF66", flexShrink: 0 }} />
+                            <GraduationCap size={20} style={{ color: c.primary, flexShrink: 0 }} />
                             <h3
                                 className="text-lg font-bold"
-                                style={{ color: "#00FF66", fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
+                                style={{ color: c.primary, fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
                             >
                                 Education
                             </h3>
@@ -237,7 +242,7 @@ export function About() {
 
                         <div
                             className="ml-3 space-y-10"
-                            style={{ borderLeft: "2px solid rgba(0,255,102,0.22)" }}
+                            style={{ borderLeft: `2px solid ${c.border}` }}
                         >
                             {education.map((item, index) => (
                                 <motion.div
@@ -256,14 +261,14 @@ export function About() {
                                     <div
                                         className="absolute -left-[9px] top-1 w-4 h-4 rounded-full"
                                         style={{
-                                            background: "#000000",
-                                            border: "2px solid #00FF66",
+                                            background: c.background,
+                                            border: `2px solid ${c.primary}`,
                                         }}
                                     />
 
                                     <div
                                         className="font-mono text-sm font-semibold mb-1.5"
-                                        style={{ color: "rgba(255,255,255,0.82)" }}
+                                        style={{ color: c.textLabel }}
                                     >
                                         {item.period}
                                     </div>
@@ -272,7 +277,7 @@ export function About() {
                                         className="font-bold leading-snug mb-1"
                                         style={{
                                             fontSize: "1.05rem",
-                                            color: "#ffffff",
+                                            color: c.textHeading,
                                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                         }}
                                     >
@@ -281,7 +286,7 @@ export function About() {
 
                                     <p
                                         className="text-sm font-medium mb-2.5"
-                                        style={{ color: "rgba(255,255,255,0.88)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                        style={{ color: c.textDesc, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                     >
                                         {item.school}
                                     </p>
@@ -289,9 +294,9 @@ export function About() {
                                     <span
                                         className="inline-block font-mono text-xs px-3 py-1 rounded-full mb-3"
                                         style={{
-                                            color: "#00FF66",
-                                            border: "1px solid rgba(0,255,102,0.30)",
-                                            background: "rgba(0,255,102,0.07)",
+                                            color: c.primary,
+                                            border: `1px solid ${c.border}`,
+                                            background: c.primarySoft,
                                         }}
                                     >
                                         {item.badge}
@@ -300,11 +305,11 @@ export function About() {
                                     <div className="space-y-1.5">
                                         {item.points.map((point, pi) => (
                                             <div key={pi} className="flex gap-2 items-start">
-                                                <span style={{ color: "#00FF66", fontSize: "0.75rem", marginTop: 5, flexShrink: 0 }}>›</span>
+                                                <span style={{ color: c.primary, fontSize: "0.75rem", marginTop: 5, flexShrink: 0 }}>›</span>
                                                 <p
                                                     className="text-sm"
                                                     style={{
-                                                        color: "rgba(255,255,255,0.88)",
+                                                        color: c.textDesc,
                                                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                                         lineHeight: 1.75,
                                                     }}

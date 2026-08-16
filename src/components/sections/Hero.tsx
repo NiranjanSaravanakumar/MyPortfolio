@@ -6,6 +6,8 @@ import { Github, Linkedin, Code2, ArrowRight, ExternalLink, Mail } from "lucide-
 import Image from "next/image";
 import { InteractiveBackground } from "@/components/ui/InteractiveBackground";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 /* ─── Social links ─────────────────────────────────────── */
 const socialLinks = [
@@ -45,6 +47,8 @@ function RoleTypewriter() {
     const [roleIndex, setRoleIndex] = useState(0);
     const [displayed, setDisplayed]  = useState("");
     const [phase, setPhase]          = useState<"typing" | "hold" | "erasing">("typing");
+    const { theme } = useTheme();
+    const c = themeColors[theme];
 
     useEffect(() => {
         const current = ROLES[roleIndex];
@@ -82,7 +86,7 @@ function RoleTypewriter() {
                     fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                     fontSize: "clamp(1.4rem, 2.8vw, 2rem)",
                     fontWeight: 600,
-                    color: "#00FF66",
+                    color: c.primary,
                     letterSpacing: "0.01em",
                     display: "inline-block",
                     minHeight: "2em",
@@ -94,12 +98,12 @@ function RoleTypewriter() {
                         display: "inline-block",
                         width: 2,
                         height: "1.1em",
-                        background: "#00FF66",
+                        background: c.primary,
                         marginLeft: 3,
                         verticalAlign: "middle",
                         borderRadius: 1,
                         animation: "pulseDot 1.1s ease-in-out infinite",
-                        boxShadow: "0 0 8px rgba(0,255,102,0.7)",
+                        boxShadow: `0 0 8px ${c.primary}b3`,
                     }}
                 />
             </span>
@@ -111,6 +115,9 @@ function RoleTypewriter() {
 
 /* ─── Portrait Card — fully static after entrance ──────── */
 function PortraitCard() {
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     return (
         <motion.div
             {...fadeUp(0.35)}
@@ -123,7 +130,7 @@ function PortraitCard() {
                 style={{
                     width: 380,
                     height: 430,
-                    background: "radial-gradient(ellipse, rgba(0,255,102,0.12) 0%, rgba(0,255,102,0.03) 55%, transparent 100%)",
+                    background: `radial-gradient(ellipse, ${theme === "dark" ? "rgba(0,255,102,0.12)" : "rgba(0,180,80,0.10)"} 0%, ${theme === "dark" ? "rgba(0,255,102,0.03)" : "rgba(0,180,80,0.02)"} 55%, transparent 100%)`,
                     filter: "blur(40px)",
                     zIndex: 0,
                 }}
@@ -133,7 +140,9 @@ function PortraitCard() {
             <div
                 className="relative rounded-[30px] p-[1.5px]"
                 style={{
-                    background: "linear-gradient(135deg, rgba(0,255,102,0.50) 0%, rgba(0,255,102,0.08) 45%, rgba(0,255,102,0.40) 100%)",
+                    background: theme === "dark"
+                        ? "linear-gradient(135deg, rgba(0,255,102,0.50) 0%, rgba(0,255,102,0.08) 45%, rgba(0,255,102,0.40) 100%)"
+                        : "linear-gradient(135deg, rgba(0,180,80,0.55) 0%, rgba(0,180,80,0.12) 45%, rgba(0,180,80,0.45) 100%)",
                     zIndex: 1,
                 }}
             >
@@ -143,26 +152,34 @@ function PortraitCard() {
                     style={{
                         width: 340,
                         height: 430,
-                        background: "linear-gradient(145deg, rgba(8,18,12,0.95) 0%, rgba(4,8,6,0.98) 100%)",
+                        background: theme === "dark"
+                            ? "linear-gradient(145deg, rgba(8,18,12,0.95) 0%, rgba(4,8,6,0.98) 100%)"
+                            : "linear-gradient(145deg, rgba(240,248,244,0.97) 0%, rgba(225,240,232,0.99) 100%)",
                         backdropFilter: "blur(24px)",
-                        boxShadow: "0 32px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.05)",
+                        boxShadow: theme === "dark"
+                            ? "0 32px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.05)"
+                            : "0 32px 80px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.80)",
                         transition: "box-shadow 0.25s ease",
                     }}
                     aria-label="Niranjan Saravanakumar portrait"
                     onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLDivElement).style.boxShadow =
-                            "0 0 56px rgba(0,255,102,0.22), 0 32px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.05)";
+                        (e.currentTarget as HTMLDivElement).style.boxShadow = theme === "dark"
+                            ? "0 0 56px rgba(0,255,102,0.22), 0 32px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.05)"
+                            : "0 0 40px rgba(0,180,80,0.18), 0 32px 80px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.80)";
                     }}
                     onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLDivElement).style.boxShadow =
-                            "0 32px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.05)";
+                        (e.currentTarget as HTMLDivElement).style.boxShadow = theme === "dark"
+                            ? "0 32px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.05)"
+                            : "0 32px 80px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.80)";
                     }}
                 >
                     {/* Inner ambient glow at bottom */}
                     <div
                         className="absolute inset-0 pointer-events-none rounded-[29px]"
                         style={{
-                            background: "radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0,255,102,0.12) 0%, transparent 70%)",
+                            background: theme === "dark"
+                                ? "radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0,255,102,0.12) 0%, transparent 70%)"
+                                : "radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0,180,80,0.10) 0%, transparent 70%)",
                         }}
                     />
 
@@ -179,15 +196,8 @@ function PortraitCard() {
                             draggable={false}
                         />
 
-                        {/* Bottom gradient overlay */}
-                        <div
-                            className="absolute bottom-0 left-0 right-0 pointer-events-none"
-                            style={{
-                                height: 80,
-                                background: "linear-gradient(to top, rgba(4,8,6,0.70) 0%, transparent 100%)",
-                            }}
-                        />
                     </div>
+
                 </div>
             </div>
         </motion.div>
@@ -197,6 +207,9 @@ function PortraitCard() {
 /* ─ Hero ────────────────────────────────────────────── */
 export function Hero() {
     const heroRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
 
     // Text layer — drifts upward faster as user scrolls down
@@ -215,7 +228,7 @@ export function Hero() {
             ref={heroRef}
             aria-label="Hero — Niranjan Saravanakumar"
             className="relative flex flex-col justify-center overflow-hidden"
-            style={{ minHeight: "92vh", paddingTop: 80, background: "#000000" }}
+            style={{ minHeight: "92vh", paddingTop: 80, background: "var(--background)" }}
         >
             <InteractiveBackground />
 
@@ -232,10 +245,10 @@ export function Hero() {
                             {...fadeUp(0.12)}
                             style={{ fontFamily: "var(--font-heading, 'Poppins', sans-serif)", lineHeight: 1.06, marginBottom: 28 }}
                         >
-                            <span className="block font-bold" style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.75rem)", color: "rgba(255,255,255,0.92)", marginBottom: 6 }}>
+                            <span className="block font-bold" style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.75rem)", color: c.textBody, marginBottom: 6 }}>
                                 <ScrollBounceText as="span" intensity={0.7}>Hello, I&apos;m</ScrollBounceText>
                             </span>
-                            <span className="block font-black" style={{ fontSize: "clamp(4rem, 9vw, 7rem)", color: "#2dd43bff", letterSpacing: "-0.03em", lineHeight: 0.95, textShadow: "0 0 80px rgba(0,255,102,0.18)" }}>
+                            <span className="block font-black" style={{ fontSize: "clamp(4rem, 9vw, 7rem)", color: c.primary, letterSpacing: "-0.03em", lineHeight: 0.95, textShadow: `0 0 80px ${theme === "dark" ? "rgba(0,255,102,0.18)" : "rgba(0,180,80,0.14)"}` }}>
                                 <ScrollBounceText as="span" intensity={1.5}>NIRANJAN</ScrollBounceText>
                             </span>
                         </motion.h1>
@@ -246,19 +259,24 @@ export function Hero() {
                         {/* Description */}
                         <motion.p
                             {...fadeUp(0.2)}
-                            style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)", fontSize: "clamp(1.05rem, 1.5vw, 1.2rem)", lineHeight: 1.8, color: "rgba(255,255,255,0.92)", maxWidth: 520, marginBottom: 36 }}
+                            style={{ fontFamily: "var(--font-sans, 'Inter', sans-serif)", fontSize: "clamp(1.05rem, 1.5vw, 1.2rem)", lineHeight: 1.8, color: c.textBody, maxWidth: 520, marginBottom: 36 }}
                         >
                             Building reliable, scalable software through{" "}
-                            <span style={{ color: "#00FF66", fontWeight: 600 }}>automation-first engineering</span>,{" "}
+                            <span style={{ color: c.primary, fontWeight: 600 }}>automation-first engineering</span>,{" "}
                             modern full-stack development, and{" "}
-                            <span style={{ color: "#00FF66", fontWeight: 600 }}>DevOps practices</span>.
+                            <span style={{ color: c.primary, fontWeight: 600 }}>DevOps practices</span>.
                         </motion.p>
 
                         {/* Info chip */}
                         <motion.div {...fadeUp(0.26)} className="flex flex-wrap gap-3" style={{ marginBottom: 40 }}>
                             <div
                                 className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium"
-                                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.88)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                style={{
+                                    background: theme === "dark" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)",
+                                    border: `1px solid ${theme === "dark" ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.10)"}`,
+                                    color: c.textDesc,
+                                    fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                                }}
                             >
                                 <span>🎓</span>
                                 <span>Final-year B.Tech Information Technology</span>
@@ -271,11 +289,11 @@ export function Hero() {
                                 href="#projects"
                                 aria-label="Explore projects"
                                 className="group relative inline-flex flex-1 lg:flex-none items-center justify-center gap-2.5 font-semibold overflow-hidden select-none"
-                                style={{ height: 60, minWidth: 180, maxWidth: 260, padding: "0 32px", background: "#00FF66", color: "#000000", fontSize: 15, fontFamily: "var(--font-sans, 'Inter', sans-serif)", fontWeight: 700, borderRadius: 16, boxShadow: "0 0 28px rgba(0,255,102,0.28), 0 4px 20px rgba(0,0,0,0.4)", transition: "box-shadow 0.22s ease, transform 0.22s ease", textDecoration: "none" }}
-                                onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.boxShadow = "0 0 44px rgba(0,255,102,0.50), 0 8px 28px rgba(0,0,0,0.45)"; el.style.transform = "scale(1.02)"; }}
-                                onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.boxShadow = "0 0 28px rgba(0,255,102,0.28), 0 4px 20px rgba(0,0,0,0.4)"; el.style.transform = "scale(1)"; }}
+                                style={{ height: 60, minWidth: 180, maxWidth: 260, padding: "0 32px", background: c.primary, color: "#000000", fontSize: 15, fontFamily: "var(--font-sans, 'Inter', sans-serif)", fontWeight: 700, borderRadius: 16, boxShadow: `0 0 28px ${c.primary}47, 0 4px 20px rgba(0,0,0,0.4)`, transition: "box-shadow 0.22s ease, transform 0.22s ease", textDecoration: "none" }}
+                                onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.boxShadow = `0 0 44px ${c.primary}80, 0 8px 28px rgba(0,0,0,0.45)`; el.style.transform = "scale(1.02)"; }}
+                                onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.boxShadow = `0 0 28px ${c.primary}47, 0 4px 20px rgba(0,0,0,0.4)`; el.style.transform = "scale(1)"; }}
                             >
-                                <span className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100" style={{ background: "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.30) 50%, transparent 65%)", backgroundSize: "200% 100%", animation: "shimmerSlide 0.55s ease forwards" }} />
+                                <span className="btn-shimmer absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100" />
                                 <ArrowRight size={17} className="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
                                 <span className="relative z-10">Explore Projects</span>
                             </a>
@@ -285,9 +303,9 @@ export function Hero() {
                                 rel="noopener noreferrer"
                                 aria-label="View resume"
                                 className="group inline-flex flex-1 lg:flex-none items-center justify-center gap-2.5 font-semibold select-none"
-                                style={{ height: 60, minWidth: 180, maxWidth: 260, padding: "0 32px", background: "rgba(0,255,102,0.06)", color: "#00FF66", fontSize: 15, fontFamily: "var(--font-sans, 'Inter', sans-serif)", fontWeight: 700, borderRadius: 16, border: "1.5px solid rgba(0,255,102,0.30)", transition: "all 0.22s ease", textDecoration: "none" }}
-                                onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "rgba(0,255,102,0.10)"; el.style.borderColor = "rgba(0,255,102,0.55)"; el.style.boxShadow = "0 0 24px rgba(0,255,102,0.18)"; el.style.transform = "scale(1.02)"; }}
-                                onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "rgba(0,255,102,0.06)"; el.style.borderColor = "rgba(0,255,102,0.30)"; el.style.boxShadow = "none"; el.style.transform = "scale(1)"; }}
+                                style={{ height: 60, minWidth: 180, maxWidth: 260, padding: "0 32px", background: c.primarySoft, color: c.primary, fontSize: 15, fontFamily: "var(--font-sans, 'Inter', sans-serif)", fontWeight: 700, borderRadius: 16, border: `1.5px solid ${c.border}`, transition: "all 0.22s ease", textDecoration: "none" }}
+                                onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = theme === "dark" ? "rgba(0,255,102,0.10)" : "rgba(0,180,80,0.12)"; el.style.borderColor = c.borderHover; el.style.boxShadow = `0 0 24px ${c.primary}2e`; el.style.transform = "scale(1.02)"; }}
+                                onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = c.primarySoft; el.style.borderColor = c.border; el.style.boxShadow = "none"; el.style.transform = "scale(1)"; }}
                             >
                                 <ExternalLink size={17} className="flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
                                 View Resume
@@ -301,14 +319,14 @@ export function Hero() {
                                     <div
                                         key={label}
                                         className="flex flex-col items-center justify-center gap-1.5 rounded-2xl py-4 px-2 text-center cursor-default"
-                                        style={{ background: "rgba(0,255,102,0.04)", border: "1px solid rgba(0,255,102,0.20)", transition: "background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease" }}
-                                        onMouseEnter={(e) => { const el = e.currentTarget as HTMLDivElement; el.style.background = "rgba(0,255,102,0.08)"; el.style.borderColor = "rgba(0,255,102,0.45)"; el.style.boxShadow = "0 0 20px rgba(0,255,102,0.10)"; }}
-                                        onMouseLeave={(e) => { const el = e.currentTarget as HTMLDivElement; el.style.background = "rgba(0,255,102,0.04)"; el.style.borderColor = "rgba(0,255,102,0.20)"; el.style.boxShadow = "none"; }}
+                                        style={{ background: c.primarySoft, border: `1px solid ${c.border}`, transition: "background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease" }}
+                                        onMouseEnter={(e) => { const el = e.currentTarget as HTMLDivElement; el.style.background = theme === "dark" ? "rgba(0,255,102,0.08)" : "rgba(0,180,80,0.10)"; el.style.borderColor = c.borderHover; el.style.boxShadow = `0 0 20px ${c.primary}1a`; }}
+                                        onMouseLeave={(e) => { const el = e.currentTarget as HTMLDivElement; el.style.background = c.primarySoft; el.style.borderColor = c.border; el.style.boxShadow = "none"; }}
                                     >
-                                        <div className="font-black" style={{ fontSize: "clamp(1.1rem, 2vw, 1.45rem)", color: "#00FF66", fontFamily: "var(--font-heading, 'Poppins', sans-serif)", letterSpacing: "-0.02em" }}>
+                                        <div className="font-black" style={{ fontSize: "clamp(1.1rem, 2vw, 1.45rem)", color: c.primary, fontFamily: "var(--font-heading, 'Poppins', sans-serif)", letterSpacing: "-0.02em" }}>
                                             {value}
                                         </div>
-                                        <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)", lineHeight: 1.4, textAlign: "center", fontWeight: 500 }}>
+                                        <div style={{ fontSize: "0.68rem", color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)", lineHeight: 1.4, textAlign: "center", fontWeight: 500 }}>
                                             {label}
                                         </div>
                                     </div>
@@ -324,9 +342,9 @@ export function Hero() {
                                         aria-label={label}
                                         title={label}
                                         className="inline-flex items-center justify-center"
-                                        style={{ height: 52, borderRadius: 14, background: "rgba(0,255,102,0.04)", border: "1px solid rgba(0,255,102,0.20)", color: "rgba(255,255,255,0.82)", transition: "background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease" }}
-                                        onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = "#00FF66"; el.style.borderColor = "rgba(0,255,102,0.55)"; el.style.background = "rgba(0,255,102,0.08)"; el.style.boxShadow = "0 0 16px rgba(0,255,102,0.18)"; }}
-                                        onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = "rgba(255,255,255,0.82)"; el.style.borderColor = "rgba(0,255,102,0.20)"; el.style.background = "rgba(0,255,102,0.04)"; el.style.boxShadow = "none"; }}
+                                        style={{ height: 52, borderRadius: 14, background: c.primarySoft, border: `1px solid ${c.border}`, color: c.textLabel, transition: "background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease" }}
+                                        onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = c.primary; el.style.borderColor = c.borderHover; el.style.background = theme === "dark" ? "rgba(0,255,102,0.08)" : "rgba(0,180,80,0.10)"; el.style.boxShadow = `0 0 16px ${c.primary}2e`; }}
+                                        onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = c.textLabel; el.style.borderColor = c.border; el.style.background = c.primarySoft; el.style.boxShadow = "none"; }}
                                     >
                                         <Icon size={20} strokeWidth={1.6} />
                                     </a>

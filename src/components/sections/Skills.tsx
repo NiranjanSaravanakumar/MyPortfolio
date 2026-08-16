@@ -5,6 +5,8 @@ import { useRef } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 const skillCategories = [
     {
@@ -41,6 +43,9 @@ const skillCategories = [
 
 export function Skills() {
     const sectionRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
 
     const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [10, 0, 0, -5]);
@@ -52,7 +57,7 @@ export function Skills() {
             id="skills"
             ref={sectionRef}
             className="py-28 relative overflow-hidden"
-            style={{ background: "#0a0a0a", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            style={{ background: "var(--surface-1)", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
             aria-label="Technical Skills"
         >
             <SectionBackground variant="accent" intensity="medium" />
@@ -73,9 +78,9 @@ export function Skills() {
                         <span
                             className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
                             style={{
-                                color: "#00FF66",
-                                border: "1px solid rgba(0,255,102,0.25)",
-                                background: "rgba(0,255,102,0.06)",
+                                color: c.primary,
+                                border: `1px solid ${c.border}`,
+                                background: c.primarySoft,
                             }}
                         >
                             03 / Skills
@@ -84,17 +89,17 @@ export function Skills() {
                             className="font-extrabold mb-4"
                             style={{
                                 fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                                color: "#ffffff",
+                                color: c.textHeading,
                                 fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                 letterSpacing: "-0.02em",
                             }}
                         >
                             <ScrollBounceText as="span">Technical Expertise</ScrollBounceText>
                         </h2>
-                        <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
+                        <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: `linear-gradient(90deg, ${c.primary}, ${c.border})` }} />
                         <p
                             className="max-w-md mx-auto"
-                            style={{ color: "rgba(255,255,255,0.88)", fontSize: "1.05rem", lineHeight: 1.8 }}
+                            style={{ color: c.textDesc, fontSize: "1.05rem", lineHeight: 1.8 }}
                         >
                             Technologies I use daily to build, test, and ship production-grade software.
                         </p>
@@ -114,9 +119,9 @@ export function Skills() {
                                 variants={card3DEntrance}
                                 className="group relative"
                                 style={{
-                                    background: "#101010",
-                                    border: "1px solid rgba(0,255,102,0.20)",
-                                    borderTop: "2.5px solid #00FF66",
+                                    background: c.cardBg,
+                                    border: `1px solid ${c.border}`,
+                                    borderTop: `2.5px solid ${c.primary}`,
                                     borderRadius: 16,
                                     padding: "32px",
                                     overflow: "hidden",
@@ -126,25 +131,25 @@ export function Skills() {
                                     rotateY: 3,
                                     rotateX: -2,
                                     y: -6,
-                                    borderColor: "rgba(0,255,102,0.55)",
-                                    boxShadow: "0 0 0 1px rgba(0,255,102,0.55), 0 16px 50px rgba(0,0,0,0.55)",
+                                    borderColor: c.borderHover,
+                                    boxShadow: `0 0 0 1px ${c.borderHover}, 0 16px 50px rgba(0,0,0,0.20)`,
                                     transition: { duration: 0.3 },
                                 }}
                             >
                                 {/* Hover glow */}
                                 <div
                                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
-                                    style={{ background: "radial-gradient(ellipse at top left, rgba(0,255,102,0.06), transparent 65%)" }}
+                                    style={{ background: `radial-gradient(ellipse at top left, ${c.primarySoft}, transparent 65%)` }}
                                 />
 
                                 {/* Category header */}
-                                <div className="flex items-center gap-2.5 mb-5 pb-4 relative z-10" style={{ borderBottom: "1px solid rgba(0,255,102,0.10)" }}>
+                                <div className="flex items-center gap-2.5 mb-5 pb-4 relative z-10" style={{ borderBottom: `1px solid ${c.border}` }}>
                                     <span className="text-lg" aria-hidden="true">{category.emoji}</span>
                                     <h3
                                         className="font-bold"
                                         style={{
                                             fontSize: "1rem",
-                                            color: "#00FF66",
+                                            color: c.primary,
                                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                         }}
                                     >
@@ -152,7 +157,7 @@ export function Skills() {
                                     </h3>
                                     <span
                                         className="ml-auto text-xs font-medium opacity-0 group-hover:opacity-80 transition-opacity"
-                                        style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-mono)" }}
+                                        style={{ color: c.textLabel, fontFamily: "var(--font-mono)" }}
                                     >
                                         {category.skills.length}
                                     </span>
@@ -165,15 +170,15 @@ export function Skills() {
                                             key={skill}
                                             className="px-3 py-1.5 text-xs font-medium rounded-lg cursor-default"
                                             style={{
-                                                background: "rgba(255,255,255,0.05)",
-                                                border: "1px solid rgba(255,255,255,0.10)",
-                                                color: "rgba(255,255,255,0.88)",
+                                                background: theme === "dark" ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)",
+                                                border: `1px solid ${theme === "dark" ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.10)"}`,
+                                                color: c.textDesc,
                                                 fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",
                                             }}
                                             whileHover={{
-                                                background: "#00FF66",
+                                                background: c.primary,
                                                 color: "#000",
-                                                borderColor: "#00FF66",
+                                                borderColor: c.primary,
                                                 scale: 1.08,
                                                 transition: { duration: 0.15 },
                                             }}

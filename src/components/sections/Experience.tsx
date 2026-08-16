@@ -6,6 +6,8 @@ import { Calendar, Briefcase, TrendingUp, MapPin } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 const experience = [
     {
@@ -31,14 +33,17 @@ const experience = [
 ];
 
 const impactStats = [
-    { label: "Test Cases Written", value: "120+", color: "#00FF66" },
-    { label: "Coverage Increase",  value: "80%",  color: "#00FF66" },
-    { label: "Bugs Eliminated",    value: "50+",  color: "#00FF66" },
-    { label: "Faster CI/CD",       value: "45%",  color: "#00FF66" },
+    { label: "Test Cases Written", value: "120+" },
+    { label: "Coverage Increase",  value: "80%"  },
+    { label: "Bugs Eliminated",    value: "50+"  },
+    { label: "Faster CI/CD",       value: "45%"  },
 ];
 
 export function Experience() {
     const sectionRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
 
     const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [8, 0, 0, -6]);
@@ -50,7 +55,7 @@ export function Experience() {
             id="experience"
             ref={sectionRef}
             className="py-28 relative overflow-hidden"
-            style={{ background: "#000000", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            style={{ background: "var(--background)", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
             aria-label="Work Experience"
         >
             <SectionBackground variant="accent" intensity="low" />
@@ -72,9 +77,9 @@ export function Experience() {
                         <span
                             className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
                             style={{
-                                color: "#00FF66",
-                                border: "1px solid rgba(0,255,102,0.25)",
-                                background: "rgba(0,255,102,0.06)",
+                                color: c.primary,
+                                border: `1px solid ${c.border}`,
+                                background: c.primarySoft,
                             }}
                         >
                             01 / Experience
@@ -83,14 +88,14 @@ export function Experience() {
                             className="font-extrabold mb-4"
                             style={{
                                 fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                                color: "#ffffff",
+                                color: c.textHeading,
                                 fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                 letterSpacing: "-0.02em",
                             }}
                         >
                             <ScrollBounceText as="span">Work Experience</ScrollBounceText>
                         </h2>
-                        <div className="w-16 h-0.5 mx-auto" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
+                        <div className="w-16 h-0.5 mx-auto" style={{ background: `linear-gradient(90deg, ${c.primary}, ${c.border})` }} />
                     </motion.div>
 
                     {/* ── Impact Stats — staggered 3D entrance ── */}
@@ -107,16 +112,16 @@ export function Experience() {
                                 variants={card3DEntrance}
                                 className="text-center"
                                 style={{
-                                    background: "#101010",
-                                    border: "1px solid rgba(0,255,102,0.20)",
+                                    background: c.cardBg,
+                                    border: `1px solid ${c.border}`,
                                     borderRadius: 16,
                                     padding: "28px 20px",
                                 }}
                                 whileHover={{
                                     scale: 1.06,
                                     rotateY: 5,
-                                    boxShadow: "0 0 30px rgba(0,255,102,0.18), 0 12px 40px rgba(0,0,0,0.5)",
-                                    borderColor: "rgba(0,255,102,0.55)",
+                                    boxShadow: `0 0 30px ${c.primary}2e, 0 12px 40px rgba(0,0,0,0.3)`,
+                                    borderColor: c.borderHover,
                                     transition: { duration: 0.25 },
                                 }}
                             >
@@ -124,7 +129,7 @@ export function Experience() {
                                     className="font-black font-mono mb-2"
                                     style={{
                                         fontSize: "clamp(1.8rem, 3vw, 2.5rem)",
-                                        color: stat.color,
+                                        color: c.primary,
                                         letterSpacing: "-0.02em",
                                     }}
                                 >
@@ -133,7 +138,7 @@ export function Experience() {
                                 <div
                                     className="text-sm font-medium"
                                     style={{
-                                        color: "rgba(255,255,255,0.88)",
+                                        color: c.textDesc,
                                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                         lineHeight: 1.5,
                                     }}
@@ -156,34 +161,34 @@ export function Experience() {
                                 whileHover={{
                                     scale: 1.01,
                                     y: -4,
-                                    boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0,255,102,0.10)",
+                                    boxShadow: `0 20px 60px rgba(0,0,0,0.3), 0 0 40px ${c.primary}1a`,
                                     transition: { duration: 0.3 },
                                 }}
                             >
                                 <div
                                     style={{
-                                        background: "#101010",
-                                        border: "1px solid rgba(0,255,102,0.20)",
-                                        borderTop: "3px solid #00FF66",
+                                        background: c.cardBg,
+                                        border: `1px solid ${c.border}`,
+                                        borderTop: `3px solid ${c.primary}`,
                                         borderRadius: 16,
                                         overflow: "hidden",
                                         transition: "border-color 0.22s ease",
                                     }}
-                                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.45)"; }}
-                                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,255,102,0.20)"; }}
+                                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = c.borderHover; }}
+                                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = c.border; }}
                                 >
                                     {/* Card Header */}
-                                    <div className="p-8 md:p-10" style={{ borderBottom: "1px solid rgba(0,255,102,0.10)" }}>
+                                    <div className="p-8 md:p-10" style={{ borderBottom: `1px solid ${c.border}` }}>
                                         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                                             <div>
                                                 <div className="flex items-center gap-2 mb-3">
-                                                    <Briefcase size={14} style={{ color: "#00FF66" }} />
+                                                    <Briefcase size={14} style={{ color: c.primary }} />
                                                     <span
                                                         className="text-xs font-semibold px-3 py-1 rounded-full"
                                                         style={{
-                                                            color: "#00FF66",
-                                                            border: "1px solid rgba(0,255,102,0.25)",
-                                                            background: "rgba(0,255,102,0.07)",
+                                                            color: c.primary,
+                                                            border: `1px solid ${c.border}`,
+                                                            background: c.primarySoft,
                                                             fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                                         }}
                                                     >
@@ -194,7 +199,7 @@ export function Experience() {
                                                     className="font-bold mb-1"
                                                     style={{
                                                         fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)",
-                                                        color: "#ffffff",
+                                                        color: c.textHeading,
                                                         fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                                     }}
                                                 >
@@ -202,7 +207,7 @@ export function Experience() {
                                                 </h3>
                                                 <h4
                                                     className="font-bold text-lg"
-                                                    style={{ color: "#00FF66", fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
+                                                    style={{ color: c.primary, fontFamily: "var(--font-heading, 'Poppins', sans-serif)" }}
                                                 >
                                                     {item.company}
                                                 </h4>
@@ -211,13 +216,13 @@ export function Experience() {
                                             <div className="flex flex-col gap-2 md:text-right">
                                                 <div
                                                     className="flex items-center gap-2 text-sm font-medium md:justify-end"
-                                                    style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-mono)" }}
+                                                    style={{ color: c.textLabel, fontFamily: "var(--font-mono)" }}
                                                 >
                                                     <Calendar size={13} /> {item.period}
                                                 </div>
                                                 <div
                                                     className="flex items-center gap-1.5 text-sm md:justify-end font-medium"
-                                                    style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                                    style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                                 >
                                                     <MapPin size={12} /> {item.location}
                                                 </div>
@@ -228,10 +233,10 @@ export function Experience() {
                                     {/* Highlights */}
                                     <div className="p-8 md:p-10">
                                         <div className="flex items-center gap-2 mb-6">
-                                            <TrendingUp size={14} style={{ color: "#00FF66" }} />
+                                            <TrendingUp size={14} style={{ color: c.primary }} />
                                             <span
                                                 className="text-xs font-bold uppercase tracking-widest"
-                                                style={{ color: "#00FF66", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                                style={{ color: c.primary, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                             >
                                                 Key Achievements
                                             </span>
@@ -250,10 +255,10 @@ export function Experience() {
                                                     variants={fadeUp3D}
                                                     className="flex gap-3 items-start"
                                                 >
-                                                    <span style={{ color: "#00FF66", fontSize: "0.8rem", marginTop: 4, flexShrink: 0 }}>▸</span>
+                                                    <span style={{ color: c.primary, fontSize: "0.8rem", marginTop: 4, flexShrink: 0 }}>▸</span>
                                                     <p
                                                         style={{
-                                                            color: "rgba(255,255,255,0.92)",
+                                                            color: c.textBody,
                                                             fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                                             fontSize: "1rem",
                                                             lineHeight: 1.8,
@@ -269,7 +274,7 @@ export function Experience() {
                                         <div>
                                             <div
                                                 className="text-xs font-bold uppercase tracking-widest mb-3"
-                                                style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                                style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                             >
                                                 Technologies Used
                                             </div>
@@ -279,14 +284,14 @@ export function Experience() {
                                                         key={tech}
                                                         className="px-3 py-1.5 text-xs font-mono rounded-lg cursor-default"
                                                         style={{
-                                                            background: "rgba(255,255,255,0.04)",
-                                                            border: "1px solid rgba(255,255,255,0.10)",
-                                                            color: "rgba(255,255,255,0.88)",
+                                                            background: theme === "dark" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)",
+                                                            border: `1px solid ${theme === "dark" ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.10)"}`,
+                                                            color: c.textDesc,
                                                         }}
                                                         whileHover={{
-                                                            background: "rgba(0,255,102,0.12)",
-                                                            borderColor: "rgba(0,255,102,0.55)",
-                                                            color: "#00FF66",
+                                                            background: c.primarySoft,
+                                                            borderColor: c.borderHover,
+                                                            color: c.primary,
                                                             scale: 1.06,
                                                             transition: { duration: 0.15 },
                                                         }}

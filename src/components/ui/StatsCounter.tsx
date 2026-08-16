@@ -3,44 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Briefcase, Code2, FileText, Award } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 interface Stat {
     label: string;
     value: number;
     suffix: string;
-    icon: React.ReactNode;
-    color: string;
+    iconNode: React.ReactNode;
 }
 
-const stats: Stat[] = [
-    {
-        label: "Years Experience",
-        value: 2,
-        suffix: "+",
-        icon: <Briefcase size={24} />,
-        color: "var(--primary)",
-    },
-    {
-        label: "Projects Deployed",
-        value: 15,
-        suffix: "+",
-        icon: <Code2 size={24} />,
-        color: "var(--accent)",
-    },
-    {
-        label: "Publications",
-        value: 3,
-        suffix: "",
-        icon: <FileText size={24} />,
-        color: "var(--secondary)",
-    },
-    {
-        label: "Patents Filed",
-        value: 2,
-        suffix: "",
-        icon: <Award size={24} />,
-        color: "var(--primary)",
-    },
+const statDefs: Stat[] = [
+    { label: "Years Experience",  value: 2,  suffix: "+", iconNode: <Briefcase size={24} /> },
+    { label: "Projects Deployed", value: 15, suffix: "+", iconNode: <Code2 size={24} />     },
+    { label: "Publications",      value: 3,  suffix: "",  iconNode: <FileText size={24} />  },
+    { label: "Patents Filed",     value: 2,  suffix: "",  iconNode: <Award size={24} />     },
 ];
 
 function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
@@ -52,9 +29,8 @@ function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: str
             return;
         }
 
-        const duration = 2000; // 2 seconds
+        const duration = 2000;
         const steps = 60;
-        const stepValue = value / steps;
         const stepDuration = duration / steps;
         let currentStep = 0;
 
@@ -64,7 +40,6 @@ function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: str
                 setCount(value);
                 clearInterval(timer);
             } else {
-                // Use easing function for smooth animation
                 const progress = currentStep / steps;
                 const easeOut = 1 - Math.pow(1 - progress, 3);
                 setCount(Math.floor(value * easeOut));
@@ -84,15 +59,19 @@ function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: str
 export function StatsCounter() {
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const { theme } = useTheme();
+    const c = themeColors[theme];
 
     return (
-        <section className="py-16 bg-gradient-to-b from-[#0a0a0a] to-[#0f0f0f] relative overflow-hidden">
-            {/* Background grid effect */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-50" />
-
-            {/* Glowing orbs */}
-            <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-[var(--primary)]/10 rounded-full blur-[100px]" />
-            <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-[100px]" />
+        <section
+            className="py-16 relative overflow-hidden"
+            style={{ background: "var(--surface-2)" }}
+        >
+            {/* Ambient orbs */}
+            <div className="absolute top-1/2 left-1/4 w-64 h-64 rounded-full blur-[100px] pointer-events-none"
+                style={{ background: `${c.primary}14` }} />
+            <div className="absolute top-1/2 right-1/4 w-64 h-64 rounded-full blur-[100px] pointer-events-none"
+                style={{ background: `${c.primary}10` }} />
 
             <div className="container mx-auto px-4 relative z-10" ref={ref}>
                 <motion.div
@@ -101,16 +80,17 @@ export function StatsCounter() {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-2xl md:text-3xl font-mono font-bold text-[var(--foreground)] mb-2">
-                        <span className="text-[var(--accent)]">&gt;</span> SYSTEM_METRICS
+                    <h2 className="text-2xl md:text-3xl font-mono font-bold mb-2"
+                        style={{ color: c.textHeading }}>
+                        <span style={{ color: c.primary }}>&gt;</span> SYSTEM_METRICS
                     </h2>
-                    <p className="text-[var(--foreground)]/50 text-sm">
+                    <p className="text-sm" style={{ color: c.textLabel }}>
                         Runtime statistics and performance indicators
                     </p>
                 </motion.div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-                    {stats.map((stat, index) => (
+                    {statDefs.map((stat, index) => (
                         <motion.div
                             key={stat.label}
                             initial={{ opacity: 0, y: 30 }}
@@ -119,26 +99,38 @@ export function StatsCounter() {
                             transition={{ delay: index * 0.1 }}
                             whileHover={{
                                 scale: 1.05,
-                                boxShadow: `0 0 30px ${stat.color}30`,
+                                boxShadow: `0 0 30px ${c.primary}30`,
                             }}
                             className="relative group"
                         >
-                            <div className="bg-[#0a0a0a] border border-[var(--border)] p-4 md:p-6 rounded-lg text-center hover:border-[var(--primary)]/50 transition-all duration-300">
+                            <div
+                                className="p-4 md:p-6 rounded-lg text-center transition-all duration-300"
+                                style={{
+                                    background: c.cardBg,
+                                    border: `1px solid ${c.border}`,
+                                }}
+                                onMouseEnter={(e) => {
+                                    (e.currentTarget as HTMLDivElement).style.borderColor = c.borderHover;
+                                }}
+                                onMouseLeave={(e) => {
+                                    (e.currentTarget as HTMLDivElement).style.borderColor = c.border;
+                                }}
+                            >
                                 {/* Icon */}
                                 <div
                                     className="mx-auto mb-3 p-3 rounded-lg w-fit transition-all duration-300 group-hover:scale-110"
                                     style={{
-                                        backgroundColor: `${stat.color}15`,
-                                        color: stat.color,
+                                        backgroundColor: `${c.primary}15`,
+                                        color: c.primary,
                                     }}
                                 >
-                                    {stat.icon}
+                                    {stat.iconNode}
                                 </div>
 
                                 {/* Counter */}
                                 <div
                                     className="text-2xl md:text-3xl font-bold font-mono mb-1 transition-colors duration-300"
-                                    style={{ color: stat.color }}
+                                    style={{ color: c.primary }}
                                 >
                                     <AnimatedCounter
                                         value={stat.value}
@@ -148,14 +140,17 @@ export function StatsCounter() {
                                 </div>
 
                                 {/* Label */}
-                                <div className="text-xs md:text-sm text-[var(--foreground)]/60 font-mono uppercase tracking-wider">
+                                <div
+                                    className="text-xs md:text-sm font-mono uppercase tracking-wider"
+                                    style={{ color: c.textLabel }}
+                                >
                                     {stat.label}
                                 </div>
 
                                 {/* Decorative line */}
                                 <motion.div
                                     className="absolute bottom-0 left-0 right-0 h-0.5 rounded-b-lg"
-                                    style={{ backgroundColor: stat.color }}
+                                    style={{ backgroundColor: c.primary }}
                                     initial={{ scaleX: 0 }}
                                     whileInView={{ scaleX: 1 }}
                                     viewport={{ once: true }}

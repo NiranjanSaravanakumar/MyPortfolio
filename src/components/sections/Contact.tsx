@@ -7,6 +7,8 @@ import { useRef, useState } from "react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { fadeUp3D, card3DEntrance, stagger3D } from "@/components/ui/ScrollAnimationWrapper";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 const SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
@@ -17,6 +19,8 @@ export function Contact() {
     const sectionRef = useRef<HTMLElement>(null);
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const { theme } = useTheme();
+    const c = themeColors[theme];
 
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
     const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [8, 0, 0, -5]);
@@ -44,19 +48,19 @@ export function Contact() {
 
     const contactLinks = [
         { href: "mailto:niranjan29293@gmail.com",                          icon: Mail,     label: "Email",    value: "niranjan29293@gmail.com",  external: false },
-        { href: "tel:+919080029293",                                          icon: Phone,    label: "Phone",    value: "+91 9080029293",               external: false },
-        { href: "https://www.linkedin.com/in/niranjansaravanakumar/",         icon: Linkedin, label: "LinkedIn", value: "Connect on LinkedIn",          external: true  },
-        { href: "https://github.com/NiranjanSaravanakumar",                   icon: Github,   label: "GitHub",   value: "NiranjanSaravanakumar",        external: true  },
-        { href: "https://leetcode.com/u/Niranjan_S_2006/",                    icon: Code2,    label: "LeetCode", value: "View Profile",                 external: true  },
+        { href: "tel:+919080029293",                                        icon: Phone,    label: "Phone",    value: "+91 9080029293",            external: false },
+        { href: "https://www.linkedin.com/in/niranjansaravanakumar/",       icon: Linkedin, label: "LinkedIn", value: "Connect on LinkedIn",        external: true  },
+        { href: "https://github.com/NiranjanSaravanakumar",                 icon: Github,   label: "GitHub",   value: "NiranjanSaravanakumar",      external: true  },
+        { href: "https://leetcode.com/u/Niranjan_S_2006/",                  icon: Code2,    label: "LeetCode", value: "View Profile",               external: true  },
     ];
 
     const inputStyle: React.CSSProperties = {
         width: "100%",
         padding: "14px 16px",
-        background: "#0a0a0a",
-        border: "1.5px solid rgba(0,255,102,0.22)",
+        background: theme === "dark" ? "#0a0a0a" : "#ffffff",
+        border: `1.5px solid ${c.border}`,
         borderRadius: 10,
-        color: "#ffffff",
+        color: c.textBody,
         fontSize: "0.975rem",
         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
         outline: "none",
@@ -68,7 +72,7 @@ export function Contact() {
             id="contact"
             ref={sectionRef}
             className="py-28 relative overflow-hidden"
-            style={{ background: "#0a0a0a", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            style={{ background: "var(--surface-1)", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
             aria-label="Contact"
         >
             <SectionBackground variant="primary" intensity="low" />
@@ -87,9 +91,9 @@ export function Contact() {
                     <span
                         className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
                         style={{
-                            color: "#00FF66",
-                            border: "1px solid rgba(0,255,102,0.25)",
-                            background: "rgba(0,255,102,0.06)",
+                            color: c.primary,
+                            border: `1px solid ${c.border}`,
+                            background: c.primarySoft,
                         }}
                     >
                         07 / Contact
@@ -98,18 +102,18 @@ export function Contact() {
                         className="font-extrabold mb-4"
                         style={{
                             fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                            color: "#ffffff",
+                            color: c.textHeading,
                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                             letterSpacing: "-0.02em",
                         }}
                     >
                         <ScrollBounceText as="span">Let&apos;s Connect</ScrollBounceText>
                     </h2>
-                    <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
+                    <div className="w-16 h-0.5 mx-auto mb-4" style={{ background: `linear-gradient(90deg, ${c.primary}, ${c.border})` }} />
                     <p
                         className="max-w-md mx-auto"
                         style={{
-                            color: "rgba(255,255,255,0.92)",
+                            color: c.textBody,
                             fontSize: "1.05rem",
                             lineHeight: 1.8,
                         }}
@@ -129,7 +133,7 @@ export function Contact() {
                     >
                         <div
                             className="text-xs font-bold uppercase tracking-widest mb-6"
-                            style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                            style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                         >
                             Find me at
                         </div>
@@ -148,27 +152,27 @@ export function Contact() {
                                     transition={{ delay: i * 0.06 }}
                                     className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200 group"
                                     style={{
-                                        background: "#101010",
-                                        border: "1px solid rgba(0,255,102,0.20)",
+                                        background: c.cardBg,
+                                        border: `1px solid ${c.border}`,
                                         textDecoration: "none",
                                     }}
                                     onMouseEnter={(e) => {
                                         const el = e.currentTarget as HTMLAnchorElement;
-                                        el.style.borderColor = "rgba(0,255,102,0.55)";
-                                        el.style.boxShadow   = "0 4px 20px rgba(0,0,0,0.4)";
+                                        el.style.borderColor = c.borderHover;
+                                        el.style.boxShadow   = "0 4px 20px rgba(0,0,0,0.12)";
                                     }}
                                     onMouseLeave={(e) => {
                                         const el = e.currentTarget as HTMLAnchorElement;
-                                        el.style.borderColor = "rgba(0,255,102,0.20)";
+                                        el.style.borderColor = c.border;
                                         el.style.boxShadow   = "none";
                                     }}
                                 >
                                     <div
                                         className="p-2.5 rounded-lg flex-shrink-0"
                                         style={{
-                                            background: "rgba(0,255,102,0.08)",
-                                            border: "1px solid rgba(0,255,102,0.18)",
-                                            color: "#00FF66",
+                                            background: c.primarySoft,
+                                            border: `1px solid ${c.border}`,
+                                            color: c.primary,
                                         }}
                                     >
                                         <Icon size={17} />
@@ -176,13 +180,13 @@ export function Contact() {
                                     <div className="min-w-0">
                                         <div
                                             className="text-xs font-bold uppercase tracking-wider mb-0.5"
-                                            style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                            style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                         >
                                             {label}
                                         </div>
                                         <div
                                             className="text-sm font-medium truncate"
-                                            style={{ color: "rgba(255,255,255,0.92)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                            style={{ color: c.textBody, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                         >
                                             {value}
                                         </div>
@@ -195,16 +199,16 @@ export function Contact() {
                         <div
                             className="mt-3 flex items-center gap-4 p-4 rounded-xl"
                             style={{
-                                background: "#101010",
-                                border: "1px solid rgba(0,255,102,0.20)",
+                                background: c.cardBg,
+                                border: `1px solid ${c.border}`,
                             }}
                         >
                             <div
                                 className="p-2.5 rounded-lg flex-shrink-0"
                                 style={{
-                                    background: "rgba(0,255,102,0.08)",
-                                    border: "1px solid rgba(0,255,102,0.18)",
-                                    color: "#00FF66",
+                                    background: c.primarySoft,
+                                    border: `1px solid ${c.border}`,
+                                    color: c.primary,
                                 }}
                             >
                                 <MapPin size={17} />
@@ -212,13 +216,13 @@ export function Contact() {
                             <div>
                                 <div
                                     className="text-xs font-bold uppercase tracking-wider mb-0.5"
-                                    style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                    style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                 >
                                     Location
                                 </div>
                                 <div
                                     className="text-sm font-medium"
-                                    style={{ color: "rgba(255,255,255,0.92)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                    style={{ color: c.textBody, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                 >
                                     Erode, Tamil Nadu, India
                                 </div>
@@ -234,8 +238,8 @@ export function Contact() {
                     >
                         <div
                             style={{
-                                background: "#101010",
-                                border: "1px solid rgba(0,255,102,0.20)",
+                                background: c.cardBg,
+                                border: `1px solid ${c.border}`,
                                 borderRadius: 16,
                                 padding: "36px 32px",
                             }}
@@ -244,7 +248,7 @@ export function Contact() {
                                 className="font-bold flex items-center gap-2 mb-7"
                                 style={{
                                     fontSize: "1.05rem",
-                                    color: "#00FF66",
+                                    color: c.primary,
                                     fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                 }}
                             >
@@ -257,7 +261,7 @@ export function Contact() {
                                     <label
                                         htmlFor="contact-name"
                                         className="block text-xs font-bold uppercase tracking-wider mb-2"
-                                        style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                        style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                     >
                                         Your Name
                                     </label>
@@ -272,14 +276,14 @@ export function Contact() {
                                         placeholder="Your Name"
                                         style={{
                                             ...inputStyle,
-                                            caretColor: "#00FF66",
+                                            caretColor: c.primary,
                                         }}
                                         onFocus={(e) => {
-                                            (e.target as HTMLInputElement).style.borderColor  = "rgba(0,255,102,0.65)";
-                                            (e.target as HTMLInputElement).style.boxShadow    = "0 0 0 3px rgba(0,255,102,0.10)";
+                                            (e.target as HTMLInputElement).style.borderColor  = c.borderHover;
+                                            (e.target as HTMLInputElement).style.boxShadow    = `0 0 0 3px ${c.primary}1a`;
                                         }}
                                         onBlur={(e) => {
-                                            (e.target as HTMLInputElement).style.borderColor  = "rgba(0,255,102,0.22)";
+                                            (e.target as HTMLInputElement).style.borderColor  = c.border;
                                             (e.target as HTMLInputElement).style.boxShadow    = "none";
                                         }}
                                     />
@@ -290,7 +294,7 @@ export function Contact() {
                                     <label
                                         htmlFor="contact-email"
                                         className="block text-xs font-bold uppercase tracking-wider mb-2"
-                                        style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                        style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                     >
                                         Email Address
                                     </label>
@@ -305,14 +309,14 @@ export function Contact() {
                                         placeholder="yourmail@gmail.com"
                                         style={{
                                             ...inputStyle,
-                                            caretColor: "#00FF66",
+                                            caretColor: c.primary,
                                         }}
                                         onFocus={(e) => {
-                                            (e.target as HTMLInputElement).style.borderColor  = "rgba(0,255,102,0.65)";
-                                            (e.target as HTMLInputElement).style.boxShadow    = "0 0 0 3px rgba(0,255,102,0.10)";
+                                            (e.target as HTMLInputElement).style.borderColor  = c.borderHover;
+                                            (e.target as HTMLInputElement).style.boxShadow    = `0 0 0 3px ${c.primary}1a`;
                                         }}
                                         onBlur={(e) => {
-                                            (e.target as HTMLInputElement).style.borderColor  = "rgba(0,255,102,0.22)";
+                                            (e.target as HTMLInputElement).style.borderColor  = c.border;
                                             (e.target as HTMLInputElement).style.boxShadow    = "none";
                                         }}
                                     />
@@ -323,7 +327,7 @@ export function Contact() {
                                     <label
                                         htmlFor="contact-message"
                                         className="block text-xs font-bold uppercase tracking-wider mb-2"
-                                        style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                        style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                     >
                                         Message
                                     </label>
@@ -338,14 +342,14 @@ export function Contact() {
                                         style={{
                                             ...inputStyle,
                                             resize: "none",
-                                            caretColor: "#00FF66",
+                                            caretColor: c.primary,
                                         }}
                                         onFocus={(e) => {
-                                            (e.target as HTMLTextAreaElement).style.borderColor = "rgba(0,255,102,0.65)";
-                                            (e.target as HTMLTextAreaElement).style.boxShadow   = "0 0 0 3px rgba(0,255,102,0.10)";
+                                            (e.target as HTMLTextAreaElement).style.borderColor = c.borderHover;
+                                            (e.target as HTMLTextAreaElement).style.boxShadow   = `0 0 0 3px ${c.primary}1a`;
                                         }}
                                         onBlur={(e) => {
-                                            (e.target as HTMLTextAreaElement).style.borderColor = "rgba(0,255,102,0.22)";
+                                            (e.target as HTMLTextAreaElement).style.borderColor = c.border;
                                             (e.target as HTMLTextAreaElement).style.boxShadow   = "none";
                                         }}
                                     />
@@ -358,22 +362,22 @@ export function Contact() {
                                     className="w-full flex items-center justify-center gap-2 font-bold uppercase tracking-widest cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                                     style={{
                                         height: 60,
-                                        background: "#00FF66",
+                                        background: c.primary,
                                         color: "#000000",
                                         fontSize: "0.85rem",
                                         borderRadius: 12,
                                         border: "none",
-                                        boxShadow: "0 0 24px rgba(0,255,102,0.22)",
+                                        boxShadow: `0 0 24px ${c.primary}38`,
                                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                     }}
                                     onMouseEnter={(e) => {
                                         if (status !== "loading") {
-                                            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 40px rgba(0,255,102,0.40)";
+                                            (e.currentTarget as HTMLButtonElement).style.boxShadow = `0 0 40px ${c.primary}66`;
                                             (e.currentTarget as HTMLButtonElement).style.transform  = "scale(1.01)";
                                         }
                                     }}
                                     onMouseLeave={(e) => {
-                                        (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 24px rgba(0,255,102,0.22)";
+                                        (e.currentTarget as HTMLButtonElement).style.boxShadow = `0 0 24px ${c.primary}38`;
                                         (e.currentTarget as HTMLButtonElement).style.transform  = "scale(1)";
                                     }}
                                 >
@@ -389,7 +393,7 @@ export function Contact() {
                                 </button>
 
                                 {status === "success" && (
-                                    <p className="text-center text-sm font-medium" style={{ color: "#00FF66" }}>
+                                    <p className="text-center text-sm font-medium" style={{ color: c.primary }}>
                                         ✓ Thanks! I&apos;ll get back to you within 24 hours.
                                     </p>
                                 )}
@@ -406,13 +410,14 @@ export function Contact() {
                 {/* Footer */}
                 <div
                     className="mt-20 text-center pt-8"
-                    style={{ borderTop: "1px solid rgba(0,255,102,0.10)" }}
+                    style={{ borderTop: `1px solid ${c.border}` }}
                 >
                     <p
                         className="text-sm font-medium"
-                        style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                        style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                     >
-                        © {new Date().getFullYear()} Niranjan Saravanakumar                     </p>
+                        © {new Date().getFullYear()} Niranjan Saravanakumar
+                    </p>
                 </div>
             </div>
             </motion.div>

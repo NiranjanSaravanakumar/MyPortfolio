@@ -6,6 +6,8 @@ import { Award, CheckCircle } from "lucide-react";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import { stagger3D, card3DEntrance, fadeUp3D } from "@/components/ui/ScrollAnimationWrapper";
 import { ScrollBounceText } from "@/components/ui/ScrollBounceText";
+import { useTheme } from "@/context/ThemeContext";
+import { themeColors } from "@/lib/themeColors";
 
 const certifications = [
     {
@@ -32,6 +34,9 @@ const certifications = [
 
 export function Certifications() {
     const sectionRef = useRef<HTMLElement>(null);
+    const { theme } = useTheme();
+    const c = themeColors[theme];
+
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
 
     const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [10, 0, 0, -6]);
@@ -43,7 +48,7 @@ export function Certifications() {
             id="certifications"
             ref={sectionRef}
             className="py-28 relative overflow-hidden"
-            style={{ background: "#000000", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+            style={{ background: "var(--background)", perspective: "1200px", perspectiveOrigin: "50% 40%" }}
             aria-label="Certifications"
         >
             <SectionBackground variant="secondary" intensity="low" />
@@ -64,9 +69,9 @@ export function Certifications() {
                         <span
                             className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
                             style={{
-                                color: "#00FF66",
-                                border: "1px solid rgba(0,255,102,0.25)",
-                                background: "rgba(0,255,102,0.06)",
+                                color: c.primary,
+                                border: `1px solid ${c.border}`,
+                                background: c.primarySoft,
                             }}
                         >
                             05 / Certifications
@@ -75,14 +80,14 @@ export function Certifications() {
                             className="font-extrabold mb-4"
                             style={{
                                 fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                                color: "#ffffff",
+                                color: c.textHeading,
                                 fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                 letterSpacing: "-0.02em",
                             }}
                         >
                             <ScrollBounceText as="span">Certifications &amp; Credentials</ScrollBounceText>
                         </h2>
-                        <div className="w-16 h-0.5 mx-auto" style={{ background: "linear-gradient(90deg, #00FF66, rgba(0,255,102,0.3))" }} />
+                        <div className="w-16 h-0.5 mx-auto" style={{ background: `linear-gradient(90deg, ${c.primary}, ${c.border})` }} />
                     </motion.div>
 
                     {/* ── Certification Cards — staggered 3D entrance ── */}
@@ -100,9 +105,9 @@ export function Certifications() {
                                 variants={card3DEntrance}
                                 className="flex flex-col"
                                 style={{
-                                    background: "#101010",
-                                    border: "1px solid rgba(0,255,102,0.20)",
-                                    borderTop: "3px solid #00FF66",
+                                    background: c.cardBg,
+                                    border: `1px solid ${c.border}`,
+                                    borderTop: `3px solid ${c.primary}`,
                                     borderRadius: 16,
                                     overflow: "hidden",
                                 }}
@@ -110,24 +115,24 @@ export function Certifications() {
                                     scale: 1.03,
                                     rotateY: 4,
                                     y: -8,
-                                    borderColor: "rgba(0,255,102,0.55)",
-                                    boxShadow: "0 0 0 1px rgba(0,255,102,0.55), 0 20px 60px rgba(0,0,0,0.55)",
+                                    borderColor: c.borderHover,
+                                    boxShadow: `0 0 0 1px ${c.borderHover}, 0 20px 60px rgba(0,0,0,0.25)`,
                                     transition: { duration: 0.3 },
                                 }}
                             >
                                 {/* Card Header */}
                                 <div
                                     className="p-8 flex-shrink-0"
-                                    style={{ borderBottom: "1px solid rgba(0,255,102,0.10)" }}
+                                    style={{ borderBottom: `1px solid ${c.border}` }}
                                 >
                                     <div className="flex items-start justify-between gap-4 mb-5">
                                         <span className="text-4xl" aria-hidden="true">{cert.icon}</span>
                                         <span
                                             className="text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0 mt-1"
                                             style={{
-                                                color: "#00FF66",
-                                                border: "1px solid rgba(0,255,102,0.25)",
-                                                background: "rgba(0,255,102,0.07)",
+                                                color: c.primary,
+                                                border: `1px solid ${c.border}`,
+                                                background: c.primarySoft,
                                                 fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                             }}
                                         >
@@ -139,7 +144,7 @@ export function Certifications() {
                                         className="font-bold leading-snug mb-3"
                                         style={{
                                             fontSize: "1.15rem",
-                                            color: "#ffffff",
+                                            color: c.textHeading,
                                             fontFamily: "var(--font-heading, 'Poppins', sans-serif)",
                                         }}
                                     >
@@ -147,10 +152,10 @@ export function Certifications() {
                                     </h3>
 
                                     <div className="flex items-center gap-2">
-                                        <Award size={14} style={{ color: "#00FF66" }} />
+                                        <Award size={14} style={{ color: c.primary }} />
                                         <span
                                             className="text-sm font-semibold"
-                                            style={{ color: "#00FF66", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                            style={{ color: c.primary, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                         >
                                             {cert.issuer}
                                         </span>
@@ -162,7 +167,7 @@ export function Certifications() {
                                     <p
                                         className="mb-6 flex-grow"
                                         style={{
-                                            color: "rgba(255,255,255,0.92)",
+                                            color: c.textBody,
                                             fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                             fontSize: "0.975rem",
                                             lineHeight: 1.8,
@@ -174,7 +179,7 @@ export function Certifications() {
                                     <div>
                                         <div
                                             className="text-xs font-bold uppercase tracking-widest mb-3"
-                                            style={{ color: "rgba(255,255,255,0.82)", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
+                                            style={{ color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}
                                         >
                                             Skills Validated
                                         </div>
@@ -184,20 +189,20 @@ export function Certifications() {
                                                     key={skill}
                                                     className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg"
                                                     style={{
-                                                        background: "rgba(0,255,102,0.06)",
-                                                        border: "1px solid rgba(0,255,102,0.18)",
-                                                        color: "rgba(255,255,255,0.88)",
+                                                        background: c.primarySoft,
+                                                        border: `1px solid ${c.border}`,
+                                                        color: c.textBody,
                                                         fontFamily: "var(--font-sans, 'Inter', sans-serif)",
                                                     }}
                                                     whileHover={{
-                                                        background: "rgba(0,255,102,0.15)",
-                                                        borderColor: "rgba(0,255,102,0.5)",
-                                                        color: "#00FF66",
+                                                        background: theme === "dark" ? "rgba(0,255,102,0.15)" : "rgba(0,180,80,0.15)",
+                                                        borderColor: c.borderHover,
+                                                        color: c.primary,
                                                         scale: 1.06,
                                                         transition: { duration: 0.15 },
                                                     }}
                                                 >
-                                                    <CheckCircle size={10} style={{ color: "#00FF66", flexShrink: 0 }} />
+                                                    <CheckCircle size={10} style={{ color: c.primary, flexShrink: 0 }} />
                                                     {skill}
                                                 </motion.span>
                                             ))}

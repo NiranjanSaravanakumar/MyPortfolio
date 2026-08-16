@@ -4,15 +4,12 @@
    DESIGN TOKENS
    ============================================================ */
 :root {
-  /* Color palette */
+  /* ── Dark mode (default) ── */
   --background: #000000;
   --foreground: #ffffff;
   --primary: #00FF66;
-  /* Emerald accent */
   --secondary: #00FF66;
-  /* Unified accent */
   --accent: #00FF66;
-  /* Same accent */
   --muted: #101010;
   --border: rgba(0, 255, 102, 0.20);
   --border-hover: rgba(0, 255, 102, 0.55);
@@ -21,21 +18,55 @@
   --surface-1: #101010;
   --surface-2: #080808;
 
-  /* Semantic text contrast tokens — white-only, no gray */
+  /* Semantic text contrast tokens */
   --text-heading: #ffffff;
-  /* section headings */
-  --text-body: rgba(255, 255, 255, 0.92);
-  /* primary body text */
-  --text-desc: rgba(255, 255, 255, 0.88);
-  /* descriptions */
-  --text-label: rgba(255, 255, 255, 0.82);
-  /* small labels, dates */
-  --text-nav: rgba(255, 255, 255, 0.95);
-  /* navigation */
-  --text-muted: rgba(255, 255, 255, 0.88);
-  /* formerly gray — now readable white */
-  --text-dim: rgba(255, 255, 255, 0.82);
-  /* formerly very dim — now readable */
+  --text-body: #ffffff;
+  --text-desc: #ffffff;
+  --text-label: #ffffff;
+  --text-nav: #ffffff;
+  --text-muted: #ffffff;
+  --text-dim: #ffffff;
+
+  /* Card / nav surfaces */
+  --card-bg: #101010;
+  --nav-bg: rgba(0, 0, 0, 0.88);
+  --nav-bg-mobile: rgba(0, 0, 0, 0.97);
+  --nav-border: rgba(0, 255, 102, 0.12);
+
+  /* Scroll bar */
+  --scrollbar-track: #000000;
+  --scrollbar-thumb: rgba(0, 255, 102, 0.25);
+}
+
+/* ── Light mode overrides ── */
+html[data-theme="light"] {
+  --background: #f5f5f0;
+  --foreground: #0d0d0d;
+  --primary: #00c853;
+  --secondary: #00c853;
+  --accent: #00c853;
+  --muted: #eef0ed;
+  --border: rgba(0, 180, 80, 0.25);
+  --border-hover: rgba(0, 180, 80, 0.60);
+
+  --surface-1: #ffffff;
+  --surface-2: #eef0ed;
+
+  --text-heading: #0a0a0a;
+  --text-body: #1a1a1a;
+  --text-desc: #222222;
+  --text-label: #333333;
+  --text-nav: #0d0d0d;
+  --text-muted: #333333;
+  --text-dim: #444444;
+
+  --card-bg: #ffffff;
+  --nav-bg: rgba(245, 245, 240, 0.92);
+  --nav-bg-mobile: rgba(245, 245, 240, 0.98);
+  --nav-border: rgba(0, 180, 80, 0.15);
+
+  --scrollbar-track: #eef0ed;
+  --scrollbar-thumb: rgba(0, 180, 80, 0.30);
 }
 
 /* ============================================================
@@ -76,6 +107,7 @@ body {
   font-family: var(--font-sans, 'Inter', Arial, sans-serif);
   line-height: 1.8;
   overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 /* Headings use Poppins */
@@ -110,12 +142,14 @@ kbd,
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--scrollbar-track);
+  transition: background 0.35s ease;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 102, 0.25);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
+  transition: background 0.35s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -126,11 +160,11 @@ kbd,
    UTILITY CLASSES
    ============================================================ */
 .glow-text {
-  text-shadow: 0 0 24px rgba(0, 255, 102, 0.5);
+  text-shadow: 0 0 24px color-mix(in srgb, var(--primary) 50%, transparent);
 }
 
 .glow-box {
-  box-shadow: 0 0 20px rgba(0, 255, 102, 0.25);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 25%, transparent);
 }
 
 /* Section label — Inter, uppercase, small */
@@ -171,6 +205,27 @@ kbd,
   }
 }
 
+/* Shimmer overlay — owns ALL background props so no React inline/shorthand conflict */
+.btn-shimmer {
+  background-image: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 65%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSlide 0.55s ease forwards;
+}
+
+html[data-theme="light"] .btn-shimmer {
+  background-image: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(0, 0, 0, 0.10) 50%,
+    transparent 65%
+  );
+}
+
 /* Subtle fade-up entrance */
 @keyframes fadeUp {
   from {
@@ -187,19 +242,19 @@ kbd,
 /* Pulsing border — for "View Details" project highlight */
 @keyframes pulseBorder {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0), 0 0 0 1px rgba(0, 255, 102, 0.55);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 0%, transparent), 0 0 0 1px color-mix(in srgb, var(--primary) 55%, transparent);
   }
 
   40% {
-    box-shadow: 0 0 0 6px rgba(0, 255, 102, 0.18), 0 0 0 1px rgba(0, 255, 102, 0.80);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 18%, transparent), 0 0 0 1px color-mix(in srgb, var(--primary) 80%, transparent);
   }
 
   80% {
-    box-shadow: 0 0 0 12px rgba(0, 255, 102, 0.06), 0 0 0 1px rgba(0, 255, 102, 0.55);
+    box-shadow: 0 0 0 12px color-mix(in srgb, var(--primary) 6%, transparent), 0 0 0 1px color-mix(in srgb, var(--primary) 55%, transparent);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0), 0 0 0 1px rgba(0, 255, 102, 0.20);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 0%, transparent), 0 0 0 1px color-mix(in srgb, var(--primary) 20%, transparent);
   }
 }
 
@@ -240,7 +295,7 @@ kbd,
    ============================================================ */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.15), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--primary) 15%, transparent), transparent);
 }
 
 /* ============================================================
@@ -301,11 +356,11 @@ kbd,
 
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(0, 255, 102, 0.15), 0 0 40px rgba(0, 255, 102, 0.05);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 15%, transparent), 0 0 40px color-mix(in srgb, var(--primary) 5%, transparent);
   }
 
   50% {
-    box-shadow: 0 0 40px rgba(0, 255, 102, 0.35), 0 0 80px rgba(0, 255, 102, 0.12);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--primary) 35%, transparent), 0 0 80px color-mix(in srgb, var(--primary) 12%, transparent);
   }
 }
 
@@ -335,5 +390,5 @@ kbd,
 
 .card-3d:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 102, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 30px color-mix(in srgb, var(--primary) 12%, transparent);
 }
