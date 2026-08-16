@@ -169,7 +169,7 @@ function PortraitCard() {
                     {/* Portrait image */}
                     <div className="relative w-full h-full">
                         <Image
-                            src="/photo.jpg"
+                            src="/photo.png"
                             alt="Niranjan Saravanakumar"
                             fill
                             priority
