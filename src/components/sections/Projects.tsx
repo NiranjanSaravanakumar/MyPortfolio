@@ -33,7 +33,7 @@ const projects = [
         githubLink: "https://github.com/NiranjanSaravanakumar/CodeCompass",
         liveLink: null as string | null,
         techStack: ["FastAPI", "Python", "Gemini 2.5 Flash", "GitHub API", "React 19", "Vite 8"],
-        icon: "🧠",
+        
     },
     {
         title: "AI-Resume-Analyzer",
@@ -58,7 +58,7 @@ const projects = [
         githubLink: "https://github.com/NiranjanSaravanakumar/AI-Resume-Analyzer",
         liveLink: null as string | null,
         techStack: ["React", "Vite", "Flask", "Gemini AI", "SQLite", "Python"],
-        icon: "📜",
+        
     },
     {
         title: "DataRefinery",
@@ -82,7 +82,7 @@ const projects = [
         githubLink: "https://github.com/NiranjanSaravanakumar/DataRefinery",
         liveLink: null as string | null,
         techStack: ["Python", "Flask", "pytest", "GitHub Actions", "Jinja2"],
-        icon: "🧹",
+        
     },
     {
         title: "Senti AI",
@@ -106,7 +106,7 @@ const projects = [
         githubLink: "https://github.com/NiranjanSaravanakumar/SentiAI",
         liveLink: null as string | null,
         techStack: ["Python", "scikit-learn", "NLTK", "Flask", "TF-IDF", "Docker", "pytest"],
-        icon: "📊",
+        
     },
     {
         title: "Expense Tracker",
@@ -129,7 +129,7 @@ const projects = [
         githubLink: "https://github.com/NiranjanSaravanakumar/Expense-Tracker",
         liveLink: null as string | null,
         techStack: ["HTML", "CSS", "JavaScript", "Python"],
-        icon: "💰",
+        
     },
     {
         title: "Store Management System",
@@ -153,7 +153,7 @@ const projects = [
         githubLink: "https://github.com/NiranjanSaravanakumar/Store-Management-System-using-Tkinter-Python-GUI-.git",
         liveLink: null as string | null,
         techStack: ["Python", "Tkinter"],
-        icon: "🛒",
+        
     },
 ];
 
@@ -242,7 +242,7 @@ function ProjectCard({
                 {/* Header row */}
                 <div className="flex justify-between items-start mb-5">
                     <div className="flex items-center gap-2.5">
-                        <span className="text-2xl" aria-hidden="true">{project.icon}</span>
+                        <span className="text-2xl" aria-hidden="true"></span>
                         <Folder size={18} style={{ color: c.textDim }} />
                     </div>
                     <div className="flex items-center gap-3">
