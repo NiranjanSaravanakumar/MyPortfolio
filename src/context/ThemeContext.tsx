@@ -28,6 +28,7 @@ function getInitialTheme(): Theme {
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
+  const [mounted, setMounted] = useState(false);
 
   /* Sync from DOM on mount (anti-FOUT script already set data-theme) */
   useEffect(() => {
@@ -39,6 +40,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setTheme(initial);
       document.documentElement.dataset.theme = initial;
     }
+    setMounted(true);
   }, []);
 
   const toggleTheme = useCallback(() => {
@@ -51,7 +53,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: mounted ? theme : "dark", toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

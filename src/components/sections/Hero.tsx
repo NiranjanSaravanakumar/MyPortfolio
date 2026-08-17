@@ -326,7 +326,7 @@ export function Hero() {
                                         <div className="font-black" style={{ fontSize: "clamp(1.1rem, 2vw, 1.45rem)", color: c.primary, fontFamily: "var(--font-heading, 'Poppins', sans-serif)", letterSpacing: "-0.02em" }}>
                                             {value}
                                         </div>
-                                        <div style={{ fontSize: "0.68rem", color: c.textLabel, fontFamily: "var(--font-sans, 'Inter', sans-serif)", lineHeight: 1.4, textAlign: "center", fontWeight: 500 }}>
+                                        <div style={{ fontSize: "0.68rem", color: theme === "dark" ? "#ffffff" : "#000000", fontFamily: "var(--font-sans, 'Inter', sans-serif)", lineHeight: 1.4, textAlign: "center", fontWeight: 500 }}>
                                             {label}
                                         </div>
                                     </div>
