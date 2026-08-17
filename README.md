@@ -5,13 +5,13 @@
 </p>
 
 > A high-performance, recruiter-ready developer portfolio built with **Next.js 16**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.  
-> Designed to instantly highlight enterprise experience, technical depth, and full-stack engineering capabilities.
+> Features a full Light/Dark theme toggle, lazy-loaded sections with skeleton loaders, and an interactive canvas background — all optimized for instant load times.
 
 ---
 
 ## 1. Project Overview
 
-This portfolio is engineered to maximize technical credibility and user experience. It serves as a comprehensive showcase of Niranjan Saravanakumar's software engineering capabilities — specifically highlighting an automation-heavy internship at ABB Global Industries and Services Private Limited, full-stack projects, structured skills, and verified certifications. The architecture prioritizes instant load times, accessible navigation, and high-impact visual design.
+This portfolio is engineered to maximize technical credibility and user experience. It serves as a comprehensive showcase of Niranjan Saravanakumar's software engineering capabilities — specifically highlighting an automation-heavy internship at ABB Global Industries and Services Private Limited, full-stack projects, structured skills, and verified certifications. The architecture prioritizes instant load times, accessible navigation, high-impact visual design, and a fully working Light/Dark mode system.
 
 ---
 
@@ -19,8 +19,14 @@ This portfolio is engineered to maximize technical credibility and user experien
 
 - ⚡ **Instant Hero Entry** — Optimized for recruiter workflows with immediate, no-gate loading and animated typewriter role titles.
 - 🧭 **Context-Aware Navbar** — `IntersectionObserver`-driven active states with mobile scroll-lock and a persistent "Download Resume" CTA.
-- 🤖 **AI Assistant** — Embedded Gemini-powered chat assistant for interactive portfolio exploration.
+- 🌗 **Light / Dark Theme Toggle** — Persistent theme switcher (localStorage + `prefers-color-scheme`) with zero Flash-of-Unstyled-Theme via an inline script in `<head>`.
+- 🖼️ **Skeleton Loaders** — Every section has a dedicated shimmer-animated skeleton screen while its JS chunk loads.
+- 🦾 **Lazy-Loaded Sections** — Each section is a separate dynamic import (`React.lazy`) with `Suspense` boundaries for code-split chunking.
 - ✍️ **Scramble Text** — Cyberpunk-style character scramble animation on key headings.
+- 🖱️ **Interactive Canvas Background** — Theme-aware animated canvas with a dot grid, glowing orbs, and a mouse-tracking spotlight effect.
+- 📜 **Scroll Progress Bar** — Thin accent-colored bar at the top of the page tracking read progress.
+- 🎬 **Scroll Animation Wrapper** — Reusable `ScrollAnimationWrapper` for staggered fade-in-up reveals on scroll.
+- 🔤 **Scroll Bounce Text** — Letter-by-letter bounce reveal animation for section headings.
 - 💼 **Enterprise Experience** — Quantified impact metrics and strategically sorted tech stacks from the ABB Global Industries and Services Private Limited internship.
 - 📂 **Interactive Projects** — Expandable detail panels with 3D tilt hover effects powered by `TiltCard`.
 - 🔧 **Structured Skills Grid** — Logical categories covering Full-Stack, DevOps, Testing, and AI tooling.
@@ -34,30 +40,20 @@ This portfolio is engineered to maximize technical credibility and user experien
 
 ## 3. Changelog
 
-### [Latest] Dependency Audit & Stabilization
-- **Fixed:** Unpinned hard-pinned versions (`next: "16.1.4"`, `react: "19.2.3"`) in favor of proper semver ranges (`^16`, `^19`) so future installs always resolve to the latest compatible patch.
-- **Updated:** `next` → `^16` (resolves to **16.2.10**, current stable), `eslint-config-next` → `^16` to match.
-- **Confirmed stable:** React 19 (stable since Dec 2024) and Tailwind CSS v4 (stable since Jan 2025) — no alpha/beta software in use.
+### [Latest] Theme System & UX Enhancements
+- **Added:** Full Light/Dark theme system (`ThemeContext`, `ThemeProvider`, `ThemeToggle`) with localStorage persistence and `prefers-color-scheme` detection.
+- **Added:** `themeColors.ts` — centralized theme-aware colour map for components that cannot use CSS variables (e.g. canvas draw calls, inline Framer Motion styles).
+- **Added:** `ScrollProgressBar.tsx` — thin accent-colored read-progress indicator fixed at the top of the viewport.
+- **Added:** `ScrollAnimationWrapper.tsx` — composable scroll-triggered fade-in-up animation wrapper for section content.
+- **Added:** `ScrollBounceText.tsx` — per-letter bounce animation for section heading reveals.
+- **Added:** Skeleton loader system (`src/components/ui/skeletons/`) — one shimmer skeleton per section (Hero, Experience, Projects, Skills, About, Certifications, Achievements, Contact).
+- **Added:** `use3DScroll.ts` hook — 3D parallax tilt values derived from scroll position for depth effects.
+- **Updated:** `InteractiveBackground.tsx` now renders a fully canvas-driven, theme-aware animated background with mouse spotlight tracking, dot grid, and glowing orbs.
 
-### Added & Restored
-- **AI Assistant:** Embedded Gemini-powered interactive chat widget (`AIAssistant.tsx`).
-- **Interactive Background:** Dynamic ambient background component (`InteractiveBackground.tsx`).
-- **Scramble Text Effect:** Cyberpunk text scramble on section headings (`ScrambleText.tsx`).
-- **Animated Stats Counter:** Smooth count-up animation for achievement numbers (`StatsCounter.tsx`).
-- **Typewriter Effect:** Animated role cycling in the Hero section (`Typewriter.tsx`).
-- **Global Focus Ring:** `:focus-visible` styling for comprehensive keyboard navigation.
-- **Download Resume CTA:** Persistent resume access in the Navbar.
-
-### Modified & Improved
-- **Section Order:** `Hero → Experience → Projects → Skills → About → Certifications → Achievements → Contact`.
-- **Hero Messaging:** Rewrote tagline and badges for accuracy (e.g., "ABB Global Industries and Services Private Limited Intern '25–'26'") and impact.
-- **Navbar Logic:** Replaced static click routing with dynamic `IntersectionObserver` for accurate scroll tracking.
-- **Contact Footer:** Improved legibility with increased opacity and dynamic copyright year.
-
-### Optimized & Fixed
-- **Performance Overhaul:** Replaced heavy Canvas particle loops with pure CSS `@keyframes`, drastically reducing CPU/battery drain.
-- **Reduced Motion Support:** Added `prefers-reduced-motion` guards to `TiltCard` and animated components.
-- **Security & Clarity:** Removed personal identifiers from public-facing copy and replaced clichés with concrete capability statements.
+### Previous: Dependency Audit & Stabilization
+- **Fixed:** Replaced hard-pinned versions with proper semver ranges (`^16`, `^19`) for forward-compatible installs.
+- **Updated:** `next` → `^16` (resolves to **16.2.10**), `eslint-config-next` → `^16` to match.
+- **Confirmed stable:** React 19 (stable since Dec 2024) and Tailwind CSS v4 (stable since Jan 2025).
 
 ---
 
@@ -78,13 +74,16 @@ This portfolio is engineered to maximize technical credibility and user experien
 
 ## 5. Project Architecture
 
-The application follows a modular, component-driven architecture using the Next.js App Router (single-page, statically exported).
+The application follows a modular, component-driven architecture using the Next.js App Router (single-page, statically exported in production).
 
-- **State Management:** React Hooks (`useState`, `useEffect`, `useRef`) for all local component state — no external state library.
-- **Styling System:** Tailwind CSS v4 with custom CSS variables (`--primary`, `--surface-1`, `--text-muted`, etc.) defined in `:root` and exposed via `@theme {}` for consistent theming and enforced dark mode.
-- **Animation Strategy:** `framer-motion` for complex entrance and layout animations; CSS `@keyframes` for continuous ambient background effects to save CPU cycles.
+- **State Management:** React Hooks (`useState`, `useEffect`, `useRef`, `useCallback`) for all local component state. Global theme state is managed via `ThemeContext` / `ThemeProvider` — no external state library.
+- **Theme System:** `ThemeContext` provides `theme` + `toggleTheme` to the entire app. `themeColors.ts` exports a typed `Record<Theme, ThemeColors>` map used by canvas and JS-driven components. The `data-theme` attribute on `<html>` drives CSS variable swaps between dark and light palettes, with an inline anti-FOUT script to prevent flashes.
+- **Styling System:** Tailwind CSS v4 with custom CSS variables (`--primary`, `--surface-1`, `--text-muted`, etc.) defined in `:root` and exposed via `@theme {}` for consistent theming and enforced dark/light mode.
+- **Code Splitting:** Every section is a `React.lazy` dynamic import with a matched skeleton component (`src/components/ui/skeletons/`) as its `Suspense` fallback, eliminating blank-page flashes and reducing initial bundle size.
+- **Animation Strategy:** `framer-motion` for complex entrance and layout animations; CSS `@keyframes` for continuous shimmer skeleton effects; Canvas API (`requestAnimationFrame`) for the interactive background.
 - **Routing:** Single-page smooth scrolling via native anchor tags combined with an `IntersectionObserver` for navbar state sync.
-- **Output:** Static export (`output: 'export'`) — fully deployable to any CDN, Firebase Hosting, or Vercel.
+- **Custom Hook:** `use3DScroll.ts` derives 3D tilt `rotateX`/`rotateY` values from scroll position for subtle depth effects.
+- **Output:** Static export (`output: 'export'`) in production — fully deployable to any CDN, Firebase Hosting, or Vercel.
 
 ---
 
@@ -115,8 +114,8 @@ npm run dev
 
 - **Development:** Run `npm run dev` → `http://localhost:3000`. Component changes hot-reload instantly.
 - **Content Updates:** Personal data (projects list, experience entries, skills, etc.) lives inside the data arrays at the top of each section component (e.g., `projects` array in `Projects.tsx`, `experiences` array in `Experience.tsx`).
-- **Styling Updates:** Modify global design tokens in the `:root` block of `src/app/globals.css` (colors, fonts, spacing). Tailwind theme extensions live in the `@theme {}` block in the same file.
-- **Adding Sections:** Create a new `.tsx` file in `src/components/sections/`, then import and render it inside `src/app/page.tsx`.
+- **Styling Updates:** Modify global design tokens in the `:root` block of `src/app/globals.css` (colors, fonts, spacing). Tailwind theme extensions live in the `@theme {}` block in the same file. Theme-specific color values for JS/canvas components are in `src/lib/themeColors.ts`.
+- **Adding Sections:** Create a new `.tsx` file in `src/components/sections/`, add a matching skeleton in `src/components/ui/skeletons/`, export it from `skeletons/index.ts`, then import and render it (with `lazy` + `Suspense`) inside `src/app/page.tsx`.
 
 ---
 
@@ -124,47 +123,69 @@ npm run dev
 
 ```text
 MyPortfolio/
-├── public/                         # Static assets (resume PDF, OG images, favicons)
+├── public/                                # Static assets
+│   ├── Niranjan_Saravanakumar_Resume.pdf  # Resume for download
+│   └── photo.png                          # Profile photo
 ├── src/
 │   ├── app/
-│   │   ├── globals.css             # Design tokens (:root), Tailwind @theme, CSS keyframes
-│   │   ├── layout.tsx              # Root layout: next/font setup, metadata, SEO tags
-│   │   └── page.tsx                # Main page — assembles all sections in order
+│   │   ├── globals.css                    # Design tokens (:root), Tailwind @theme, CSS keyframes
+│   │   ├── icon.jpg                       # Browser tab favicon
+│   │   ├── layout.tsx                     # Root layout: next/font, ThemeProvider, metadata, SEO
+│   │   └── page.tsx                       # Main page — lazy-loads all sections with Suspense/skeletons
 │   ├── components/
-│   │   ├── sections/               # Full-page feature sections
-│   │   │   ├── Hero.tsx            # Landing hero with typewriter & animated badges
-│   │   │   ├── Experience.tsx      # ABB Global Industries and Services Private Limited internship timeline & tech stacks
-│   │   │   ├── Projects.tsx        # Expandable project cards with TiltCard wrapper
-│   │   │   ├── Skills.tsx          # Categorized skills grid
-│   │   │   ├── About.tsx           # Bio, values, and personal snapshot
-│   │   │   ├── Certifications.tsx  # Credential cards with skill tags
-│   │   │   ├── Achievements.tsx    # Animated stats & impact metrics
-│   │   │   └── Contact.tsx         # EmailJS contact form with validation
-│   │   └── ui/                     # Reusable UI primitives & interactive widgets
-│   │       ├── Navbar.tsx          # IntersectionObserver-tracked responsive nav
-│   │       ├── AIAssistant.tsx     # Gemini-powered chat assistant widget
-│   │       ├── InteractiveBackground.tsx  # CSS-driven ambient background
-│   │       ├── ScrambleText.tsx    # Character-scramble text animation
-│   │       ├── SectionBackground.tsx     # Per-section background wrapper
-│   │       ├── StatsCounter.tsx    # Animated count-up stat display
-│   │       ├── TiltCard.tsx        # 3D perspective tilt on hover (mouse-tracked)
-│   │       └── Typewriter.tsx      # Cycling role-title typewriter effect
+│   │   ├── sections/                      # Full-page feature sections (each is a separate JS chunk)
+│   │   │   ├── Hero.tsx                   # Landing hero with typewriter & animated badges
+│   │   │   ├── Experience.tsx             # ABB internship timeline & tech stacks
+│   │   │   ├── Projects.tsx               # Expandable project cards with TiltCard wrapper
+│   │   │   ├── Skills.tsx                 # Categorized skills grid
+│   │   │   ├── About.tsx                  # Bio, values, and personal snapshot
+│   │   │   ├── Certifications.tsx         # Credential cards with skill tags
+│   │   │   ├── Achievements.tsx           # Animated stats & impact metrics
+│   │   │   └── Contact.tsx                # EmailJS contact form with validation
+│   │   └── ui/                            # Reusable UI primitives & interactive widgets
+│   │       ├── Navbar.tsx                 # IntersectionObserver-tracked responsive nav + ThemeToggle
+│   │       ├── InteractiveBackground.tsx  # Canvas-driven, theme-aware animated background
+│   │       ├── ScrambleText.tsx           # Character-scramble text animation
+│   │       ├── ScrollAnimationWrapper.tsx # Scroll-triggered fade-in-up animation wrapper
+│   │       ├── ScrollBounceText.tsx       # Per-letter bounce reveal animation for headings
+│   │       ├── ScrollProgressBar.tsx      # Fixed read-progress bar at top of viewport
+│   │       ├── SectionBackground.tsx      # Per-section background wrapper
+│   │       ├── StatsCounter.tsx           # Animated count-up stat display
+│   │       ├── ThemeToggle.tsx            # Sun/moon theme switcher button
+│   │       ├── TiltCard.tsx               # 3D perspective tilt on hover (mouse-tracked)
+│   │       ├── Typewriter.tsx             # Cycling role-title typewriter effect
+│   │       └── skeletons/                 # Shimmer skeleton loaders (one per section)
+│   │           ├── SkeletonHero.tsx
+│   │           ├── SkeletonExperience.tsx
+│   │           ├── SkeletonProjects.tsx
+│   │           ├── SkeletonSkills.tsx
+│   │           ├── SkeletonAbout.tsx
+│   │           ├── SkeletonCertifications.tsx
+│   │           ├── SkeletonAchievements.tsx
+│   │           ├── SkeletonContact.tsx
+│   │           └── index.ts               # Barrel export for all skeletons
+│   ├── context/
+│   │   └── ThemeContext.tsx               # ThemeProvider + useTheme hook (dark/light state)
+│   ├── hooks/
+│   │   └── use3DScroll.ts                 # Custom hook: scroll-derived 3D tilt values
 │   └── lib/
-│       └── utils.ts                # cn() helper — clsx + tailwind-merge
-├── next.config.ts                  # Static export config (output: 'export')
-├── postcss.config.mjs              # Tailwind v4 PostCSS plugin config
-├── tsconfig.json                   # TypeScript config with path aliases (@/)
-└── package.json                    # Dependencies with ^-pinned semver ranges
+│       ├── themeColors.ts                 # Typed colour map for JS/canvas theme-aware rendering
+│       └── utils.ts                       # cn() helper — clsx + tailwind-merge
+├── next.config.ts                         # Static export config (output: 'export' in prod)
+├── postcss.config.mjs                     # Tailwind v4 PostCSS plugin config
+├── tsconfig.json                          # TypeScript config with path aliases (@/)
+└── package.json                           # Dependencies with ^-pinned semver ranges
 ```
 
 ---
 
 ## 9. Performance Optimizations
 
-- **CSS-Driven Ambient Backgrounds:** Replaced expensive Canvas-based particle loops with CSS `@keyframes` + `radial-gradient` for zero-JS background animations.
+- **Code-Split Sections:** Every section is a `React.lazy` import, so only the Hero chunk is loaded on first paint. Other sections are fetched in parallel as idle time allows.
+- **Skeleton Loaders:** Dedicated skeleton components eliminate blank white flashes during chunk fetch, giving instant perceived-load feedback.
 - **Next.js Font Optimization:** `next/font/google` loads Poppins, Inter, and JetBrains Mono with zero layout shift (`display: swap`).
 - **Lazy Animations:** `whileInView` + `once: true` on all Framer Motion components prevents off-screen render costs.
-- **Static Export:** `output: 'export'` in `next.config.ts` generates a fully static site — no server needed, deployable to any CDN.
+- **Static Export:** `output: 'export'` in production generates a fully static site — no server needed, deployable to any CDN.
 - **Image Optimization Bypass:** `images: { unoptimized: true }` is set for static export compatibility.
 
 ---
@@ -174,7 +195,8 @@ MyPortfolio/
 - **Keyboard Navigation:** Global `:focus-visible` styles provide clear focus indicators for screen readers and power users.
 - **Reduced Motion:** `prefers-reduced-motion` media queries guard `TiltCard` and animation-heavy components against vestibular discomfort.
 - **Semantic HTML:** Correct heading hierarchy (`h1` → `h2` → `h3`), landmark regions (`<main>`, `<nav>`, `<section>`), and `aria-label`s on icon-only buttons.
-- **Contrast Compliance:** All `--text-*` tokens are tested against `--background` for WCAG AA contrast ratios.
+- **Contrast Compliance:** All `--text-*` tokens are tested against `--background` for WCAG AA contrast ratios in both dark and light themes.
+- **Theme Persistence:** Theme preference is saved to `localStorage` and read via an anti-FOUT inline script in `<head>` to prevent a flash of the wrong theme on page load.
 
 ---
 
