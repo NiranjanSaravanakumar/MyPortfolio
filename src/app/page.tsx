@@ -49,12 +49,12 @@ export default function Home() {
         <About />
       </Suspense>
 
-      <Suspense fallback={<SkeletonCertifications />}>
-        <Certifications />
-      </Suspense>
-
       <Suspense fallback={<SkeletonAchievements />}>
         <Achievements />
+      </Suspense>
+
+      <Suspense fallback={<SkeletonCertifications />}>
+        <Certifications />
       </Suspense>
 
       <Suspense fallback={<SkeletonContact />}>

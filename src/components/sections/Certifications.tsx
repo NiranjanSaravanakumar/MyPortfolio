@@ -74,7 +74,7 @@ export function Certifications() {
                                 background: c.primarySoft,
                             }}
                         >
-                            05 / Certifications
+                            06 / Certifications
                         </span>
                         <h2
                             className="font-extrabold mb-4"

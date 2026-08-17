@@ -59,7 +59,7 @@ export function Achievements() {
                                 background: c.primarySoft,
                             }}
                         >
-                            06 / Impact
+                            05 / Impact
                         </span>
                         <h2
                             className="font-extrabold mb-4"
