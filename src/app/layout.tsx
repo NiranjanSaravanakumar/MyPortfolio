@@ -29,7 +29,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Niranjan Saravanakumar | Software Engineer",
   description:
-    "Portfolio of Niranjan Saravanakumar — Software Engineering Intern at ABB Global Industries and Services Private Limited with expertise in test automation, full-stack development, and DevOps. CGPA 8.62 | Python | React | TypeScript | Azure DevOps.",
+    "Portfolio of Niranjan Saravanakumar — Software Engineering Intern at ABB Global Industries and Services Private Limited with expertise in test automation, full-stack development, and DevOps. CGPA 8.63 | Python | React | TypeScript | Azure DevOps.",
   keywords:
     "Niranjan Saravanakumar, Software Engineer, Software Engineering Intern, ABB Global Industries and Services Private Limited, Full Stack Developer, Python, React, TypeScript, Test Automation, DevOps, CI/CD, SonarQube, Portfolio",
   authors: [{ name: "Niranjan Saravanakumar" }],

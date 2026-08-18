@@ -10,11 +10,11 @@ import { themeColors } from "@/lib/themeColors";
 
 const stats = [
     { value: "300+", label: "Automated Test Cases Written" },
-    { value: "80%",  label: "Test Coverage Increase" },
-    { value: "50+",  label: "Vulnerabilities Resolved" },
-    { value: "45%",  label: "Faster CI/CD Release Cycles" },
-    { value: "35%",  label: "Faster Defect Detection" },
-    { value: "8.62", label: "CGPA / 10.0" },
+    { value: "80%", label: "Test Coverage Increase" },
+    { value: "50+", label: "Vulnerabilities Resolved" },
+    { value: "45%", label: "Faster CI/CD Release Cycles" },
+    { value: "35%", label: "Faster Defect Detection" },
+    { value: "8.63", label: "CGPA / 10.0" },
 ];
 
 export function Achievements() {
@@ -24,9 +24,9 @@ export function Achievements() {
 
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
 
-    const rotateX    = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [12, 0, 0, -6]);
+    const rotateX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [12, 0, 0, -6]);
     const translateY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [60, 0, 0, -20]);
-    const scale      = useTransform(scrollYProgress, [0, 0.25, 0.8, 1], [0.94, 1, 1, 0.96]);
+    const scale = useTransform(scrollYProgress, [0, 0.25, 0.8, 1], [0.94, 1, 1, 0.96]);
 
     return (
         <section
