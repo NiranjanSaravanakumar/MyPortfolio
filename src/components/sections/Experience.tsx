@@ -33,7 +33,7 @@ const experience = [
 ];
 
 const impactStats = [
-    { label: "Test Cases Written", value: "120+" },
+    { label: "Test Cases Written", value: "300+" },
     { label: "Coverage Increase",  value: "80%"  },
     { label: "Bugs Eliminated",    value: "50+"  },
     { label: "Faster CI/CD",       value: "45%"  },
