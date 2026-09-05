@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -74,6 +75,19 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${poppins.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-[var(--background)] text-[var(--foreground)]`}
       >
+        {/* Google Analytics — loads after page is interactive, never blocks render */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-7D95DB6B7X"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7D95DB6B7X');
+          `}
+        </Script>
         <ThemeProvider>
           <div className="scanlines" />
           <ScrollProgressBar />
