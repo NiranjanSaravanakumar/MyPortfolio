@@ -29,22 +29,29 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Niranjan Saravanakumar | Software Engineer",
   description:
-    "Portfolio of Niranjan Saravanakumar — Software Engineering Intern at ABB Global Industries and Services Private Limited with expertise in test automation, full-stack development, and DevOps. CGPA 8.63 | Python | React | TypeScript | Azure DevOps.",
+    "Portfolio of Niranjan Saravanakumar — Software Engineer skilled in Java, DSA, Full Stack Web Development & building scalable, high-performance applications.",
   keywords:
-    "Niranjan Saravanakumar, Software Engineer, Software Engineering Intern, ABB Global Industries and Services Private Limited, Full Stack Developer, Python, React, TypeScript, Test Automation, DevOps, CI/CD, SonarQube, Portfolio",
+    "Niranjan Saravanakumar, Software Engineer, Full Stack Developer, Java, Data Structures and Algorithms, DSA, Web Development, React, TypeScript, Next.js, Portfolio",
   authors: [{ name: "Niranjan Saravanakumar" }],
   robots: "index, follow",
+  metadataBase: new URL("https://iamniranjan.me"),
+  alternates: {
+    canonical: "https://iamniranjan.me/",
+  },
   openGraph: {
     title: "Niranjan Saravanakumar | Software Engineer",
     description:
-      "Software Engineering Intern @ ABB Global Industries and Services Private Limited | Test Automation | Full-Stack | DevOps | Python | React",
+      "Software Engineer skilled in Java, DSA & Full Stack Web Development. Explore my projects, experience, and skills.",
+    url: "https://iamniranjan.me/",
+    siteName: "Niranjan Saravanakumar",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
     title: "Niranjan Saravanakumar | Software Engineer",
-    description: "Software Engineering Intern @ ABB Global Industries and Services Private Limited | Python · React · TypeScript · DevOps",
+    description:
+      "Software Engineer skilled in Java, DSA & Full Stack Web Development. Explore my projects and experience.",
   },
 };
 
