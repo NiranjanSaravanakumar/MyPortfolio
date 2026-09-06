@@ -5,7 +5,7 @@
 # Project: niranjan-portfolio-2026
 # ============================================================
 
-name: 🚀 Deploy to Firebase Hosting (Production)
+name: Deploy to Firebase Hosting (Production)
 
 on:
   push:
@@ -30,7 +30,7 @@ env:
 
 jobs:
   build_and_deploy:
-    name: 🏗️ Build & 🚀 Deploy
+    name:  Build & Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 15   # guard against hung runners
 
@@ -38,13 +38,13 @@ jobs:
       # ----------------------------------------------------------
       # 1. Checkout
       # ----------------------------------------------------------
-      - name: 📥 Checkout repository
+      - name:   Checkout repository
         uses: actions/checkout@v4
 
       # ----------------------------------------------------------
       # 2. Node.js setup with npm dependency cache
       # ----------------------------------------------------------
-      - name: ⚙️ Set up Node.js ${{ env.NODE_VERSION }}
+      - name:   Set up Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -56,13 +56,13 @@ jobs:
       # ----------------------------------------------------------
       # 3. Clean install — uses lockfile, never modifies it
       # ----------------------------------------------------------
-      - name: 📦 Install dependencies (npm ci)
+      - name:  Install dependencies (npm ci)
         run: npm ci
 
       # ----------------------------------------------------------
       # 4. Production build (Next.js static export → ./out)
       # ----------------------------------------------------------
-      - name: 🔨 Build production assets
+      - name:  Build production assets
         run: npm run build
         env:
           # NEXT_PUBLIC_ vars are embedded into the static bundle at build time.
@@ -74,18 +74,18 @@ jobs:
       # ----------------------------------------------------------
       # 5. Validate build output exists before deploying
       # ----------------------------------------------------------
-      - name: 🔍 Verify build output
+      - name: Verify build output
         run: |
           if [ ! -d "./out" ]; then
-            echo "❌ Build output directory './out' not found. Aborting deployment."
+            echo " Build output directory './out' not found. Aborting deployment."
             exit 1
           fi
-          echo "✅ Build output verified: $(find ./out -type f | wc -l) files ready for deployment."
+          echo " Build output verified: $(find ./out -type f | wc -l) files ready for deployment."
 
       # ----------------------------------------------------------
       # 6. Deploy to Firebase Hosting → live channel
       # ----------------------------------------------------------
-      - name: 🔥 Deploy to Firebase Hosting (live)
+      - name:  Deploy to Firebase Hosting (live)
         id: firebase_deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -98,10 +98,10 @@ jobs:
       # ----------------------------------------------------------
       # 7. Print deployment URL to the Actions summary
       # ----------------------------------------------------------
-      - name: 📋 Deployment Summary
+      - name:  Deployment Summary
         if: success()
         run: |
-          echo "## 🚀 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "##  Deployment Successful" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Key | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | ----- |" >> $GITHUB_STEP_SUMMARY
